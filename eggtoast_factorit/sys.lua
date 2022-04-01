@@ -39,6 +39,9 @@ function love.keypressed(key)
         if key=="escape" or key=="e" then
         love.event.quit()
         else
+    if key=="f11" then
+        love.graphics.captureScreenshot("factorit-"..tostring(os.time))
+    end
     if key=="p" then
         if fulltogg then
         readres = conf
