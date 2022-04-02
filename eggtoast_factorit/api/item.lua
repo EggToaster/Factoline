@@ -7,14 +7,13 @@ item={
                 if foundit then else if stopit then else
                 if plr.inventory[i].id==nil then
                     foundit=true
-                    id=i
+                    idzzz=i
             end
         end
     end
         end
         if foundit then
-            table.insert(plr.inventory,id,tbl)
-            table.remove(plr.inventory,id+1)
+            plr.inventory[idzzz]=tbl
         end
     end
 end,
