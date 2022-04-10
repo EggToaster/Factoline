@@ -1,5 +1,4 @@
 require("api.gr")
-require("api.donut")
 function loadgraphics()
     love.graphics.clear()
     love.graphics.setColor(1,1,1)

@@ -15,13 +15,19 @@ math.randomseed(os.time());math.random();math.random();math.random()
     mapx=2500
     mapy=2500
     dbg="a"
+    require("api.donut")
     require("loadapi")
     debug = Donut.init(10, 10)
+    ---@diagnostic disable-next-line: undefined-field
     fps = debug.add("FPS")
+    ---@diagnostic disable-next-line: undefined-field
 	random = debug.add("DebugValue")
     singleplayerstr="Singleplayer"
+---@diagnostic disable-next-line: undefined-field
     xdebug=debug.add("X")
+    ---@diagnostic disable-next-line: undefined-field
     ydebug=debug.add("Y")
+    ---@diagnostic disable-next-line: undefined-field
     invdbg=debug.add("inv first 5")
     loading=1
     title=true
