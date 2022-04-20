@@ -1,4 +1,4 @@
-discordRPC = require("api.rpc.discordRPC")
+discordRPC = require("api.discordRPC")
 
 function table.contains(table, element)
     for _, value in pairs(table) do
@@ -8,7 +8,7 @@ function table.contains(table, element)
     end
     return false
   end
-appId = require("api.rpc.applicationId")
+appId = "940840855957291018"
 function love.load()
 ---@diagnostic disable-next-line: discard-returns
 math.randomseed(os.time());math.random();math.random();math.random()

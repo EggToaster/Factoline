@@ -1,4 +1,4 @@
-require("api.gr")
+require("api.graphics")
 function loadgraphics()
     love.graphics.clear()
     love.graphics.setColor(1,1,1)
