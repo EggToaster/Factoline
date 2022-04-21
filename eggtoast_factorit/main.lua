@@ -10,6 +10,7 @@ function table.contains(table, element)
   end
 appId = "940840855957291018"
 function love.load()
+    ftd=false
 ---@diagnostic disable-next-line: discard-returns
 math.randomseed(os.time());math.random();math.random();math.random()
     mapx=2500

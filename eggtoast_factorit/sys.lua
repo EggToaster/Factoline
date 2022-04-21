@@ -1,4 +1,6 @@
 require("loadapi")
+clicktitle=false
+ftd=false
 function indexOf(array, value)
     for i, v in ipairs(array) do
         if v == value then
@@ -25,10 +27,74 @@ function love.update(dt)
         nextPresenceUpdate = love.timer.getTime() + 2.0
     end
     discordRPC.runCallbacks()
-    if title then
-    if love.keyboard.isDown("p") then
+    if title and stng then
+        --love.graphics.rectangle("fill",0,0,250,150)
+        --love.graphics.print("BACK",25,25,0,2.5,2.5)
+        mousecoordx,mousecoordy = love.mouse.getPosition()
+        if love.mouse.isDown(1) and clicktitle==false and mousecoordx>0 and mousecoordy>0 and mousecoordx<250 and mousecoordy<150 then
+            stng=false
+        end
+        --love.graphics.rectangle("fill",250,500,500,150)
+        --love.graphics.print(lang.gettxt("title.lang"),275,525,0,2.5,2.5)
+        if love.mouse.isDown(1) and clicktitle==false and mousecoordx>250 and mousecoordy>500 and mousecoordx<750 and mousecoordy<650 then
+            local temppp = indexOf(lang.langcycle,lang.currentlang)
+            if temppp > #lang.langcycle then
+                temppp=1
+            end
+            if lang.langcycle[temppp] == "enus" then
+                jajplang.setlang()
+                lang.currentlang="jajp"
+            else
+                enuslang.setlang()
+                lang.currentlang="enus"
+            end
+            print("lang set to "..lang.currentlang)
+        end
+        --love.graphics.rectangle("fill",250,350,500,150)
+        --love.graphics.print(lang.gettxt("title.fullscreen"),275,350,0,2.5,2.5)
+        if love.mouse.isDown(1) and clicktitle==false and mousecoordx>250 and mousecoordy>350 and mousecoordx<750 and mousecoordy<500 then
+            if ftd then else
+                readres = conf.fullscreen
+                if readres=="true" then
+                    towrite="false"
+                else
+                    towrite="true"
+                end
+                conf.fullscreen=towrite
+                love.filesystem.write("cfg.json",json.encode(conf))
+            --debug    if ftd then
+            --    ftd=false
+            --    else
+            --    ftd =true
+            --    end
+            end
+        end
+        else
+        mousecoordx,mousecoordy = love.mouse.getPosition()
+        if love.mouse.isDown(1) and clicktitle==false and mousecoordx>250 and mousecoordy>350 and mousecoordx<750 and mousecoordy<500 then
+            plr.x=mapx/2
+            plr.y=mapy/2
+            plr.handrot=0
+            plr.craftopen=false
+            plr.rot="right"
+            plr.inventory={{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id="miningpick",hover=0,drag=0},{id="crafttable",hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id="trash",hover=0,drag=0}}
+            plr.hotselect=1
+            obj.list={}
+            title=false
+            obj.genworld()
+            grabbing=plr.inventory[plr.hotselect+32]
+        end
+        --love.graphics.rectangle("fill",250,525,500,150)
+        --love.graphics.print("SETTINGS",275,550,0,2.5,2.5)
+        if love.mouse.isDown(1) and clicktitle==false and mousecoordx>250 and mousecoordy>525 and mousecoordx<750 and mousecoordy<700 then
+            stng=true
+        end
+end
+if title then
+    if love.mouse.isDown(1) then
+        clicktitle=true
     else
-        fulltogg=true
+        clicktitle=false
     end
 else
     gameupdate(dt)
@@ -40,29 +106,17 @@ function love.keypressed(key)
         love.event.quit()
         else
     if key=="p" then
-        if fulltogg then
-        readres = conf
-        if readres=="true" then
-        towrite="false"
-        else
-        towrite="true"
+            if ftd then else
+            readres = conf.fullscreen
+            if readres=="true" then
+                towrite="false"
+            else
+                towrite="true"
+            end
+            conf.fullscreen=towrite
+            love.filesystem.write("cfg.json",json.encode(conf))
+            ftd =true
         end
-
-        conf.fullscreen=towrite
-        love.filesystem.write("cfg.json",json.encode(conf))
-        fulltogg = false
-    end
-    else
-        plr.x=mapx/2
-        plr.y=mapy/2
-        plr.handrot=0
-        plr.craftopen=false
-        plr.rot="right"
-        plr.inventory={{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id="miningpick",hover=0,drag=0},{id="crafttable",hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id="trash",hover=0,drag=0}}
-        plr.hotselect=1
-        obj.list={}
-    title=false
-    obj.genworld()
     end
 end
     else
@@ -132,7 +186,6 @@ function gamedraw()
     end
     plr.itemdraw()
     cam:detach()
-    gr.draw.txt("slot:"..tostring(plr.hotselect),0,125,2,2,0,0,0)
     love.graphics.setColor(0,0,0)
     love.graphics.rectangle("fill",100*plr.hotselect-100,0,100,100)
     love.graphics.setColor(255,255,255)
@@ -175,7 +228,6 @@ cam:attach()
     end
     plr.itemdraw()
     cam:detach()
-    gr.draw.txt("slot:"..tostring(plr.hotselect),0,125,2,2,0,0,0)
     love.graphics.setColor(0,0,0)
     love.graphics.rectangle("fill",100*plr.hotselect-100,0,100,100)
     love.graphics.setColor(255,255,255)
@@ -361,19 +413,60 @@ function love.wheelmoved(x, y)
 end
 end
 end
+fntgame = love.graphics.newFont("rmpfont.ttf",30)
+love.graphics.setFont(fntgame)
 function love.draw()
     if title then
+        if stng then
+            love.graphics.rectangle("line",0,0,250,150)
+            love.graphics.setColor(1,1,1)
+            love.graphics.rectangle("fill",0,0,250,150)
+            love.graphics.setColor(0,0,0)
+            love.graphics.print(lang.gettxt("title.back"),25,25,0,2.5,2.5)
+            love.graphics.rectangle("line",250,500,500,150)
+            love.graphics.setColor(1,1,1)
+            love.graphics.rectangle("fill",250,500,500,150)
+            love.graphics.setColor(0,0,0)
+            love.graphics.print(lang.gettxt("title.lang"),275,525,0,2.5,2.5)
+            love.graphics.rectangle("line",250,350,500,150)
+            love.graphics.setColor(1,1,1)
+            love.graphics.rectangle("fill",250,350,500,150)
+            love.graphics.setColor(0,0,0)
+            love.graphics.print(lang.gettxt("title.fullscreen"),275,350,0,2.5,2.5)
+            if ftd then
+                love.graphics.print(lang.gettxt("title.fullscreentogglewarn"),325,350,0,0.75,0.75)
+            end
+            if conf.fullscreen then
+                love.graphics.setColor(1,0,0)
+            else
+                love.graphics.setColor(0,0,1)
+            end
+            love.graphics.print(tostring(not conf.fullscreen),250,350,0,1,1)
+            love.graphics.setColor(0,0,0)
+        else
     love.graphics.setBackgroundColor(1,1,1)
     love.graphics.draw(titleimg,0,0)
     love.graphics.setColor(0,0,0)
-    love.graphics.print("E OR ESCAPE IN TITLE SCREEN TO EXIT",0,400,0,3,3)
-    love.graphics.print("ESC AND L TO EXIT TO TITLE SCREEN",0,450,0,3,3)
-    love.graphics.print("PRESS ANY KEY TO START P TO TOGGLE FULLSCREEN",0,500,0,3,3)
-    love.graphics.print("RESTART TO APPLY CONFIG I TO INVENTORY",0,550,0,3,3)
-    love.graphics.print("WASD TO MOVE SPACE TO INTERACT/MINE",0,600,0,3,3)
-    love.graphics.print("N TO DISMANTILE TOUCHING BUILDING",0,650,0,3,3)
-    love.graphics.print("L TO CREATE CRAFTTABLE WHILE HOVER IRONORE",0,700,0,3,3)
+    love.graphics.rectangle("line",250,350,500,150)
     love.graphics.setColor(1,1,1)
+    love.graphics.rectangle("fill",250,350,500,150)
+    love.graphics.setColor(0,0,0)
+    love.graphics.print(lang.gettxt("title.playbutton"),275,375,0,2.5,2.5)
+    love.graphics.setColor(0,0,0)
+    love.graphics.rectangle("line",250,525,500,150)
+    love.graphics.setColor(1,1,1)
+    love.graphics.rectangle("fill",250,525,500,150)
+    love.graphics.setColor(0,0,0)
+    love.graphics.print(lang.gettxt("title.settingsbutton"),275,550,0,2.5,2.5)
+    --love.graphics.print("E OR ESCAPE IN TITLE SCREEN TO EXIT",0,400,0,1,1)
+    --love.graphics.print("ESC AND L TO EXIT TO TITLE SCREEN",0,450,0,1,1)
+    --love.graphics.print("PRESS ANY KEY TO START P TO TOGGLE FULLSCREEN",0,500,0,1,1)
+    --love.graphics.print("RESTART TO APPLY CONFIG I TO INVENTORY",0,550,0,1,1)
+    --love.graphics.print("WASD TO MOVE SPACE TO INTERACT/MINE",0,600,0,1,1)
+    --love.graphics.print("N TO DISMANTILE TOUCHING BUILDING",0,650,0,1,1)
+    --love.graphics.print("L TO CREATE CRAFTTABLE WHILE HOVER IRONORE",0,700,0,1,1)
+    love.graphics.setColor(1,1,1)
+        end
     else
         gamedraw()
     end

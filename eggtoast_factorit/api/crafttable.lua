@@ -105,7 +105,7 @@ craftbench={
     end,
     draw = function (i)
         if inv.open == 1 then
-        gr.draw.txt("CraftBench",55,245,1,1,1,1,1)
+        love.graphics.print(lang.gettxt("item.crafttable.name"),55,245,0,0.5,0.5)
         insqp=craftbenchsquarepos
         mx,my = love.mouse.getPosition()
         for i = 1, #craftbenchsquarepos do

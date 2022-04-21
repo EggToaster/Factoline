@@ -4,9 +4,9 @@ function loadgraphics()
     love.graphics.setColor(1,1,1)
     love.graphics.rectangle("fill",0,0,10000,10000)
     love.graphics.setColor(0,0,0)
-    gr.draw.txt("LOADING GAME",100,100,3,3,0,0,0)
-    gr.draw.txt(loadphase,100,150,3,3)
-    gr.draw.txt(loadphase2,100,200,3,3)
+    gr.draw.txt("LOADING GAME",100,100,1,1)
+    gr.draw.txt(loadphase,100,200,1,1)
+    gr.draw.txt(loadphase2,100,300,1,1)
     love.graphics.present()
 end
 function loadergame()
@@ -15,6 +15,9 @@ function loadergame()
     loadphase2="player"
     loadgraphics()
     require("api.player")
+    loadphase2="lang"
+    loadgraphics()
+    require("api.langsys")
     loadphase2="item"
     loadgraphics()
     require("api.item")
