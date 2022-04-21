@@ -49,6 +49,9 @@ function love.update(dt)
                 lang.currentlang="enus"
             end
             print("lang set to "..lang.currentlang)
+            conf.lang=lang.currentlang
+            love.filesystem.write("cfg.json",json.encode(conf))
+
         end
         --love.graphics.rectangle("fill",250,350,500,150)
         --love.graphics.print(lang.gettxt("title.fullscreen"),275,350,0,2.5,2.5)
@@ -437,11 +440,11 @@ function love.draw()
                 love.graphics.print(lang.gettxt("title.fullscreentogglewarn"),325,350,0,0.75,0.75)
             end
             if conf.fullscreen then
-                love.graphics.setColor(1,0,0)
-            else
                 love.graphics.setColor(0,0,1)
+            else
+                love.graphics.setColor(1,0,0)
             end
-            love.graphics.print(tostring(not conf.fullscreen),250,350,0,1,1)
+            love.graphics.print(tostring(conf.fullscreen),250,350,0,1,1)
             love.graphics.setColor(0,0,0)
         else
     love.graphics.setBackgroundColor(1,1,1)

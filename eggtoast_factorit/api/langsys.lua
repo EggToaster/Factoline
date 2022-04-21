@@ -34,3 +34,10 @@ lang ={
         "title.lang"
     }
 }
+if conf.lang == "jajp" then
+    jajplang.setlang()
+    lang.currentlang="jajp"
+else
+    enuslang.setlang()
+    lang.currentlang="enus"
+end
