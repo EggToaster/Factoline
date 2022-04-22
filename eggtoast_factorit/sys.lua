@@ -148,11 +148,8 @@ end
 
 function gamekey(key)
     if key == "=" then
-<<<<<<< HEAD
 ---@diagnostic disable-next-line: undefined-field
-=======
         ---@diagnostic disable-next-line: undefined-field
->>>>>>> 2aabed31689eba04bf6b4758f304375ecc5b3765
 		debug.toggle()
 	end
     if love.keyboard.isDown("escape") then
@@ -211,12 +208,10 @@ end
 inv.draw()
 love.graphics.setColor(255,255,255)
 ---@diagnostic disable-next-line: undefined-field
-<<<<<<< HEAD
 debug.draw()    cam:attach()
-=======
+---@diagnostic disable-next-line: undefined-field
 debug.draw()
 cam:attach()
->>>>>>> 2aabed31689eba04bf6b4758f304375ecc5b3765
     obj.draw()
     if loading==1 then
     else
@@ -269,11 +264,7 @@ function gameupdate(dt)
     obj.tick(dt)
     plr.itemsys()
     inv.sys()
-<<<<<<< HEAD
----@diagnostic disable-next-line: undefined-field
-=======
     ---@diagnostic disable-next-line: undefined-field
->>>>>>> 2aabed31689eba04bf6b4758f304375ecc5b3765
     debug.update(fps, love.timer.getFPS())
     ---@diagnostic disable-next-line: undefined-field
 	debug.update(random,tostring(#obj.list))

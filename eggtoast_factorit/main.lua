@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 discordRPC = require("api.rpc.discordRPC")
 state, percent = love.system.getPowerInfo( )
 ltbtrnotice=true
@@ -15,12 +14,10 @@ function table.contains(table, element)
     return false
   end
 appId = require("api.rpc.applicationId")
-=======
 discordRPC = require("api.discordRPC")
 
 
 appId = "940840855957291018"
->>>>>>> 2aabed31689eba04bf6b4758f304375ecc5b3765
 function love.load()
     ftd=false
 ---@diagnostic disable-next-line: discard-returns
