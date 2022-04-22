@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 discordRPC = require("api.rpc.discordRPC")
 state, percent = love.system.getPowerInfo( )
 ltbtrnotice=true
@@ -14,19 +15,32 @@ function table.contains(table, element)
     return false
   end
 appId = require("api.rpc.applicationId")
+=======
+discordRPC = require("api.discordRPC")
+
+
+appId = "940840855957291018"
+>>>>>>> 2aabed31689eba04bf6b4758f304375ecc5b3765
 function love.load()
+    ftd=false
 ---@diagnostic disable-next-line: discard-returns
 math.randomseed(os.time());math.random();math.random();math.random()
     mapx=2500
     mapy=2500
     dbg="a"
+    require("api.donut")
     require("loadapi")
     debug = Donut.init(10, 10)
+    ---@diagnostic disable-next-line: undefined-field
     fps = debug.add("FPS")
+    ---@diagnostic disable-next-line: undefined-field
 	random = debug.add("DebugValue")
     singleplayerstr="Singleplayer"
+---@diagnostic disable-next-line: undefined-field
     xdebug=debug.add("X")
+    ---@diagnostic disable-next-line: undefined-field
     ydebug=debug.add("Y")
+    ---@diagnostic disable-next-line: undefined-field
     invdbg=debug.add("inv first 5")
     loading=1
     title=true

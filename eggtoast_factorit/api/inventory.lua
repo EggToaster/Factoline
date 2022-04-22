@@ -99,7 +99,7 @@ end
                     plr.inventory[i].hover=0
                     if plr.inventory[i].id==nil then
                     else
-                    if love.mouse.isDown(1) and drawinvitem==nil and drawhotitem==nil then
+                    if love.mouse.isDown(1) and drawinvitem==nil then -- and drawhotitem==nil 
                         if i == 42 then else
                         plr.inventory[i].drag=1
                         end

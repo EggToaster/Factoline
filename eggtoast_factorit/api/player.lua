@@ -1,3 +1,4 @@
+grabbing={id=nil}
 plr={
     x=mapx/2,
     y=mapy/2,

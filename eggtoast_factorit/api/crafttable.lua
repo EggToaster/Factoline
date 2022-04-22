@@ -27,11 +27,11 @@ craftrecipe = {
         table.insert(craftrecipe.list,tables)
     end,
     list = {
-        {result={id="ironore",hover=0,drag=0},ingrelist={"crafttable"}},
-        {result={id="ironplate",hover=0,drag=0},ingrelist={"ironore","ironore"}},
-        {result={id="ironore",hover=0,drag=0},ingrelist={"crafttable"}},
-        {result={id="ironore",hover=0,drag=0},ingrelist={"crafttable"}},
-        {result={id="ironore",hover=0,drag=0},ingrelist={"crafttable"}}
+        {result={id="ironore",hover=1,drag=1},ingrelist={"crafttable"}},
+        {result={id="ironplate",hover=1,drag=1},ingrelist={"ironore","ironore"}},
+        {result={id="ironore",hover=1,drag=1},ingrelist={"crafttable"}},
+        {result={id="ironore",hover=1,drag=1},ingrelist={"crafttable"}},
+        {result={id="ironore",hover=1,drag=1},ingrelist={"crafttable"}}
     }
 }
 function crtdrawrec()
@@ -40,6 +40,9 @@ function crtdrawrec()
     if #craftrecipe.list-sca < 1 then else
     for aia = 1,math.min(#craftrecipe.list-sca,5) do
         love.graphics.draw(gr.texture.gettex(craftrecipe.list[aia+sca].result.id),craftbenchsquarepos[aia].x,craftbenchsquarepos[aia].y,0,0.065,0.065)
+        for ii = 1,#craftrecipe.list[aia].ingrelist do
+            love.graphics.draw(gr.texture.gettex(craftrecipe.list[aia].ingrelist[ii]),craftbenchx[ii],craftbenchsquarepos[aia].y,0,0.065,0.065)
+        end
     end
 end
 end
@@ -51,7 +54,7 @@ craftbench={
         if love.mouse.isDown(1) then
             if mdcrafting then
             for aai = 1,#craftbenchsquareposhover do
-                if craftbenchsquareposhover[aai].hover==1 then
+                if craftbenchsquareposhover[aai].hover==0 then
                     if craftrecipe.list[aai+sca].result==nil then else
                         recip = craftrecipe.list[aai+sca]
                         craftprep = {}
@@ -102,7 +105,7 @@ craftbench={
     end,
     draw = function (i)
         if inv.open == 1 then
-        gr.draw.txt("CraftBench",55,245,1,1,1,1,1)
+        love.graphics.print(lang.gettxt("item.crafttable.name"),55,245,0,0.5,0.5)
         insqp=craftbenchsquarepos
         mx,my = love.mouse.getPosition()
         for i = 1, #craftbenchsquarepos do
