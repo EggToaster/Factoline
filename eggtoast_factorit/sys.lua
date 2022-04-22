@@ -91,6 +91,7 @@ end
 
 function gamekey(key)
     if key == "=" then
+---@diagnostic disable-next-line: undefined-field
 		debug.toggle()
 	end
     if love.keyboard.isDown("escape") then
@@ -149,6 +150,7 @@ function gamedraw()
 end
 inv.draw()
 love.graphics.setColor(255,255,255)
+---@diagnostic disable-next-line: undefined-field
 debug.draw()    cam:attach()
     obj.draw()
     if loading==1 then
@@ -190,6 +192,7 @@ debug.draw()    cam:attach()
 end
 inv.draw()
 love.graphics.setColor(255,255,255)
+---@diagnostic disable-next-line: undefined-field
 debug.draw(10,200)
 obj.drawobjgui()
 end
@@ -202,10 +205,15 @@ function gameupdate(dt)
     obj.tick(dt)
     plr.itemsys()
     inv.sys()
+---@diagnostic disable-next-line: undefined-field
     debug.update(fps, love.timer.getFPS())
+    ---@diagnostic disable-next-line: undefined-field
 	debug.update(random,tostring(#obj.list))
+    ---@diagnostic disable-next-line: undefined-field
     debug.update(xdebug,plr.x)
+    ---@diagnostic disable-next-line: undefined-field
     debug.update(ydebug,plr.y)
+    ---@diagnostic disable-next-line: undefined-field
     debug.update(invdbg,tostring(plr.inventory[1].id)..tostring(plr.inventory[2].id)..tostring(plr.inventory[3].id)..tostring(plr.inventory[4].id)..tostring(plr.inventory[5].id).." "..#plr.inventory)
     tmp1,tmp2=love.graphics.getDimensions()
     dividewidth  =tmp1/2
