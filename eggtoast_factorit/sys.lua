@@ -108,6 +108,9 @@ function love.keypressed(key)
         if key=="escape" or key=="e" then
         love.event.quit()
         else
+    if key=="f11" then
+        love.graphics.captureScreenshot("factorit-"..tostring(os.time))
+    end
     if key=="p" then
             if ftd then else
             readres = conf.fullscreen
@@ -148,6 +151,7 @@ function love.mousepressed(x,y,b)
 
 function gamekey(key)
     if key == "=" then
+---@diagnostic disable-next-line: undefined-field
         ---@diagnostic disable-next-line: undefined-field
 		debug.toggle()
 	end
@@ -206,6 +210,8 @@ function gamedraw()
 end
 inv.draw()
 love.graphics.setColor(255,255,255)
+---@diagnostic disable-next-line: undefined-field
+debug.draw()    cam:attach()
 ---@diagnostic disable-next-line: undefined-field
 debug.draw()
 cam:attach()
