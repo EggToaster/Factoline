@@ -80,7 +80,7 @@ function love.update(dt)
             plr.handrot=0
             plr.craftopen=false
             plr.rot="right"
-            plr.inventory={{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id="miningpick",hover=0,drag=0},{id="crafttable",hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id=nil,hover=0,drag=0},{id="trash",hover=0,drag=0}}
+            plr.inventory={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="miningpick"},{id="crafttable"},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="trash"}}
             plr.hotselect=1
             obj.list={}
             title=false
@@ -126,6 +126,9 @@ end
         gamekey(key)
     end
 end
+function love.mousepressed(x,y,b)
+    inv.mouseclick(x,y,b)
+  end
 
 
 

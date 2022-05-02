@@ -1,3 +1,10 @@
+local mx,my = love.mouse.getPosition()
+
+local mouseOn = {is=false,x=1,y=1}
+
+local selected = {is=false,x=1,y=1}
+
+local infoBox = {w=200,h=200}
 inv = {
     open=0,
     invsquarepos={
@@ -44,91 +51,152 @@ inv = {
         {x=335,y=200},
         {x=335,y=160}
     },
+    
     sys = function ()
-        local mx, my = love.mouse.getPosition()
-        inv.getlanding()
-        if love.mouse.isDown(1) then
-        else
-            if drawinvitem==nil then
-            else
-                inv.getlanding()
-                if hvrinv==nil then
-                else
-                    if hvrinv==42 then
-                        plr.inventory[drawinvitem].id=nil
-                    else
-                    --hvrinvdetect
-                        --frominv
-                        dii=plr.inventory[drawinvitem]
-                        hi=plr.inventory[hvrinv]
-                        table.insert(plr.inventory,drawinvitem,hi)
-                        table.remove(plr.inventory,drawinvitem+1)
-                        table.insert(plr.inventory,hvrinv,dii)
-                        table.remove(plr.inventory,hvrinv+1)
-                    end
-                end
-            if drawinvitem==nil then
-            else
-                plr.inventory[drawinvitem].drag=0
+        local mx,my = love.mouse.getPosition()
+
+        mouseOn.is = false
+        for y=1,5 do
+          for x=1,8 do
+            local drawX = (x-1)*30+60
+            local drawY = (y-1)*30+85
+            local mouseIsOn = mx > drawX and mx <= drawX+55 and my > drawY and my <= drawY+55
+            if mouseIsOn then 
+              mouseOn.is = true
+              mouseOn.trash =false
+              mouseOn.x,mouseOn.y = x,y
             end
-            dii=nil
-            hi=nil
-            hvrinv=nil
-            drawinvitem=nil
+          end
         end
-end
-    end,
-    getlanding = function ()
-        local mx, my = love.mouse.getPosition()
-        insqp =inv.invsquarepos
-        for i = 1,#inv.invsquarepos do
-            if ((mx - insqp[i].x) > 0) and ((mx - insqp[i].x) <= 25) and ((my - insqp[i].y) > 0) and ((my - insqp[i].y) <= 25) then        
-                plr.inventory[i].hover=0
-                hvrinv=i
-            else
-                plr.inventory[i].hover=1
-            end
-            end
+        local drawX = (9-1)*30+60
+        local drawY = (5-1)*30+85
+        local mouseIsOn = mx > drawX and mx <= drawX+55 and my > drawY and my <= drawY+55
+        if mouseIsOn then 
+          mouseOn.is = true
+          mouseOn.trash =false
+          mouseOn.x,mouseOn.y = 9,5
+        end
+        local drawX = (9-1)*30+60
+        local drawY = (6-1)*30+85
+        local mouseIsOn = mx > drawX and mx <= drawX+55 and my > drawY and my <= drawY+55
+        if mouseIsOn then 
+          mouseOn.is = true
+          mouseOn.trash =true
+          mouseOn.x,mouseOn.y = 9,6
+        end
     end,
     draw = function ()
-        if inv.open==1 then
-            local mx, my = love.mouse.getPosition()
-            insqp =inv.invsquarepos
-            for i = 1,#inv.invsquarepos do
-                if ((mx - insqp[i].x) > 0) and ((mx - insqp[i].x) <= 25) and ((my - insqp[i].y) > 0) and ((my - insqp[i].y) <= 25) then        
-                    plr.inventory[i].hover=0
-                    if plr.inventory[i].id==nil then
-                    else
-                    if love.mouse.isDown(1) and drawinvitem==nil then -- and drawhotitem==nil 
-                        if i == 42 then else
-                        plr.inventory[i].drag=1
-                        end
-                    else
-                        plr.inventory[i].drag=0
-                    end
-                end
-                else
-                    plr.inventory[i].hover=1
-                end
-                end
-            gr.draw.square(50,50,320,400,"fill",0,0,0)
-            for i = 1, #inv.invsquarepos do
-                gr.draw.square(inv.invsquarepos[i].x,inv.invsquarepos[i].y,30,30,"fill",plr.inventory[i].hover,plr.inventory[i].hover,plr.inventory[i].hover)
-                if plr.inventory[i].id == nil then
-                else
-                    love.graphics.draw(gr.texture.gettex(plr.inventory[i].id),inv.invsquarepos[i].x,inv.invsquarepos[i].y,0,0.065,0.065)
-                end
-                if plr.inventory[i].drag == 1 then
-                    drawinvitem=i
-                end
+      if inv.open == 1 then
+      gr.draw.square(50,50,320,400,"fill",0,0,0)
+        for y=1,5 do
+            for x=1,8 do
+              local drawX = (x-1)*30+60
+              local drawY = (y-1)*30+85
+              local mouseOnThis = mouseOn.is and mouseOn.x == x and mouseOn.y == y
+              if mouseOnThis then
+                love.graphics.setColor(200,200,200)
+              else
+                love.graphics.setColor(170,170,170)
+              end
+              if selected.is and selected.x == x and selected.y == y then
+                love.graphics.setColor(0,0,0)
+              end
+              love.graphics.rectangle("fill",drawX,drawY,25,25)
+              love.graphics.setColor(1,1,1)
             end
-            
+          end
+          local mouseOnThis = mouseOn.is and mouseOn.x == 9 and mouseOn.y == 4
+          if mouseOnThis then
+            love.graphics.setColor(200,200,200)
+          else
+            love.graphics.setColor(170,170,170)
+          end --        {x=335,y=160}
+          local drawX = (9-1)*30+60
+          local drawY = (4-1)*30+85
+          love.graphics.rectangle("fill",drawX,drawY,25,25)
+          love.graphics.setColor(0,0,0)
+          love.graphics.rectangle("line",drawX,drawY,25,25)
+          love.graphics.setColor(255,255,255)
+          local mouseOnThis = mouseOn.is and mouseOn.x == 9 and mouseOn.y == 4
+          if mouseOnThis then
+            love.graphics.setColor(200,200,200)
+          else
+            love.graphics.setColor(170,170,170)
+          end --        {x=335,y=160}
+          local drawX = (9-1)*30+60
+          local drawY = (5-1)*30+85
+          if selected.is and selected.x == 9 and selected.y == 5 then
+          love.graphics.setColor(0,0,0)
+          end
+          love.graphics.rectangle("fill",drawX,drawY,25,25)
+          love.graphics.setColor(1,1,1)
+          for y=1,5 do
+            for x=1,8 do
+              local drawX = (x-1)*30+55
+              local drawY = (y-1)*30+80
+              local mouseOnThis = mouseOn.is and mouseOn.x == x and mouseOn.y == y
+              local item = plr.inventory[(y-1)*8+x]
+             -- if selected.is and selected.x == x and selected.y == y then
+              --  love.graphics.setColor(1,1,1)
+             --   if item==nil then else
+             --   love.graphics.draw(gr.texture.gettex(plr.inventory[y*8+x+1].id),drawX,drawY,0,0.065,0.065)
+              -- -- love.graphics.setColor(1,1,1)
+              ----  love.graphics.draw(gr.texture.gettex(plr.inventory[x*y].id),mx+10,my+100,0.065,0.065)
+             --   end
+             if item.id==nil then else
+              love.graphics.setColor(1,1,1)
+              love.graphics.draw(gr.texture.gettex(item.id),drawX,drawY,0,0.065,0.065)
+            end
+            end
+          end
+          local drawX = (9-1)*30+55
+          local drawY = (4-1)*30+80
+            love.graphics.setColor(1,1,1)
+            love.graphics.draw(gr.texture.gettex("trash"),drawX,drawY,0,0.065,0.065)
+          local drawX = (9-1)*30+55
+          local drawY = (5-1)*30+80
+          local item = plr.inventory[(5-1)*8+9]
+          if item.id==nil then else
+            love.graphics.setColor(1,1,1)
+            love.graphics.draw(gr.texture.gettex(item.id),drawX,drawY,0,0.065,0.065)
+          end
+          if selected.is and mouseOn.trash==false then
+            local mx,my = love.mouse.getPosition()
+            love.graphics.setColor(1,1,1)
+            local item = plr.inventory[(selected.y-1)*8+selected.x]
+            --print("[debug]".."invselectdraw "..tostring(item.id).." "..tostring((selected.y-1)*8+selected.x))
+            love.graphics.draw(gr.texture.gettex(item.id),mx,my,0,0.065,0.065)
+          end
+          love.graphics.setColor(1,1,1)
         end
-        if drawinvitem==nil then
-        else
-            mx,my=love.mouse.getPosition()
-            love.graphics.draw(gr.texture.gettex(plr.inventory[drawinvitem].id),mx,my,0,0.065,0.065)
+    end,
+    mouseclick = function(x,y,b)
+        if b == 1 then
+          if mouseOn.is then
+            if not selected.is then
+              if mouseOn.trash then
+                --plr.inventory[(selected.y-1)*8+selected.x].id = nil
+              else
+              if plr.inventory[(mouseOn.y-1)*8+mouseOn.x] ~= 0 then
+                selected.is = true
+                selected.x = mouseOn.x
+                selected.y = mouseOn.y
+                if plr.inventory[(selected.y-1)*8+selected.x].id ==nil then
+                  selected.is=false
+                end
+              end
+            end
+            else
+              if mouseOn.trash then
+               -- plr.inventory[(selected.y-1)*8+selected.x].id = nil
+              else
+              local ph = plr.inventory[(selected.y-1)*8+selected.x]
+              plr.inventory[(selected.y-1)*8+selected.x] = plr.inventory[(mouseOn.y-1)*8+mouseOn.x]
+              plr.inventory[(mouseOn.y-1)*8+mouseOn.x] = ph
+              selected.is = false
+              end
+            end
+          end
         end
-        love.graphics.setColor(0,0,0)
-    end
+      end
 }
