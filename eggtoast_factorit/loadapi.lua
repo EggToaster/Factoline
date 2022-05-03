@@ -18,6 +18,9 @@ function loadergame()
     loadphase2="lang"
     loadgraphics()
     require("api.langsys")
+    loadphase2="savesys"
+    loadgraphics()
+    require("api.savesys")
     loadphase2="item"
     loadgraphics()
     require("api.item")

@@ -76,6 +76,8 @@ function love.update(dt)
         if title then
         mousecoordx,mousecoordy = love.mouse.getPosition()
         if love.mouse.isDown(1) and clicktitle==false and mousecoordx>250 and mousecoordy>350 and mousecoordx<750 and mousecoordy<500 then
+            info = love.filesystem.getInfo("savegame/save1.fsg")
+            if info==nil then
             plr.x=mapx/2
             plr.y=mapy/2
             plr.handrot=0
@@ -87,6 +89,10 @@ function love.update(dt)
             title=false
             obj.genworld()
             grabbing=plr.inventory[plr.hotselect+32]
+            else
+                savesys.load(json.decode(love.filesystem.read("savegame/save1.fsg")))
+                title=false
+            end
         end
         --love.graphics.rectangle("fill",250,525,500,150)
         --love.graphics.print("SETTINGS",275,550,0,2.5,2.5)
@@ -159,6 +165,7 @@ function gamekey(key)
 	end
     if love.keyboard.isDown("escape") then
         if love.keyboard.isDown("l") then
+            savesys.savegame()
         title=true
         else
             plr.craftopen=false
