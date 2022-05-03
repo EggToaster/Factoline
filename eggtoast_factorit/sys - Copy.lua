@@ -73,7 +73,7 @@ function love.update(dt)
             end
         end
         else
-        if title then
+            if title then
         mousecoordx,mousecoordy = love.mouse.getPosition()
         if love.mouse.isDown(1) and clicktitle==false and mousecoordx>250 and mousecoordy>350 and mousecoordx<750 and mousecoordy<500 then
             plr.x=mapx/2
@@ -172,31 +172,35 @@ end
 
 
 function gamedraw()
+    wds,hts = love.graphics.getDimensions()
+    wds=wds-15
+    hts=hts-15
     cam:attach()
     obj.draw()
+    cam:detach()
     if loading==1 then
     else
         love.graphics.setBackgroundColor(255,255,255)
     if plr.rot=="left"then
-        love.graphics.draw(gr.texture.gettex("character1"),plr.x,plr.y,0,0.1,0.1)
+        wds,hts = love.graphics.getDimensions()
+        love.graphics.draw(gr.texture.gettex("character1"),wds/2,hts/2,0,0.1,0.1)
         else
-        love.graphics.draw(gr.texture.gettex("character1reverse"),plr.x,plr.y,0,0.1,0.1)
+        love.graphics.draw(gr.texture.gettex("character1reverse"),wds/2,hts/2,0,0.1,0.1)
         end
         if plr.handrot==1 then
         if plr.rot=="left"then
-            love.graphics.draw(gr.texture.gettex("handud"),plr.x+4,plr.y+22,0,0.1,0.1)
+            love.graphics.draw(gr.texture.gettex("handud"),wds/2+4,hts/2+22,0,0.1,0.1)
             else
-            love.graphics.draw(gr.texture.gettex("handreverseud"),plr.x-4,plr.y+22,0,0.1,0.1)
+            love.graphics.draw(gr.texture.gettex("handreverseud"),wds/2-4,hts/2+22,0,0.1,0.1)
             end
         else
             if plr.rot=="left"then
-                love.graphics.draw(gr.texture.gettex("hand"),plr.x+10,plr.y+22,0,0.1,0.1)
+                love.graphics.draw(gr.texture.gettex("hand"),wds/2+10,hts/2+22,0,0.1,0.1)
                 else
-                love.graphics.draw(gr.texture.gettex("handreverse"),plr.x-10,plr.y+22,0,0.1,0.1)
+                love.graphics.draw(gr.texture.gettex("handreverse"),wds/2-10,hts/2+22,0,0.1,0.1)
                 end
         end
-        plr.itemdraw()
-    cam:detach()
+    plr.itemdraw()
     love.graphics.setColor(0,0,0)
     love.graphics.rectangle("fill",100*plr.hotselect-100,0,100,100)
     love.graphics.setColor(255,255,255)
@@ -209,56 +213,10 @@ function gamedraw()
         love.graphics.draw(gr.texture.gettex(plr.inventory[i].id),tmp*100,0,0,0.2,0.2)
     end
 end
-love.graphics.setColor(1,1,1)
 inv.draw()
 love.graphics.setColor(255,255,255)
 ---@diagnostic disable-next-line: undefined-field
 debug.draw()
----@diagnostic disable-next-line: undefined-field
-debug.draw()
-cam:attach()
-    obj.draw()
-    if loading==1 then
-    else
-        love.graphics.setBackgroundColor(255,255,255)
-    if plr.rot=="left"then
-        love.graphics.draw(gr.texture.gettex("character1"),plr.x,plr.y,0,0.1,0.1)
-        else
-        love.graphics.draw(gr.texture.gettex("character1reverse"),plr.x,plr.y,0,0.1,0.1)
-        end
-        if plr.handrot==1 then
-        if plr.rot=="left"then
-            love.graphics.draw(gr.texture.gettex("handud"),plr.x+4,plr.y+22,0,0.1,0.1)
-            else
-            love.graphics.draw(gr.texture.gettex("handreverseud"),plr.x-4,plr.y+22,0,0.1,0.1)
-            end
-        else
-            if plr.rot=="left"then
-                love.graphics.draw(gr.texture.gettex("hand"),plr.x+10,plr.y+22,0,0.1,0.1)
-                else
-                love.graphics.draw(gr.texture.gettex("handreverse"),plr.x-10,plr.y+22,0,0.1,0.1)
-                end
-        end
-    end
-    plr.itemdraw()
-    cam:detach()
-
-    love.graphics.setColor(0,0,0)
-    love.graphics.rectangle("fill",100*plr.hotselect-100,0,100,100)
-    love.graphics.setColor(255,255,255)
-    love.graphics.draw(gr.texture.gettex("hotbar"),0,0)
-    for i = 1,9 do
-        ia = i + 32
-    if plr.inventory[ia].id == nil then
-    else
-        tmp = i-1
-        love.graphics.draw(gr.texture.gettex(plr.inventory[ia].id),tmp*100,0,0,0.2,0.2)
-    end
-end
-inv.draw()
-love.graphics.setColor(255,255,255)
----@diagnostic disable-next-line: undefined-field
-debug.draw(10,200)
 obj.drawobjgui()
 end
 end

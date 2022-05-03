@@ -1,4 +1,3 @@
-discordRPC = require("api.rpc.discordRPC")
 state, percent = love.system.getPowerInfo( )
 ltbtrnotice=true
 if state == "unknown" or state == "nobattery" then
@@ -13,7 +12,6 @@ function table.contains(table, element)
     end
     return false
   end
-appId = require("api.rpc.applicationId")
 discordRPC = require("api.discordRPC")
 
 
@@ -42,6 +40,7 @@ math.randomseed(os.time());math.random();math.random();math.random()
     loading=1
     title=true
     fulltogg=true
+---@diagnostic disable-next-line: missing-parameter
     titleimg = love.graphics.newImage("res/factoryicn.png")
     crtkeypress=true
     discordRPC.initialize(appId, true)
