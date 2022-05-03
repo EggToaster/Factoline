@@ -413,7 +413,7 @@ function love.wheelmoved(x, y)
 
     else
         if plr.craftopen then 
-            craftbench.wheel()
+            craftbench.wheel(y)
         else
     if y < 0 then
         plr.hotselect=plr.hotselect+1

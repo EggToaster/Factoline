@@ -177,6 +177,15 @@ inv = {
               if mouseOn.trash then
                 --plr.inventory[(selected.y-1)*8+selected.x].id = nil
               else
+                if love.keyboard.isDown("l") and plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id =="ironore" then
+                  plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id = "crafttable"
+                  print("crafted crafttable")
+                  goto craftedbench
+                end
+                if love.keyboard.isDown("delete") then
+                  item.delete({id=plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id})
+                  goto craftedbench
+                end
               if plr.inventory[(mouseOn.y-1)*8+mouseOn.x] ~= 0 then
                 selected.is = true
                 selected.x = mouseOn.x
@@ -186,6 +195,7 @@ inv = {
                 end
               end
             end
+            ::craftedbench::
             else
               if mouseOn.trash then
                -- plr.inventory[(selected.y-1)*8+selected.x].id = nil

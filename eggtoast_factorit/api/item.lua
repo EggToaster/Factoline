@@ -42,21 +42,27 @@ isHas = function (tbl)
 end,
 delete = function (tbl)
     if tbl==nil then else
+        print("attemping to delete item "..tbl.id)
         local foundit=false
         local stopit=false
         for i = 1,#plr.inventory do
             if foundit then else if stopit then else
-            if plr.inventory[i].id==nil then
+            if plr.inventory[i].id==tbl.id then
                 foundit=true
-                id=i
+                idss=i
         end
     end
 end
     end
     if foundit then
-        table.insert(plr.inventory,id,{id=nil,drag=0,hover=0})
-        table.remove(plr.inventory,id+1)
+        table.insert(plr.inventory,idss,{id=nil})
+        table.remove(plr.inventory,idss+1)
+        print("deleted "..tbl.id.." returning true")
+        return(true)
+    else
+        print("failed to delete item "..tbl.id.." err.notfoundtarget returning false")
     end
 end
+return(false)
 end
 }

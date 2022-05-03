@@ -27,11 +27,17 @@ craftrecipe = {
         table.insert(craftrecipe.list,tables)
     end,
     list = {
-        {result={id="ironore",hover=1,drag=1},ingrelist={"crafttable"}},
-        {result={id="ironplate",hover=1,drag=1},ingrelist={"ironore","ironore"}},
-        {result={id="ironore",hover=1,drag=1},ingrelist={"crafttable"}},
-        {result={id="ironore",hover=1,drag=1},ingrelist={"crafttable"}},
-        {result={id="ironore",hover=1,drag=1},ingrelist={"crafttable"}}
+        {result={id="ironore"},ingrelist={"crafttable"}},
+        {result={id="ironplate"},ingrelist={"ironore","ironore"}},
+        {result={id="coppergear"},ingrelist={"copperplate"}},
+        {result={id="irongear"},ingrelist={"ironplate"}},
+        {result={id="copperplate"},ingrelist={"copperore","copperore"}},
+        {result={id="axe"},ingrelist={"ironplate","coppergear"}},
+        {result=nil,ingrelist=nil},
+        {result=nil,ingrelist=nil},
+        {result=nil,ingrelist=nil},
+        {result=nil,ingrelist=nil},
+        {result=nil,ingrelist=nil}
     }
 }
 function crtdrawrec()
@@ -39,15 +45,28 @@ function crtdrawrec()
     sca=craftpage*5
     if #craftrecipe.list-sca < 1 then else
     for aia = 1,math.min(#craftrecipe.list-sca,5) do
+        if craftrecipe.list[aia+sca].result==nil then else
         love.graphics.draw(gr.texture.gettex(craftrecipe.list[aia+sca].result.id),craftbenchsquarepos[aia].x,craftbenchsquarepos[aia].y,0,0.065,0.065)
-        for ii = 1,#craftrecipe.list[aia].ingrelist do
-            love.graphics.draw(gr.texture.gettex(craftrecipe.list[aia].ingrelist[ii]),craftbenchx[ii],craftbenchsquarepos[aia].y,0,0.065,0.065)
+        for ii = 1,#craftrecipe.list[aia+sca].ingrelist do
+            love.graphics.draw(gr.texture.gettex(craftrecipe.list[aia+sca].ingrelist[ii]),craftbenchx[ii],craftbenchsquarepos[aia].y,0,0.065,0.065)
         end
     end
 end
 end
+end
 craftbench={
-    wheel = function ()
+    wheel = function (y)
+        if y <= 0 then
+            craftpage =craftpage+1
+        else
+            craftpage=craftpage-1
+        end
+        if craftpage<=0 then
+            craftpage=0
+        end
+        if (craftpage+1)*5>=#craftrecipe.list then
+            craftpage=craftpage-1
+        end
     end,
     tick = function (i)
         crtouch=true
@@ -92,6 +111,9 @@ craftbench={
                             end
                         end
                         if fail then else
+                            for eeeeee = 1,#recip.ingrelist do
+                                item.delete({id=recip.ingrelist[eeeeee]})
+                            end
                             item.give(recip.result)
                         end
                     end

@@ -15,7 +15,14 @@ obj={
               --  if obj.list[i].x > plr.x-dividewidth then
                 --    if obj.list[i].y < divideheight+plr.y then
                   --      if obj.list[i].y > plr.y-divideheight then
-                            love.graphics.draw(gr.texture.gettex(obj.list[i].id),obj.list[i].x,obj.list[i].y,0,0.5,0.5)
+                            love.graphics.draw(gr.texture.gettex(obj.list[i].id),obj.list[i].x,obj.list[i].y,0,0.4,0.4)
+                            if obj.list[i].id=="tree" then
+                                if obj.list[i].nbt.health<=2 then
+                                    love.graphics.setColor(0,0,0)
+                                    love.graphics.print(tostring(obj.list[i].nbt.health).." hp",obj.list[i].x,obj.list[i].y+13)
+                                    love.graphics.setColor(1,1,1)
+                                end
+                            end
                    --     end
                 --    end
             --    end
@@ -34,7 +41,11 @@ obj={
         loadphase2="Generating Ore"
         loadgraphics()
         for i = 1,15 do
-        obj.gen.genore("ironore")
+            obj.gen.genore("ironore")
+            obj.gen.genore("copperore")
+        end
+        for i = 1,35 do
+            obj.gen.make("tree",math.random(0,mapx),math.random(0,mapy),nil,{health=3})
         end
     end,
     gen={
@@ -49,14 +60,17 @@ obj={
             xc=x
             yc=y
             table.insert(obj.list,{id=ids,x=xc,y=yc,after=after,nbt=nbt})
+        end,
+        del = function (i)
+            table.remove(obj.list,i)
         end
     },
     tick=function (dt)
         for i = 1 , #obj.list do
             if i < #obj.list+1 then
             objwidth, objheight = gr.texture.gettex(obj.list[i].id):getDimensions()
-            objwidth = objwidth/2
-            objheight=objheight/2
+            objwidth = objwidth/4
+            objheight=objheight/4
             if plr.x > obj.list[i].x and plr.y > obj.list[i].y and plr.x < obj.list[i].x+objwidth and plr.y < obj.list[i].y+objheight then
                 if love.keyboard.isDown("n") then
                     if obj.list[i].after == nil then else
@@ -76,15 +90,37 @@ obj={
                             craftbench.toggleopen(i)
                             print("toggleopen")
                         end
-                    if obj.list[i].id=="ironore" then
-                    if grabbing.id=="miningpick" then
-                        if keyspacepress==0 then
-                            love.audio.stop(sfx.get("orehit"))
-                           love.audio.play(sfx.get("orehit"))
-                           item.give({id="ironore",hover=0,drag=0})
+                        if obj.list[i].id=="ironore" then
+                            if grabbing.id=="miningpick" then
+                                if keyspacepress==0 then
+                                    love.audio.stop(sfx.get("orehit"))
+                                   love.audio.play(sfx.get("orehit"))
+                                   item.give({id="ironore"})
+                                end
+                            end
                         end
-                    end
-                end
+                        if obj.list[i].id=="copperore" then
+                            if grabbing.id=="miningpick" then
+                                if keyspacepress==0 then
+                                    love.audio.stop(sfx.get("orehit"))
+                                   love.audio.play(sfx.get("orehit"))
+                                   item.give({id="copperore"})
+                                end
+                            end
+                        end
+                        if obj.list[i].id=="tree" then
+                            if grabbing.id=="axe" then
+                                if keyspacepress==0 then
+                                    obj.list[i].nbt.health=obj.list[i].nbt.health-1
+                                    love.audio.stop(sfx.get("woodhit"))
+                                    love.audio.play(sfx.get("woodhit"))
+                                    if obj.list[i].nbt.health==0 then
+                                    item.give({id="woodlog"})
+                                    obj.destroy(i)
+                                    end
+                                end
+                            end
+                        end
                 spcobj=false
                 end
             else
