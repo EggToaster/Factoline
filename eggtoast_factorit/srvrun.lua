@@ -1,0 +1,2 @@
+require("loadapi")
+mulplay.serverrun()

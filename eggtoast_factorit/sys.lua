@@ -1,4 +1,5 @@
 require("loadapi")
+saveselecter=1
 clicktitle=false
 ftd=false
 function indexOf(array, value)
@@ -76,7 +77,7 @@ function love.update(dt)
         if title then
         mousecoordx,mousecoordy = love.mouse.getPosition()
         if love.mouse.isDown(1) and clicktitle==false and mousecoordx>250 and mousecoordy>350 and mousecoordx<750 and mousecoordy<500 then
-            info = love.filesystem.getInfo("savegame/save1.fsg")
+            info = love.filesystem.getInfo("savegame/save"..tostring(saveselecter)..".fsg")
             if info==nil then
             plr.x=mapx/2
             plr.y=mapy/2
@@ -90,7 +91,8 @@ function love.update(dt)
             obj.genworld()
             grabbing=plr.inventory[plr.hotselect+32]
             else
-                savesys.load(json.decode(love.filesystem.read("savegame/save1.fsg")))
+                savesys.load(json.decode(love.filesystem.read("savegame/save"..tostring(saveselecter)..".fsg")))
+                --mulplay.join("localhost:6789")
                 title=false
             end
         end
@@ -275,6 +277,7 @@ end
 
 
 function gameupdate(dt)
+    --mulplay.join()
     obj.tick(dt)
     plr.itemsys()
     inv.sys()
@@ -417,7 +420,14 @@ end
 
 function love.wheelmoved(x, y)
     if title then
-
+        if y <= 0 then
+            saveselecter =saveselecter-1
+        else
+            saveselecter=saveselecter+1
+        end
+        if saveselecter<=0 then
+            saveselecter=1
+        end
     else
         if plr.craftopen then 
             craftbench.wheel(y)
@@ -475,6 +485,7 @@ function love.draw()
     love.graphics.rectangle("fill",250,350,500,150)
     love.graphics.setColor(0,0,0)
     love.graphics.print(lang.gettxt("title.playbutton"),275,375,0,2.5,2.5)
+    love.graphics.print("Saveselect= "..tostring(saveselecter).." wheel to change",0,0,0,0.5,0.5)
     love.graphics.setColor(0,0,0)
     love.graphics.rectangle("line",250,525,500,150)
     love.graphics.setColor(1,1,1)

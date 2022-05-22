@@ -1,14 +1,14 @@
 ---@diagnostic disable: undefined-field
 savesys={
     savegame = function ()
-        if love.filesystem.getInfo("savegame/save1.fsg")==nil then
-            love.filesystem.newFile("savegame/save1.fsg")
+        if love.filesystem.getInfo("savegame/save"..tostring(saveselecter)..".fsg")==nil then
+            love.filesystem.newFile("savegame/save"..tostring(saveselecter)..".fsg")
         end
             tosave = {
                 obj = obj.list,
                 plr = {inv = plr.inventory,posx = plr.x,posy = plr.y}
             }
-            love.filesystem.write("savegame/save1.fsg",json.encode(tosave))
+            love.filesystem.write("savegame/save"..tostring(saveselecter)..".fsg",json.encode(tosave))
     end,
     load = function (file)
         toload = file

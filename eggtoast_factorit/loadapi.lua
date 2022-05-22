@@ -1,4 +1,6 @@
 require("api.graphics")
+enet = require("enet")
+require("api.multiplayer")
 function loadgraphics()
     love.graphics.clear()
     love.graphics.setColor(1,1,1)
