@@ -11,7 +11,9 @@ enuslang ={
         "Fullscreen",
         "Back",
         "Toggled,Restart!",
-        "Language"
+        "Language",
+        "Save file is ",
+        ", use wheel to change"
     },
     langindex={
         "item.crafttable.name",
@@ -20,6 +22,8 @@ enuslang ={
         "title.fullscreen",
         "title.back",
         "title.fullscreentogglewarn",
-        "title.lang"
+        "title.lang",
+        "title.saveselect1",
+        "title.saveselect2"
     }
 }

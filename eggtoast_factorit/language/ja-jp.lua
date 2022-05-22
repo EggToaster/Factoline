@@ -11,7 +11,9 @@ jajplang ={
         "フルスクリーン",
         "戻る",
         "再起動が必要です",
-        "言語"
+        "言語",
+        "セーブデータは",
+        "です、マウスホイールで変更"
     },
     langindex={
         "item.crafttable.name",
@@ -20,6 +22,8 @@ jajplang ={
         "title.fullscreen",
         "title.back",
         "title.fullscreentogglewarn",
-        "title.lang"
+        "title.lang",
+        "title.saveselect1",
+        "title.saveselect2"
     }
 }
