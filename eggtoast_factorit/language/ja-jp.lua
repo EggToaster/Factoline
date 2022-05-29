@@ -13,7 +13,8 @@ jajplang ={
         "再起動が必要です",
         "言語",
         "セーブデータは",
-        "です、マウスホイールで変更"
+        "です、マウスホイールで変更",
+        "自動作業台"
     },
     langindex={
         "item.crafttable.name",
@@ -24,6 +25,7 @@ jajplang ={
         "title.fullscreentogglewarn",
         "title.lang",
         "title.saveselect1",
-        "title.saveselect2"
+        "title.saveselect2",
+        "item.crafter.name"
     }
 }

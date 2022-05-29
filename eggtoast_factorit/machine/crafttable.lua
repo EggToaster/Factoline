@@ -33,7 +33,7 @@ craftrecipe = {
         {result={id="irongear"},ingrelist={"ironplate"}},
         {result={id="copperplate"},ingrelist={"copperore","copperore"}},
         {result={id="axe"},ingrelist={"ironplate","coppergear"}},
-        {result=nil,ingrelist=nil},
+        {result={id="crafter"},ingrelist={"irongear","ironplate","copperplate","coppergear","woodlog"}},
         {result=nil,ingrelist=nil},
         {result=nil,ingrelist=nil},
         {result=nil,ingrelist=nil},
@@ -151,12 +151,14 @@ craftbench={
         if obj.list[i].nbt.craftopen==true then
             obj.list[i].nbt.craftopen=false
             plr.craftopen=false
+            crafteruse=false
             plr.craftopeni=nil
             print("craftoff")
         else
             if plr.craftopen==false then
             obj.list[i].nbt.craftopen=true
             plr.craftopen=true
+            crafteruse=false
             plr.craftopeni=i
             print("crafton")
             end

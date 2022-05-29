@@ -10,12 +10,16 @@ plr={
     itemsys = function ()
         grabbing=plr.inventory[plr.hotselect+32]
         if #plr.inventory < 42 then
-                table.insert(plr.inventory,{id=nil,hover=0,drag=0})
+                table.insert(plr.inventory,{id=nil})
         end
         if love.keyboard.isDown("space") then
             if grabbing.id =="crafttable" then
                 obj.gen.make("craftbench",plr.x,plr.y,"crafttable",{craftopen=false})
-                plr.inventory[plr.hotselect+32]={id=nil,hover=0,drag=0}
+                plr.inventory[plr.hotselect+32]={id=nil}
+            end
+            if table.contains(obj.placeable,grabbing.id) then
+                obj.gen.make(grabbing.id.."plcd",plr.x,plr.y,grabbing.id,obj.placeablenbt[indexOf(obj.placeable,grabbing.id)])
+                plr.inventory[plr.hotselect+32]={id=nil}
             end
         end
     end,

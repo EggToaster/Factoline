@@ -1,4 +1,5 @@
-require("api.crafttable")
+require("machine.crafttable")
+require("machine.crafter")
 obj={
     drawobjgui = function ()
         for i = 1 , #obj.list do
@@ -7,6 +8,11 @@ obj={
             craftbench.draw(i)
         end
     end
+        if obj.list[i].id=="crafterplcd" then
+            if obj.list[i].nbt.craftopen==true then
+                crafter.draw(i)
+            end
+        end
     end
     end,
     draw = function ()
@@ -65,6 +71,16 @@ obj={
             table.remove(obj.list,i)
         end
     },
+    placeable={
+        "miner",
+        "crafter",
+        "inserter"
+    },
+    placeablenbt={
+        {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},timer=60,ore=nil},
+        {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},invslt2={id=nil},timer=120,recipe=nil,craftopen=false},
+        {inv={{id=nil}},timer=15}
+    },
     tick=function (dt)
         for i = 1 , #obj.list do
             if i < #obj.list+1 then
@@ -84,11 +100,18 @@ obj={
                     crtouch=false
                     plr.craftopen=false
                 end
+                if obj.list[i].id=="crafterplcd" then
+                    crafter.tick(i)
+                end
                 if love.keyboard.isDown("space") then
                     if spcobj then
                         if obj.list[i].id=="craftbench" then
                             craftbench.toggleopen(i)
-                            print("toggleopen")
+                            print("building.craftbench.opened")
+                        end
+                        if obj.list[i].id=="crafterplcd" then
+                            crafter.toggleopen(i)
+                            print("machine.crafter.opened")
                         end
                         if obj.list[i].id=="ironore" then
                             if grabbing.id=="miningpick" then

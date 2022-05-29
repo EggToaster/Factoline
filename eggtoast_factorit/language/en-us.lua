@@ -13,7 +13,8 @@ enuslang ={
         "Toggled,Restart!",
         "Language",
         "Save file is ",
-        ", use wheel to change"
+        ", use wheel to change",
+        "Crafter"
     },
     langindex={
         "item.crafttable.name",
@@ -24,6 +25,7 @@ enuslang ={
         "title.fullscreentogglewarn",
         "title.lang",
         "title.saveselect1",
-        "title.saveselect2"
+        "title.saveselect2",
+        "item.crafter.name"
     }
 }
