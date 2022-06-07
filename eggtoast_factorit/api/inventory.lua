@@ -3,8 +3,6 @@ local mx,my = love.mouse.getPosition()
 local mouseOn = {is=false,x=1,y=1}
 
 local selected = {is=false,x=1,y=1}
-
-local infoBox = {w=200,h=200}
 inv = {
     open=0,
     invsquarepos={
@@ -186,6 +184,41 @@ inv = {
                   item.delete({id=plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id})
                   goto craftedbench
                 end
+                if crafteruse then
+                  if plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil then else
+                  if obj.list[plr.craftopeni].nbt.inv[1].id == nil then
+                    crafttableput(1,mouseOn.x,mouseOn.y)
+                  else
+                    if obj.list[plr.craftopeni].nbt.inv[2].id == nil then
+                      crafttableput(2,mouseOn.x,mouseOn.y)
+                    else
+                      if obj.list[plr.craftopeni].nbt.inv[3].id == nil then
+                        crafttableput(3,mouseOn.x,mouseOn.y)
+                      else
+                        if obj.list[plr.craftopeni].nbt.inv[4].id == nil then
+                          crafttableput(4,mouseOn.x,mouseOn.y)
+                        else
+                          if obj.list[plr.craftopeni].nbt.inv[5].id == nil then
+                            crafttableput(5,mouseOn.x,mouseOn.y)
+                          else
+                            if obj.list[plr.craftopeni].nbt.inv[6].id == nil then
+                              crafttableput(6,mouseOn.x,mouseOn.y)
+                            else
+                              if obj.list[plr.craftopeni].nbt.inv[7].id == nil then
+                                crafttableput(7,mouseOn.x,mouseOn.y)
+                              else
+                                goto nvmcraftbench
+                              end
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                  goto craftedbench
+                  ::nvmcraftbench::
+                end
+              end
               if plr.inventory[(mouseOn.y-1)*8+mouseOn.x] ~= 0 then
                 selected.is = true
                 selected.x = mouseOn.x

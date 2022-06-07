@@ -4,7 +4,7 @@ item={
               for x=1,#plr.inventory-1 do
                 if plr.inventory[x].id==nil then
                     plr.inventory[x]=tbl
-                  break
+                    return(true)
               end
             end
             --local foundit=false
@@ -21,24 +21,82 @@ item={
      --   if foundit then
     --        plr.inventory[idzzz]=tbl
       --  end
+      return(false)
     end
 end,
 isHas = function (tbl)
     if tbl==nil then else
-        local foundit = false
-        local stopit = false
-        local id = false
+        local id = nil
         for i = 1,#plr.inventory do
-            if foundit then else if stopit then else
                 if plr.inventory[i].id==tbl then
-                    foundit = true
                     id = true
+                    break
                 end
-            end
-        end
         end
         return(id)
     end
+end,
+Has = function (tbl)
+    local id = nil
+    if tbl==nil then else
+        for i = 1,#plr.inventory do
+            if plr.inventory[i]==tbl then
+                id = i
+                break
+            end
+        end
+    end
+    return(id)
+end,
+hasAt = function (src,tbl)
+    local id = nil
+    if tbl==nil then else
+        for i = 1,#src do
+            if src[i]==tbl then
+                id = i
+                break
+            end
+        end
+    end
+    return(id)
+end,
+isHasAt = function (src,tbl)
+    local id = false
+    if tbl==nil then else
+        for as = 1,#src do
+            if src[as]==tbl then
+                id = true
+                break
+            end
+        end
+    end
+    return(id)
+end,
+getItemCount = function (src)
+    local countingtemp=0
+    if src==nil then
+        return(0)
+    else
+        for i = 1,#src do
+            if src[i].id==nil then else
+                countingtemp = countingtemp + 1
+            end
+        end
+    end
+    return(countingtemp)
+end,
+iHasAt = function (src,tbl,intt)
+    if intt==nil then
+        intt=1
+    end
+    if tbl==nil then else
+        for ads = intt,#src do
+            if src[ads].id==tbl then
+                return(true)
+            end
+        end
+    end
+    return(false)
 end,
 delete = function (tbl)
     if tbl==nil then else

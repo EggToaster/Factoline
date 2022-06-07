@@ -74,11 +74,11 @@ obj={
     placeable={
         "miner",
         "crafter",
-        "inserter"
+        "mecharm"
     },
     placeablenbt={
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},timer=60,ore=nil},
-        {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},invslt2={id=nil},timer=120,recipe=nil,craftopen=false},
+        {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},invslt2={id=nil},timer=120,recipe=nil,craftopen=false},
         {inv={{id=nil}},timer=15}
     },
     tick=function (dt)

@@ -429,6 +429,9 @@ function love.wheelmoved(x, y)
             saveselecter=1
         end
     else
+        if crafteruse then
+            crafter.wheel(y)
+        else
         if plr.craftopen then 
             craftbench.wheel(y)
         else
@@ -443,6 +446,7 @@ function love.wheelmoved(x, y)
             plr.hotselect=9
         end
     end
+end
 end
 end
 end
