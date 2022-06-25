@@ -1,5 +1,8 @@
 require("machine.crafttable")
 require("machine.crafter")
+require("machine.mecharm")
+require("machine.chest")
+require("machine.miner")
 obj={
     drawobjgui = function ()
         for i = 1 , #obj.list do
@@ -8,11 +11,16 @@ obj={
             craftbench.draw(i)
         end
     end
-        if obj.list[i].id=="crafterplcd" then
-            if obj.list[i].nbt.craftopen==true then
-                crafter.draw(i)
-            end
+    if obj.list[i].id=="crafterplcd" then
+        if obj.list[i].nbt.craftopen==true then
+            crafter.draw(i)
         end
+    end
+    if obj.list[i].id=="mecharmplcd" then
+        if obj.list[i].nbt.craftopen==true then
+            mecharm.draw(i)
+        end
+    end
     end
     end,
     draw = function ()
@@ -21,7 +29,11 @@ obj={
               --  if obj.list[i].x > plr.x-dividewidth then
                 --    if obj.list[i].y < divideheight+plr.y then
                   --      if obj.list[i].y > plr.y-divideheight then
-                            love.graphics.draw(gr.texture.gettex(obj.list[i].id),obj.list[i].x,obj.list[i].y,0,0.4,0.4)
+                  if table.contains(obj.sizemapid,obj.list[i].id) then
+                            love.graphics.draw(gr.texture.gettex(obj.list[i].id),obj.list[i].x,obj.list[i].y,0,obj.sizemap[indexOf(obj.sizemapid,obj.list[i].id)],obj.sizemap[indexOf(obj.sizemapid,obj.list[i].id)])
+                  else
+                    love.graphics.draw(gr.texture.gettex(obj.list[i].id),obj.list[i].x,obj.list[i].y,0,0.4,0.4)
+                  end
                             if obj.list[i].id=="tree" then
                                 if obj.list[i].nbt.health<=2 then
                                     love.graphics.setColor(0,0,0)
@@ -71,6 +83,12 @@ obj={
             table.remove(obj.list,i)
         end
     },
+    sizemap={
+        0.2
+    },
+    sizemapid={
+        "mecharmplcd"
+    },
     placeable={
         "miner",
         "crafter",
@@ -79,7 +97,7 @@ obj={
     placeablenbt={
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},timer=60,ore=nil},
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},invslt2={id=nil},timer=120,recipe=nil,craftopen=false},
-        {inv={{id=nil}},timer=15}
+        {inv={id=nil},timer=15,machine1=nil,machine2=nil}
     },
     tick=function (dt)
         for i = 1 , #obj.list do
@@ -103,6 +121,9 @@ obj={
                 if obj.list[i].id=="crafterplcd" then
                     crafter.tick(i)
                 end
+                if obj.list[i].id=="mecharmplcd" then
+                    mecharm.tick(i)
+                end
                 if love.keyboard.isDown("space") then
                     if spcobj then
                         if obj.list[i].id=="craftbench" then
@@ -112,6 +133,10 @@ obj={
                         if obj.list[i].id=="crafterplcd" then
                             crafter.toggleopen(i)
                             print("machine.crafter.opened")
+                        end
+                        if obj.list[i].id=="mecharmplcd" then
+                            mecharm.toggleopen(i)
+                            print("machine.mecharm.opened")
                         end
                         if obj.list[i].id=="ironore" then
                             if grabbing.id=="miningpick" then

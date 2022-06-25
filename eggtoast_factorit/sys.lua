@@ -2,6 +2,8 @@ require("loadapi")
 saveselecter=1
 clicktitle=false
 ftd=false
+sca=craftpage*5
+craftpage=0
 function indexOf(array, value)
     for i, v in ipairs(array) do
         if v == value then

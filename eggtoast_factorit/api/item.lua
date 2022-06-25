@@ -100,7 +100,7 @@ iHasAt = function (src,tbl,intt)
 end,
 delete = function (tbl)
     if tbl==nil then else
-        print("attemping to delete item "..tbl.id)
+        print("attemping to delete item "..json.encode(tbl))
         local foundit=false
         local stopit=false
         for i = 1,#plr.inventory do

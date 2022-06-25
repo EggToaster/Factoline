@@ -14,7 +14,11 @@ enuslang ={
         "Language",
         "Save file is ",
         ", use wheel to change",
-        "Crafter"
+        "Crafter",
+        "Mechanical arm",
+        "Click Button to change machine bind",
+        "Select 1st machine to bind",
+        "Select 2nd machine to bind"
     },
     langindex={
         "item.crafttable.name",
@@ -26,6 +30,10 @@ enuslang ={
         "title.lang",
         "title.saveselect1",
         "title.saveselect2",
-        "item.crafter.name"
+        "item.crafter.name",
+        "item.mecharm.name",
+        "item.mecharm.desc",
+        "item.mecharm.setstuff1",
+        "item.mecharm.setstuff2"
     }
 }

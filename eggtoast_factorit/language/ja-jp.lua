@@ -14,7 +14,11 @@ jajplang ={
         "言語",
         "セーブデータは",
         "です、マウスホイールで変更",
-        "自動作業台"
+        "自動作業台",
+        "自動アーム",
+        "機械の割り当てを変更するにはボタンをクリック",
+        "1つ目に割り当てする機械をクリック",
+        "2つ目に割り当てする機械をクリック"
     },
     langindex={
         "item.crafttable.name",
@@ -26,6 +30,10 @@ jajplang ={
         "title.lang",
         "title.saveselect1",
         "title.saveselect2",
-        "item.crafter.name"
+        "item.crafter.name",
+        "item.mecharm.name",
+        "item.mecharm.desc",
+        "item.mecharm.setstuff1",
+        "item.mecharm.setstuff2"
     }
 }

@@ -34,9 +34,9 @@ craftrecipe = {
         {result={id="copperplate"},ingrelist={"copperore","copperore"}},
         {result={id="axe"},ingrelist={"ironplate","coppergear"}},
         {result={id="crafter"},ingrelist={"irongear","ironplate","copperplate","coppergear","woodlog"}},
-        {result=nil,ingrelist=nil},
-        {result=nil,ingrelist=nil},
-        {result=nil,ingrelist=nil},
+        {result={id="mecharm"},ingrelist={"circuitboard","irongear","irongear","copperwire"}},
+        {result={id="copperwire"},ingrelist={"copperplate"}},
+        {result={id="circuitboard"},ingrelist={"copperwire","ironplate","copperplate","woodlog"}},
         {result=nil,ingrelist=nil}
     }
 }

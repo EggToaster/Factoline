@@ -181,9 +181,13 @@ inv = {
                   goto craftedbench
                 end
                 if love.keyboard.isDown("delete") then
-                  item.delete({id=plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id})
+                  if plr.inventory[(mouseOn.y-1)*8+mouseOn.x]=={} then else
+                    if plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil then else
+                  item.delete(plr.inventory[(mouseOn.y-1)*8+mouseOn.x])
                   goto craftedbench
+                  end
                 end
+              end
                 if crafteruse then
                   if plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil then else
                   if obj.list[plr.craftopeni].nbt.inv[1].id == nil then
@@ -218,7 +222,15 @@ inv = {
                   goto craftedbench
                   ::nvmcraftbench::
                 end
-              end
+                else
+                if mecharmuse then
+                    if plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil then else
+                      if obj.list[plr.craftopeni].nbt.inv.id==nil then
+                        mecharm.crafttableput(mouseOn.x,mouseOn.y)
+                      end
+                    end
+                  end
+                end
               if plr.inventory[(mouseOn.y-1)*8+mouseOn.x] ~= 0 then
                 selected.is = true
                 selected.x = mouseOn.x
