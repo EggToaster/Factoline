@@ -1,4 +1,5 @@
 state, percent = love.system.getPowerInfo( )
+require("api.mathutil")
 ltbtrnotice=true
 if state == "unknown" or state == "nobattery" then
     print("laptop battery warn unavailable")

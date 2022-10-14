@@ -37,7 +37,13 @@ craftrecipe = {
         {result={id="mecharm"},ingrelist={"circuitboard","irongear","irongear","copperwire"}},
         {result={id="copperwire"},ingrelist={"copperplate"}},
         {result={id="circuitboard"},ingrelist={"copperwire","ironplate","copperplate","woodlog"}},
+        {result={id="chest"},ingrelist={"ironplate","ironplate","copperplate"}},
+        {result=nil,ingrelist=nil},
+        {result=nil,ingrelist=nil},
+        {result=nil,ingrelist=nil},
+        {result=nil,ingrelist=nil},
         {result=nil,ingrelist=nil}
+
     }
 }
 function crtdrawrec()
@@ -69,7 +75,6 @@ craftbench={
         end
     end,
     tick = function (i)
-        crtouch=true
         if love.mouse.isDown(1) then
             if mdcrafting then
             for aai = 1,#craftbenchsquareposhover do
@@ -80,7 +85,7 @@ craftbench={
                         craftprepid = {}
                         for lahee = 1,#plr.inventory do
                             if plr.inventory[lahee].id==nil then else
-                                tmp1 = plr.inventory[lahee].id
+                                local tmp1 = plr.inventory[lahee].id
                                 itemsid = ""
                                 for i = 1,string.len(tmp1) do
                                     itemsid = itemsid..string.byte(tmp1,i)
@@ -96,7 +101,7 @@ craftbench={
                         fail = false
                         for aia = 1,#recip.ingrelist do
                             itmid = ""
-                            tmp1 = recip.ingrelist[aia]
+                            local tmp1 = recip.ingrelist[aia]
                             for i = 1,string.len(tmp1) do
                                 itmid = itmid..string.byte(tmp1,i)
                             end
