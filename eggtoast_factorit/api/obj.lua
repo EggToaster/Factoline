@@ -21,6 +21,11 @@ obj={
             mecharm.draw(i)
         end
     end
+    if obj.list[i].id=="chestplcd" then
+        if obj.list[i].nbt.craftopen==true then
+            chest.draw(i)
+        end
+    end
     end
     end,
     draw = function ()
@@ -53,18 +58,36 @@ obj={
         end
         item.give({id=obj.list[i].after,hover=1,drag=0})
         table.remove(obj.list,i)
+        for ia = 1,#obj.list do
+            if obj.list[ia].name=="mecharmplcd" then
+                if obj.list[ia].machine1==i then
+                    obj.list[ia].machine1=0
+                end
+                if obj.list[ia].machine2==i then
+                    obj.list[ia].machine2=0
+                end
+            end
+        end
     end,
     list={},
     genworld = function ()
-        loadphase2="Generating Ore"
+        loadphase2="Inserting Ore"
         loadgraphics()
         for i = 1,15 do
             obj.gen.genore("ironore")
             obj.gen.genore("copperore")
         end
+        loadphase2="Planting Tree"
+        loadgraphics()
         for i = 1,35 do
             obj.gen.make("tree",math.random(0,mapx),math.random(0,mapy),nil,{health=3})
         end
+    end,
+    getsize = function (i)
+        if table.contains(obj.sizemapid,obj.list[i].id) then
+            return obj.sizemap[indexOf(obj.sizemapid,obj.list[i].id)]
+        end
+        return 0.4
     end,
     gen={
         genore = function (id)
@@ -77,6 +100,11 @@ obj={
             ids=id
             xc=x
             yc=y
+            --[[if table.contains(obj.sizemapid,id) then
+                size=obj.sizemap[indexOf(obj.sizemaipd,id)]
+            else 
+                size=0.4
+            end]]--
             table.insert(obj.list,{id=ids,x=xc,y=yc,after=after,nbt=nbt})
         end,
         del = function (i)
@@ -84,58 +112,99 @@ obj={
         end
     },
     sizemap={
+        0.2,
         0.2
     },
     sizemapid={
-        "mecharmplcd"
+        "mecharmplcd",
+        "chestplcd"
     },
     placeable={
         "miner",
         "crafter",
-        "mecharm"
+        "mecharm",
+        "chest"
+    },
+    --container={
+    --    "miner",
+     --   "crafter",
+    --    "mecharm",
+    --    "chest"
+    --},
+    --containertype={
+    --    2,
+    --    3,
+    --    1,
+    --    4,
+    --},
+    plctag = {
+        inv= {
+            "minerplcd",
+            "chestplcd",
+            "crafterplcd",
+            "crafttable",
+            "mecharmplcd"
+        },
+        hasslot={
+            "minerplcd",
+            "crafterplcd",
+            "mecharmplcd",
+            "chestplcd"
+        },
+        hasslot2={
+            "crafterplcd"
+        },
+        slot1bothio={
+            "chestplcd"
+        }
     },
     placeablenbt={
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},timer=60,ore=nil},
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},invslt2={id=nil},timer=120,recipe=nil,craftopen=false},
-        {inv={id=nil},timer=15,machine1=nil,machine2=nil}
+        {inv={id=nil},timer=15,machine1=nil,machine2=nil,},
+        {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}}}
     },
     tick=function (dt)
         for i = 1 , #obj.list do
+            local thisistempjustforbugfix = false
             if i < #obj.list+1 then
             objwidth, objheight = gr.texture.gettex(obj.list[i].id):getDimensions()
             objwidth = objwidth/4
             objheight=objheight/4
             if plr.x > obj.list[i].x and plr.y > obj.list[i].y and plr.x < obj.list[i].x+objwidth and plr.y < obj.list[i].y+objheight then
+                if obj.list[i].id=="craftbench" then
+                    crtouch=true
+                    thisistempjustforbugfix = true
+                end
+                if obj.list[i].id=="craftbench" then
+                    craftbench.tick(i)
+                end
                 if love.keyboard.isDown("n") then
                     if obj.list[i].after == nil then else
                     obj.destroy(i)
                     break
                     end
                 end
-                if obj.list[i].id=="craftbench" then
-                    craftbench.tick(i)
-                else
-                    crtouch=false
-                    plr.craftopen=false
-                end
-                if obj.list[i].id=="crafterplcd" then
-                    crafter.tick(i)
-                end
-                if obj.list[i].id=="mecharmplcd" then
-                    mecharm.tick(i)
-                end
                 if love.keyboard.isDown("space") then
                     if spcobj then
+                        if obj.list[i].id=="chestplcd" then
+                            chest.toggleopen(i)
+                            inv.open=1
+                            print("building.chest.opened")
+                        end
                         if obj.list[i].id=="craftbench" then
                             craftbench.toggleopen(i)
+                            inv.open=1
                             print("building.craftbench.opened")
                         end
                         if obj.list[i].id=="crafterplcd" then
                             crafter.toggleopen(i)
+                            inv.open=1
                             print("machine.crafter.opened")
                         end
                         if obj.list[i].id=="mecharmplcd" then
                             mecharm.toggleopen(i)
+                            inv.open=1
                             print("machine.mecharm.opened")
                         end
                         if obj.list[i].id=="ironore" then
@@ -176,6 +245,18 @@ obj={
             end
         end
         end
+        if obj.list[i].id=="craftbench" then
+            if thisistempjustforbugfix == false then
+                crtouch=false
+            end
+        end
+        if obj.list[i].id=="crafterplcd" then
+            crafter.tick(i)
+        end
+        if obj.list[i].id=="mecharmplcd" then
+            mecharm.tick(i)
+        end
+        thisistempjustforbugfix = false
     end
     end
 }

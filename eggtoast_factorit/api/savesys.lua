@@ -16,5 +16,18 @@ savesys={
         plr.inventory = toload.plr.inv
         plr.x = toload.plr.posx
         plr.y = toload.plr.posy
+        --[[local sz
+        for i = 1,#obj.list do
+           if keyOf(obj.list[i],size) == nil then
+               if table.contains(obj.sizemapid,obj.list[i].id) then
+                    sz=obj.sizemap[obj.sizemaipd.indexOf(obj.list[i].id)]
+                    table.insert(obj.list[i],{size=sz})
+                    print("migrate.load.obj.size")
+                else 
+                    sz=0.4
+                    table.insert(obj.list[i],size)
+                end
+            end
+        end]]--
     end
 }

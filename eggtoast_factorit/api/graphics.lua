@@ -35,8 +35,8 @@ gr = {
         end
     },
     texture={
-        gettex = function (texstr)
-            return(gr.texture.texture[indexOf(gr.texture.texture2,texstr..".png")])
+        gettex = function (texstrg)
+            return(gr.texture.texture[indexOf(gr.texture.texture2,texstrg..".png")])
         end,
         texture={},
         load = function ()
