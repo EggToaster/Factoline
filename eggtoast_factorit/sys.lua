@@ -120,10 +120,7 @@ function love.keypressed(key)
         if key=="escape" or key=="e" then
         love.event.quit()
         else
-    if key=="f11" then
-        love.graphics.captureScreenshot("factorit-"..tostring(os.time))
-    end
-    if key=="p" then
+    --[[if key=="p" then
             if ftd then else
             readres = conf.fullscreen
             if readres=="true" then
@@ -135,7 +132,7 @@ function love.keypressed(key)
             love.filesystem.write("cfg.json",json.encode(conf))
             ftd =true
         end
-    end
+    end]]--
 end
     else
         gamekey(key)
@@ -173,6 +170,17 @@ function gamekey(key)
         title=true
         else
             plr.craftopen=false
+            crafteruse=false
+            plr.craftopeni=nil
+            print("craftoff")
+            plr.craftopen=false
+            for i = 1,#obj.list do
+                if table.haskey(obj.list[i].nbt,"craftopen") then
+                    if obj.list[i].nbt.craftopen==true then
+                        obj.list[i].nbt.craftopen=false
+                    end
+                end
+            end
             inv.open = 0
         end
     end
@@ -189,8 +197,10 @@ function gamedraw()
     else
         love.graphics.setBackgroundColor(255,255,255)
     if plr.rot=="left"then
+        ---@diagnostic disable-next-line: param-type-mismatch
         love.graphics.draw(gr.texture.gettex("character1"),plr.x,plr.y,0,0.1,0.1)
         else
+---@diagnostic disable-next-line: param-type-mismatch
         love.graphics.draw(gr.texture.gettex("character1reverse"),plr.x,plr.y,0,0.1,0.1)
         end
         if plr.handrot==1 then
@@ -232,9 +242,9 @@ cam:attach()
     if loading==1 then
     else
         love.graphics.setBackgroundColor(255,255,255)
-    if plr.rot=="left"then
+    if plr.rot=="left"then        ---@diagnostic disable-next-line: param-type-mismatch
         love.graphics.draw(gr.texture.gettex("character1"),plr.x,plr.y,0,0.1,0.1)
-        else
+        else        ---@diagnostic disable-next-line: param-type-mismatch
         love.graphics.draw(gr.texture.gettex("character1reverse"),plr.x,plr.y,0,0.1,0.1)
         end
         if plr.handrot==1 then
