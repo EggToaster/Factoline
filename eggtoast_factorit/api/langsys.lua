@@ -31,7 +31,14 @@ lang ={
         "title.fullscreen",
         "title.back",
         "title.fullscreentogglewarn",
-        "title.lang"
+        "title.lang",
+        "title.saveselect1",
+        "title.saveselect2",
+        "item.crafter.name",
+        "item.mecharm.name",
+        "item.mecharm.desc",
+        "item.mecharm.setstuff1",
+        "item.mecharm.setstuff2"
     }
 }
 if conf.lang == "jajp" then

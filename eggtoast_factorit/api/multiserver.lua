@@ -3,12 +3,12 @@ function mulplay.serverrun()
 local host = enet.host_create("localhost:6789")
 info = love.filesystem.getInfo("savegame/server.fsg")
 if info==nil then
-plr.x={mapx/2}
-plr.y={mapx/2}
+--plr.x={mapx/2}
+--plr.y={mapx/2}
 plr.handrot=0
 plr.craftopen=false
 plr.rot="right"
-plr.lst={"Toshikawa","Kazekawa"}
+plr.lst={"Toshikawa"}
 plr.inventory={{{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="miningpick"},{id="crafttable"},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="trash"}},{{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="miningpick"},{id="crafttable"},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="trash"}}}
 plr.hotselect=1
 obj.list={}

@@ -18,11 +18,13 @@ discordRPC = require("api.discordRPC")
 
 appId = "940840855957291018"
 function love.load()
+    lume = require("lume")
+lurker = require("lurker")
     ftd=false
 ---@diagnostic disable-next-line: discard-returns
 math.randomseed(os.time());math.random();math.random();math.random()
-    mapx=2500
-    mapy=2500
+    mapx=50000
+    mapy=50000
     dbg="a"
     require("api.donut")
     require("loadapi")

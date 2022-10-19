@@ -43,6 +43,7 @@ crafter={
                     end
                 end
             end
+            if crafteruse then
             if crafterhover=={{hover=0},{hover=0},{hover=0},{hover=0},{hover=0},{hover=0},{hover=0},{hover=0}} then else
                 print("crafter.extractitem")
                 for iii = 1,8 do
@@ -57,6 +58,7 @@ crafter={
                     end
                 end
             end
+        end
         end
         mdcrafting = false
     else

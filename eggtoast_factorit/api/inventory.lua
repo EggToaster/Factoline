@@ -148,10 +148,6 @@ inv = {
             end
           end
           local drawX = (9-1)*30+55
-          local drawY = (4-1)*30+80
-            love.graphics.setColor(1,1,1)
-            love.graphics.draw(gr.texture.gettex("trash"),drawX,drawY,0,0.065,0.065)
-          local drawX = (9-1)*30+55
           local drawY = (5-1)*30+80
           local item = plr.inventory[(5-1)*8+9]
           if item.id==nil then else

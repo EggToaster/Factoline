@@ -34,12 +34,20 @@ function loadergame()
     require("api.obj")
     loadphase2="obj"
     loadgraphics()
+    require("api.gui")
+    loadphase2="gui"
+    loadgraphics()
+    require("api.guiloader")
+    loadphase2="guiloader"
+    loadgraphics()
+    guiload.loadgui()
     require("api.sfx")
     love.audio.setVolume(0.25)
     loadphase2="sfx"
     loadgraphics()
     camera = require("api.camera")
     cam = camera()
+    mnm = camera()
     loadphase="Loading Texture Index"
     loadphase2="undefined"
     loadgraphics()
@@ -54,7 +62,6 @@ function loadergame()
     loadphase2="undefined"
     loadphase="DONE!"
     loadgraphics()
-    wait(0.3)
     love.graphics.setColor(0,0,0)
     loading=0
 end

@@ -32,6 +32,18 @@ gr = {
             ky = ky or 0
             love.graphics.setColor(0,0,0)
             love.graphics.draw(obj,x,y,r,sx,sy,ox,oy,kx,ky)
+        end,
+        box = function (x,y,sx,sy,cx,cy,cz,bx,by,bz)
+            cx = cx or 0
+            cy = cy or 0
+            cz = cz or 0
+            bx = bx or 1
+            by = by or 1
+            bz = bz or 1
+            love.graphics.setColor(cx,cy,cz)
+            love.graphics.rectangle("fill",x,y,sx,sy)
+            love.graphics.setColor(bx,by,bz)
+            love.graphics.rectangle("line",x,y,sx,sy)
         end
     },
     texture={

@@ -53,13 +53,15 @@ mecharm={
                     end
                 end
                 mecharmstat=0
-        end
+            else
+        print("moreaaaa")
                 if ((mx - 300) > 0) and ((mx - 300) <= 25) and ((my - 55) > 0) and ((my - 55) <=25) then
                     item.give(obj.list[i].nbt.inv)
                     obj.list[i].nbt.inv={id=nil}
                 end
-                if ((mx - 55) > 0) and ((mx - 55) <= 25) and ((my - 280) > 0) and ((my - 280) <=25) then
+                if ((mx >= 55) and (mx <= 80) and (my >= 280) and (my <= 305)) then
                     mecharmstat=1
+                    print("aosdjasdojiasdijos")
                 end
                 if ((mx - 125) > 0) and ((mx - 125) <= 25) and ((my - 280) > 0) and ((my - 280) <=25) then
                     mecharmstat=2
@@ -69,6 +71,7 @@ mecharm={
                     obj.list[i].nbt.inv={id=nil}
                 end
             end
+        end
             mdcrafting=false
         else
             mdcrafting=true

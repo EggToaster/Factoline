@@ -9,5 +9,8 @@
     ],
     "Lua.diagnostics.globals": [
         "host"
-    ]
+    ],
+    "pixelbyte.love2d.srcDir": "./eggtoast_factorit",
+    "Love2d Run": false,
+    "pixelbyte.love2d.path": "E:\\.toshistuff\\lua\\factorygame\\love.exe"
 }

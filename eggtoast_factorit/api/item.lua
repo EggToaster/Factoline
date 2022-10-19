@@ -121,6 +121,11 @@ end
         print("failed to delete item "..tbl.id.." err.notfoundtarget returning false")
     end
 end
-return(false)
+return false
+end,
+repl = function (src,tbl)
+    if item.delete(src) then
+        item.give(tbl)
+    end
 end
 }

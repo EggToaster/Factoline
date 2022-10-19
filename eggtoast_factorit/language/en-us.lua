@@ -18,7 +18,8 @@ enuslang ={
         "Mechanical arm",
         "Click Button to change machine bind",
         "Select 1st machine to bind",
-        "Select 2nd machine to bind"
+        "Select 2nd machine to bind",
+        "General"
     },
     langindex={
         "item.crafttable.name",
@@ -34,6 +35,7 @@ enuslang ={
         "item.mecharm.name",
         "item.mecharm.desc",
         "item.mecharm.setstuff1",
-        "item.mecharm.setstuff2"
+        "item.mecharm.setstuff2",
+        "stng.general"
     }
 }

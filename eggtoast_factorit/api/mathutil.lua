@@ -74,3 +74,16 @@ function table.haskey(t,k)
     end
     return false
 end
+function table.alltrue(t)
+    fail = false
+   for i = 1,#t do
+    if t[i]==false then
+        fail=true
+        break
+    end
+   end
+   if fail==false then
+    return true 
+   end
+   return false
+end

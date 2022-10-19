@@ -34,6 +34,10 @@ obj={
               --  if obj.list[i].x > plr.x-dividewidth then
                 --    if obj.list[i].y < divideheight+plr.y then
                   --      if obj.list[i].y > plr.y-divideheight then
+                  local this = obj.list[i]
+                  local cx,cy = cam:cameraCoords(this.x,this.y)
+                  local dx,dy = love.graphics.getDimensions()
+                  if cx>=-1000 and cx<=dx+1000 and cy >= -1000 and cy <= dy+1000 then
                   if table.contains(obj.sizemapid,obj.list[i].id) then
                             love.graphics.draw(gr.texture.gettex(obj.list[i].id),obj.list[i].x,obj.list[i].y,0,obj.sizemap[indexOf(obj.sizemapid,obj.list[i].id)],obj.sizemap[indexOf(obj.sizemapid,obj.list[i].id)])
                   else
@@ -46,6 +50,7 @@ obj={
                                     love.graphics.setColor(1,1,1)
                                 end
                             end
+                        end
                    --     end
                 --    end
             --    end
@@ -69,17 +74,17 @@ obj={
             end
         end
     end,
-    list={},
+    list={}, -- old 1 new 2000
     genworld = function ()
         loadphase2="Inserting Ore"
         loadgraphics()
-        for i = 1,15 do
+        for i = 1,5000 do
             obj.gen.genore("ironore")
             obj.gen.genore("copperore")
         end
         loadphase2="Planting Tree"
         loadgraphics()
-        for i = 1,35 do
+        for i = 1,3000 do
             obj.gen.make("tree",math.random(0,mapx),math.random(0,mapy),nil,{health=3})
         end
     end,
@@ -138,6 +143,11 @@ obj={
     --    4,
     --},
     plctag = {
+        nature = {
+            "tree",
+            "ironore",
+            "copperore"
+        },
         inv= {
             "minerplcd",
             "chestplcd",
@@ -234,6 +244,7 @@ obj={
                                     if obj.list[i].nbt.health==0 then
                                     item.give({id="woodlog"})
                                     obj.destroy(i)
+                                    break
                                     end
                                 end
                             end

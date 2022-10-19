@@ -18,7 +18,8 @@ jajplang ={
         "自動アーム",
         "機械の割り当てを変更するにはボタンをクリック",
         "1つ目に割り当てする機械をクリック",
-        "2つ目に割り当てする機械をクリック"
+        "2つ目に割り当てする機械をクリック",
+        "一般"
     },
     langindex={
         "item.crafttable.name",
@@ -34,6 +35,7 @@ jajplang ={
         "item.mecharm.name",
         "item.mecharm.desc",
         "item.mecharm.setstuff1",
-        "item.mecharm.setstuff2"
+        "item.mecharm.setstuff2",
+        "stng.general"
     }
 }

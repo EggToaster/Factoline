@@ -29,22 +29,22 @@ plr={
         if plr.inventory[plr.hotselect+32].id=="miningpick" then
         if plr.handrot==1 then
             if plr.rot=="left"then
-                love.graphics.draw(gr.texture.gettex("miningpickud"),plr.x+4,plr.y+21,0,0.1,0.1)
+                love.graphics.draw(gr.texture.gettex("miningpickud"),plr.x+4-25,plr.y+21-50,0,0.1,0.1)
                 else
-                love.graphics.draw(gr.texture.gettex("miningpickreverseud"),plr.x-4,plr.y+21,0,0.1,0.1)
+                love.graphics.draw(gr.texture.gettex("miningpickreverseud"),plr.x-4-25,plr.y+21-50,0,0.1,0.1)
                 end
             else
                 if plr.rot=="left"then
-                    love.graphics.draw(gr.texture.gettex("miningpick"),plr.x+20,plr.y+21,0,0.1,0.1)
+                    love.graphics.draw(gr.texture.gettex("miningpick"),plr.x+20-25,plr.y+21-50,0,0.1,0.1)
                     else
-                    love.graphics.draw(gr.texture.gettex("miningpickreverse"),plr.x-21,plr.y+22,0,0.1,0.1)
+                    love.graphics.draw(gr.texture.gettex("miningpickreverse"),plr.x-21-25,plr.y+22-50,0,0.1,0.1)
                     end
             end
         else
             if plr.rot=="left"then
-                love.graphics.draw(gr.texture.gettex(plr.inventory[plr.hotselect+32].id),plr.x+20,plr.y+21,0,0.1,0.1)
+                love.graphics.draw(gr.texture.gettex(plr.inventory[plr.hotselect+32].id),plr.x+20-25,plr.y+21-50,0,0.1,0.1)
                 else
-                love.graphics.draw(gr.texture.gettex(plr.inventory[plr.hotselect+32].id),plr.x-21,plr.y+22,0,0.1,0.1)
+                love.graphics.draw(gr.texture.gettex(plr.inventory[plr.hotselect+32].id),plr.x-21-25,plr.y+22-50,0,0.1,0.1)
                 end
         end
     end
