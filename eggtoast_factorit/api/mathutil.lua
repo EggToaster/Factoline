@@ -39,6 +39,14 @@ function table.len(T)
     for _ in pairs(T) do count = count + 1 end
     return count
 end
+function indexOf(array, value)
+    for i, v in ipairs(array) do
+        if v == value then
+            return i
+        end
+    end
+    return nil
+end
 function table.keylist(t)
     local keys={}
     for key,_ in pairs(t) do
@@ -87,3 +95,11 @@ function table.alltrue(t)
    end
    return false
 end
+function table.contains(table, element)
+    for _, value in pairs(table) do
+      if value == element then
+        return true
+      end
+    end
+    return false
+  end

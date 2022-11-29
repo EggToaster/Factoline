@@ -76,14 +76,10 @@ obj={
     end,
     list={}, -- old 1 new 2000
     genworld = function ()
-        loadphase2="Inserting Ore"
-        loadgraphics()
         for i = 1,5000 do
             obj.gen.genore("ironore")
             obj.gen.genore("copperore")
         end
-        loadphase2="Planting Tree"
-        loadgraphics()
         for i = 1,3000 do
             obj.gen.make("tree",math.random(0,mapx),math.random(0,mapy),nil,{health=3})
         end
