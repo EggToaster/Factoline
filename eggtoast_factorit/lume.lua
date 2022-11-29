@@ -25,6 +25,7 @@
 local lume = { _version = "2.3.0" }
 
 local pairs, ipairs = pairs, ipairs
+---@diagnostic disable-next-line: deprecated
 local type, assert, unpack = type, assert, unpack or table.unpack
 local tostring, tonumber = tostring, tonumber
 local math_floor = math.floor

@@ -1,10 +1,17 @@
+--literal trash gotta remove this soon
 state, percent = love.system.getPowerInfo( )
+--device are fone,pc,switch,3ds(named as threds due to lua = no var start from int),dsi(why too old),wii(also why),wiiu,ps4,ps5,xboxone,xboxs(xbox 4th gen i mean sx/ss)
+    device = require("api.devicepreset").pc
+--waow best lib
 require("api.mathutil")
+--2nd literal trash
 ltbtrnotice=true
+--also literal trash
 if state == "unknown" or state == "nobattery" then
     print("laptop battery warn unavailable")
     ltbtrnotice=false
 end
+--important
 function table.contains(table, element)
     for _, value in pairs(table) do
       if value == element then
@@ -13,7 +20,11 @@ function table.contains(table, element)
     end
     return false
   end
+  --not needed but its cool
+  -- if are detecting is it console
+  if not device.console then
 discordRPC = require("api.discordRPC")
+  end
 
 
 appId = "940840855957291018"
@@ -69,6 +80,7 @@ math.randomseed(os.time());math.random();math.random();math.random()
     loadergame()
     require("sys")
 end
+if not device.console then
 function discordRPC.ready(userId, username, discriminator, avatar)
     print(string.format("Discord: ready (%s, %s, %s, %s)", userId, username, discriminator, avatar))
 end
@@ -91,6 +103,7 @@ end
 function discordRPC.joinRequest(userId, username, discriminator, avatar)
     print(string.format("Discord: join request (%s, %s, %s, %s)", userId, username, discriminator, avatar))
     discordRPC.respond(userId, "yes")
+end
 end
 function wait(seconds)
     local start = os.time()
