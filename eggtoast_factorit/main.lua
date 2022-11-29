@@ -1,14 +1,12 @@
 appId = "940840855957291018"
-device = require("api.devicepreset").pc
-love.graphics.setColor(1,1,1,100)
-love.graphics.setBackgroundColor(0,0,0,100)
+device = require("api.spec.devicepreset").pc
 function love.load()
     require("api.mathutil")
     if not device.console then
-        discordRPC = require("api.discordRPC")
-        lume = require("api.lume")
-        lurker = require("api.lurker")
-        require("api.donut")
+        discordRPC = require("api.3rd.discordRPC")
+        lume = require("api.3rd.lume")
+        lurker = require("api.3rd.lurker")
+        require("api.3rd.donut")
         donut = Donut.init(10, 10)
         fps = donut.add("FPS")
         xdebug=donut.add("X")

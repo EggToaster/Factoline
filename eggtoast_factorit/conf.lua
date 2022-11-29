@@ -1,4 +1,4 @@
-json = require("api.json")
+json = require("api.3rd.json")
 function table.contains(table, element)
     for _, value in pairs(table) do
       if value == element then
