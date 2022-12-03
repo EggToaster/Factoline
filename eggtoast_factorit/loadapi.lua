@@ -2,12 +2,10 @@ function loadergame()
     --deprecated soon more info:api/dprc/readme.txt
     require("api.dprc.graphics")
     require("api.dprc.savesys")
-    enet = require("enet")
     love.graphics.clear()
     love.graphics.setColor(0,0,0)
     love.graphics.print("LOADING GAME",100,100,1,1)
     love.graphics.present()
-    love.window.setIcon(love.image.newImageData("res/500icon.png"))
     --loaders
     require("api.loader.texload")
     require("api.loader.guiloader")

@@ -1,22 +1,11 @@
 json = require("api.3rd.json")
-function table.contains(table, element)
-    for _, value in pairs(table) do
-      if value == element then
-        return true
-      end
-    end
-    return false
-  end
+device = require("api.spec.devicepreset").switch
+require("api.mathutil")
 function love.conf(t)
+t.console = {"192.168.1.3", 8000,true}
     t.identity = "eggtoast_factorit"
     t.window.title = "Factorit!"
-    t.window.icon = "res/factoryicn.bmp"
-    t.window.width = 1024
-    t.window.height = 768
     t.version = "11.3"
-    t.window.resizable = true
-    t.window.minwidth = 1024
-    t.window.minheight = 768
     --info = love.filesystem.getInfo("config/fullscreen.txt")
     --if info == nil then
     --    love.filesystem.newFile("config/fullscreen.txt")
@@ -25,6 +14,8 @@ function love.conf(t)
     info = love.filesystem.getInfo("cfg.json")
     if info == nil then
         love.filesystem.newFile("cfg.json")
+        if device.device=="NS" then
+        end
         love.filesystem.write("cfg.json",'{"mute":false,"fullscreen":false,"lang":"enus"}')        
     end
     info = love.filesystem.getInfo("savegame")
@@ -37,11 +28,7 @@ function love.conf(t)
         love.filesystem.write("cfg.json",'{"mute":false,"fullscreen":false,"lang":"enus"}')  
     end
 
-    if conf.fullscreen=="true" then
         t.window.fullscreen = true
-    else
-        t.window.fullscreen = false
-    end
 end
 function love.lowmemory()
     print("Running Out Of memory.(ALMOST CRASH!)")

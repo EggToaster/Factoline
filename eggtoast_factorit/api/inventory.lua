@@ -1,5 +1,3 @@
-local mx,my = love.mouse.getPosition()
-
 local mouseOn = {is=false,x=1,y=1}
 
 local selected = {is=false,x=1,y=1}
@@ -51,7 +49,7 @@ inv = {
     },
     
     sys = function ()
-        local mx,my = love.mouse.getPosition()
+        local mx,my = mouse.getPos()
 
         mouseOn.is = false
         for y=1,5 do
@@ -155,7 +153,7 @@ inv = {
             love.graphics.draw(gr.texture.gettex(item.id),drawX,drawY,0,0.065,0.065)
           end
           if selected.is and mouseOn.trash==false then
-            local mx,my = love.mouse.getPosition()
+            local mx,my = mouse.getPos()
             love.graphics.setColor(1,1,1)
             local item = plr.inventory[(selected.y-1)*8+selected.x]
             --print("[debug]".."invselectdraw "..tostring(item.id).." "..tostring((selected.y-1)*8+selected.x))
@@ -171,7 +169,7 @@ inv = {
               if mouseOn.trash then
                 --plr.inventory[(selected.y-1)*8+selected.x].id = nil
               else
-                if love.keyboard.isDown("l") and plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id =="ironore" then
+                --[[if love.keyboard.isDown("l") and plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id =="ironore" then
                   plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id = "crafttable"
                   print("crafted crafttable")
                   goto craftedbench
@@ -183,7 +181,7 @@ inv = {
                   goto craftedbench
                   end
                 end
-              end
+              end]]
                 if crafteruse then
                   if plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil then else
                   if obj.list[plr.craftopeni].nbt.inv[1].id == nil then
@@ -207,7 +205,6 @@ inv = {
                               if obj.list[plr.craftopeni].nbt.inv[7].id == nil then
                                 crafttableput(7,mouseOn.x,mouseOn.y)
                               else
-                                goto nvmcraftbench
                               end
                             end
                           end
@@ -215,8 +212,6 @@ inv = {
                       end
                     end
                   end
-                  goto craftedbench
-                  ::nvmcraftbench::
                 end
                 else
                 if mecharmuse then
@@ -236,7 +231,6 @@ inv = {
                 end
               end
             end
-            ::craftedbench::
             else
               if mouseOn.trash then
                -- plr.inventory[(selected.y-1)*8+selected.x].id = nil

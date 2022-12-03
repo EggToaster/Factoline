@@ -30,6 +30,7 @@ function keyOf(tbl, value)
 end
 function love.update(dt)
     gui.action()
+    mouse.tick(dt)
     if hotswap then
     local scanned = lurker.scan()
     end
@@ -93,34 +94,37 @@ function love.update(dt)
         end]]
         else
         if title then
-        mousecoordx,mousecoordy = love.mouse.getPosition()
-        if love.mouse.isDown(1) and clicktitle==false and mousecoordx>250 and mousecoordy>350 and mousecoordx<750 and mousecoordy<500 then
-            info = love.filesystem.getInfo("savegame/save"..tostring(saveselecter)..".fsg")
-            if info==nil then
-            plr.x=math.random(500,mapx-500)
-            plr.y=math.random(500,mapy-500)
-            plr.handrot=0
-            plr.craftopen=false
-            plr.rot="right"
-            plr.inventory={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="miningpick"},{id="crafttable"},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="trash"}}
-            plr.hotselect=1
-            obj.list={}
-            title=false
-            obj.genworld()
-            grabbing=plr.inventory[plr.hotselect+32]
-            else
-                savesys.load(json.decode(love.filesystem.read("savegame/save"..tostring(saveselecter)..".fsg")))
-                --mulplay.join("localhost:6789")
-                title=false
-            end
+        mousecoordx,mousecoordy = mouse.getPos()
+        if mouse.ison(1) and clicktitle==false and mousecoordx>250 and mousecoordy>350 and mousecoordx<750 and mousecoordy<500 then
+            makegame()
         end
-        if love.mouse.isDown(1) and clicktitle==false and mousecoordx>250 and mousecoordy>525 and mousecoordx<750 and mousecoordy<700 then
+        if mouse.ison(1) and clicktitle==false and mousecoordx>250 and mousecoordy>525 and mousecoordx<750 and mousecoordy<700 then
             stng=true
         end
     end
 end
+function makegame()
+    info = love.filesystem.getInfo("savegame/save"..tostring(saveselecter)..".fsg")
+    if info==nil then
+    plr.x=math.random(500,mapx-500)
+    plr.y=math.random(500,mapy-500)
+    plr.handrot=0
+    plr.craftopen=false
+    plr.rot="right"
+    plr.inventory={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="miningpick"},{id="crafttable"},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="trash"}}
+    plr.hotselect=1
+    obj.list={}
+    title=false
+    obj.genworld()
+    grabbing=plr.inventory[plr.hotselect+32]
+    else
+        savesys.load(json.decode(love.filesystem.read("savegame/save"..tostring(saveselecter)..".fsg")))
+        --mulplay.join("localhost:6789")
+        title=false
+    end
+end
 if title then
-    if love.mouse.isDown(1) then
+    if mouse.ison(1) then
         clicktitle=true
     else
         clicktitle=false
@@ -129,28 +133,45 @@ else
     gameupdate(dt)
 end
 end
+---@diagnostic disable-next-line: duplicate-set-field
 function love.keypressed(key)
     if title then
         if key=="escape" or key=="e" then
         love.event.quit()
         else
-end
+    end
     else
         gamekey(key)
     end
-end
-function love.mousepressed(x,y,b)
-    inv.mouseclick(x,y,b)
-    if x > 295 and x <= 295+25 and y > 170 and y <= 170+25 then
-        for i = 1,#plr.inventory do
-            if plr.inventory[i].id=="ironore" then
-                plr.inventory[i].id="crafttable"
-                sfx.use("woodcut")
-                break
-            end
-        end
+    if joymode then
+        joymode = false
+        print("key")
+        mouse.device="mouse"
     end
-  end
+end
+function love.joystickpressed(joystick,button)
+    joysticks = love.joystick.getJoysticks()[1]
+    if not joymode then
+        joymode = true
+        print("pad")
+        mouse.device="stick"
+    end
+    if title then
+        if joysticks:isGamepadDown("a") then
+            makegame()
+        end
+        if joysticks:isGamepadDown("x") then
+            love.quit()
+        end
+    else
+        gamepad(button)
+    end
+end
+--if not device.padonly then
+function love.mousepressed(x,y,b)
+    mouse.mouseevent(x,y,b)
+--end
+end
 function love.wheelmoved(x, y)
     if title then
         if y <= 0 then
@@ -186,6 +207,7 @@ end
 fntgame = love.graphics.newFont("rmpfont.ttf",30)
 love.graphics.setFont(fntgame)
 mousedebug=true
+---@diagnostic disable-next-line: duplicate-set-field
 function love.draw()
     if title then
         if stng then
@@ -223,4 +245,5 @@ function love.draw()
         love.graphics.print((love.mouse.getX().." "..love.mouse.getY()),0,0,0,1,1)
         love.graphics.setColor(1,1,1)
     end
+    mouse.draw()
 end

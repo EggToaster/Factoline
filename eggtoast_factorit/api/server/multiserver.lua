@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-field
 function mulplay.serverrun()
-local host = enet.host_create("localhost:6789")
+local host = nil--enet.host_create("localhost:6789")
 info = love.filesystem.getInfo("savegame/server.fsg")
 if info==nil then
 --plr.x={mapx/2}

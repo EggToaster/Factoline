@@ -75,7 +75,7 @@ craftbench={
         end
     end,
     tick = function (i)
-        if love.mouse.isDown(1) then
+        if mouse.ison(1) then
             if mdcrafting then
             for aai = 1,#craftbenchsquareposhover do
                 if craftbenchsquareposhover[aai].hover==0 then
@@ -87,7 +87,9 @@ craftbench={
                             if plr.inventory[lahee].id==nil then else
                                 local tmp1 = plr.inventory[lahee].id
                                 itemsid = ""
+---@diagnostic disable-next-line: param-type-mismatch
                                 for i = 1,string.len(tmp1) do
+---@diagnostic disable-next-line: param-type-mismatch
                                     itemsid = itemsid..string.byte(tmp1,i)
                                 end
                                 if table.contains(craftprepid,itemsid) then
@@ -135,7 +137,7 @@ craftbench={
         love.graphics.setColor(1,1,1)
         love.graphics.print(lang.gettxt("item.crafttable.name"),55,245,0,0.5,0.5)
         insqp=craftbenchsquarepos
-        mx,my = love.mouse.getPosition()
+        mx,my = mouse.getPos()
         for i = 1, #craftbenchsquarepos do
             if ((mx - insqp[i].x) > 0) and ((mx - insqp[i].x) <= 25) and ((my - insqp[i].y) > 0) and ((my - insqp[i].y) <= 25) then        
                 craftbenchsquareposhover[i].hover=0

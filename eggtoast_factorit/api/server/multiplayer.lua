@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-field
+---@diagnostic disable: undefined-field, undefined-global
 mulplay = {}
 playerid="Toshikawa"
 require("api.multiserver")

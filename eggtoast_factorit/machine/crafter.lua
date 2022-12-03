@@ -30,7 +30,7 @@ crafter={
     end,
     tick = function (i)
         crtouch=true
-        if love.mouse.isDown(1) then
+        if mouse.ison(1) then
             if mdcrafting then
                 
             for aai = 1,#craftbenchsquareposhover do
@@ -235,7 +235,7 @@ crafter={
           --      love.graphics.rectangle("fill",craftbenchx[aaai],craftbenchsquarepos[ai].y,30,30)
           --      love.graphics.setColor(0,0,0)
           --  end
-          mx,my = love.mouse.getPosition()
+          mx,my = mouse.getPos()
           for iaz = 1,8 do
             if iaz == 1 then
                 if ((mx - 335) > 0) and ((mx - 335) <= 25) and ((my - 55) > 0) and ((my - 55) <=25) then

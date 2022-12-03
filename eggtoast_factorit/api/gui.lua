@@ -82,13 +82,13 @@ gui = {
     end,
     action = function (tbl)
         tbl = gui.tempguinow
-        if love.mouse.isDown(1) then
+        if mouse.ison(1) then
             if gui.mouseclick==false then
                 if tbl==nil then else
                     if table.haskey(tbl,"button") then
                 for i = 1,#tbl.button do
                     local this = tbl.button[i]
-                    local mx,my = love.mouse.getPosition()
+                    local mx,my = mouse.getPos()
                     if mx >= this.pos[1] and mx <= this.pos[1]+this.size[1] and my >= this.pos[2] and my <= this.pos[2]+this.size[2] then
                         this.action()
                     end
@@ -97,7 +97,7 @@ gui = {
             if table.haskey(tbl,"slider") then
                 for i = 1,#tbl.slider do
                     local this = tbl.slider[i]
-                    local mx,my = love.mouse.getPosition()
+                    local mx,my = mouse.getPos()
                     if mx >= this.pos[1] and mx <= this.pos[1]+this.wid and my >= this.pos[2]+gui.script.sliderpos and my <= this.pos[2]+this.wid+gui.script.sliderpos then
                         gui.script.slideron = true
                         print("Dasdasdasdsdadsads")
@@ -109,7 +109,7 @@ gui = {
             if tbl==nil then else
             if table.haskey(tbl,"slider") then
             for i = 1,#tbl.slider do
-                local mx,my = love.mouse.getPosition()
+                local mx,my = mouse.getPos()
                 local this = tbl.slider[i]
             if gui.script.slideron == true then
                 gui.script.sliderpos = my-this.pos[2]

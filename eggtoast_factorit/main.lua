@@ -1,5 +1,20 @@
 appId = "940840855957291018"
 device = require("api.spec.devicepreset").pc
+require("api.spec.mouse")
+if device.noclick then
+    if device.console then
+        mouse.device="stick"
+    else
+        mouse.device="touch"
+    end
+else
+    mouse.device="mouse"
+end
+if device.padonly then
+    joymode = true
+end
+joysticks = love.joystick.getJoysticks()[1]
+---@diagnostic disable-next-line: undefined-field
 function love.load()
     require("api.mathutil")
     if not device.console then
@@ -12,6 +27,7 @@ function love.load()
         xdebug=donut.add("X")
         ydebug=donut.add("Y")
     end
+    joymode = device.padonly
     for i = 1,2 do
         math.randomseed(os.time());math.random();math.random();math.random()
     end
@@ -21,7 +37,13 @@ function love.load()
     loading=true
     title=true
     fulltogg=true
-    titleimg = love.graphics.newImage("res/factoryicn.png")
+    local devtf=""
+    if device.device=="3DS" then
+        devtf = "t3x"
+    else
+        devtf = "png"
+    end
+    titleimg = love.graphics.newImage("res/factoryicn."..devtf)
     crtkeypress=true
     if not device.console then
     discordRPC.initialize(appId, true)

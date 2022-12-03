@@ -78,6 +78,7 @@ local devicepreset = {
         dualscreen = false,
         padonly = true,
         noclick = true,
+        device="NS",
         padbutton = {
             "A","B","X","Y",
             "L","R",

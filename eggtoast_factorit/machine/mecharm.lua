@@ -1,11 +1,11 @@
 mecharmstat=0
 mecharm={
     tick=function (i)
-        mx,my = love.mouse.getPosition()
-        if love.mouse.isDown(1) then
+        mx,my = mouse.getPos()
+        if mouse.ison(1) then
             if mdcrafting then
                 if mecharmstat==1 then
-                    mx,my = love.mouse.getPosition()
+                    mx,my = mouse.getPos()
                     mx,my = cam:mousePosition()
                     --print("debug "..tostring(mx)..tostring(my))
                     for sr = 1,#obj.list do
@@ -30,7 +30,7 @@ mecharm={
                     mecharmstat=0
             end
             if mecharmstat==2 then
-                mx,my = love.mouse.getPosition()
+                mx,my = mouse.getPos()
                 mx,my = cam:mousePosition()
                 --print("debug "..tostring(mx)..tostring(my))
                 for sr = 1,#obj.list do

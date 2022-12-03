@@ -8,6 +8,7 @@ gr.texture = {
     end,
     parse = function ()
         for i=1,#gr.texture.texture2 do
+            local fn = gr.texture.texture2[i]
             table.insert(gr.texture.texture,love.graphics.newImage("/res/"..gr.texture.texture2[i]))
         end
     end

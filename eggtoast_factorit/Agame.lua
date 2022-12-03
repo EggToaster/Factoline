@@ -29,15 +29,156 @@ function gamekey(key)
             end
             inv.open = 0
         end
+    if love.keyboard.isDown("1") then
+        plr.hotselect=1
+    end
+    if love.keyboard.isDown("2") then
+        plr.hotselect=2
+    end
+    if love.keyboard.isDown("3") then
+        plr.hotselect=3
+    end
+    if love.keyboard.isDown("4") then
+        plr.hotselect=4
+    end
+    if love.keyboard.isDown("5") then
+        plr.hotselect=5
+    end
+    if love.keyboard.isDown("6") then
+        plr.hotselect=6
+    end
+    if love.keyboard.isDown("7") then
+        plr.hotselect=7
+    end
+    if love.keyboard.isDown("8") then
+        plr.hotselect=8
+    end
+    if love.keyboard.isDown("9") then
+        plr.hotselect=9
+    end
+    if love.keyboard.isDown("i") then
+        if inv.open==1 then
+            inv.open=0
+        else
+            inv.open=1
+        end
     end
 end
+end
 
+function gamepad(button)
+    if joysticks:isGamepadDown("x") then
+        if inv.open==1 then
+            inv.open=0
+        else
+            inv.open=1
+        end
+    end
+    if joysticks:isGamepadDown("back") then
+        spdrun = spdrun + 1
+        if spdrun==6 then
+            spdrun=1
+        end
+    end
+    if joysticks:isGamepadDown("start") then
+        savesys.savegame()
+        title=true
+    end
+    if joysticks:isGamepadDown("b") then
+        plr.craftopen=false
+        crafteruse=false
+        plr.craftopeni=nil
+        print("craftoff")
+        plr.craftopen=false
+        for i = 1,#obj.list do
+            if table.haskey(obj.list[i].nbt,"craftopen") then
+                if obj.list[i].nbt.craftopen==true then
+                    obj.list[i].nbt.craftopen=false
+                end
+            end
+        end
+        inv.open = 0
+    end
+    local y = 0
+    if joysticks:isGamepadDown("dpup") then
+        y = y + 1
+    end
+    if joysticks:isGamepadDown("dpdown") then
+        y = y - 1
+    end
+    if title then
+        if y <= 0 then
+            saveselecter =saveselecter-1
+        else
+            saveselecter=saveselecter+1
+        end
+        if saveselecter<=0 then
+            saveselecter=1
+        end
+    else
+        if crafteruse then
+            crafter.wheel(y)
+        else
+        if plr.craftopen then 
+            craftbench.wheel(y)
+        else
+    if y < 0 then
+        plr.hotselect=plr.hotselect+1
+        if plr.hotselect>9 then
+            plr.hotselect=1
+        end
+    elseif y > 0 then
+        plr.hotselect= plr.hotselect-1
+        if plr.hotselect<1 then
+            plr.hotselect=9
+        end
+    end
+end
+end
+end
+end
+
+function padtick(dt)
+    if joysticks:isGamepadDown("y") then
+        if spdrun == 1 then
+            spd = 300
+        end
+        if spdrun == 2 then
+            spd = 500
+        end
+        if spdrun == 3 then
+            spd = 750
+        end
+        if spdrun == 4 then
+            spd = 1000
+        end
+        if spdrun==5 then
+            spd= 1500
+        end
+    end
+    plr.y=plr.y+((dt*spd)*joysticks:getGamepadAxis("lefty"))
+    plr.x=plr.x+((dt*spd)*joysticks:getGamepadAxis("leftx"))
+    if joysticks:getGamepadAxis("leftx") > 0 then
+        plr.rot="right"
+    else
+        plr.rot="left"
+    end
+    if joysticks:isGamepadDown("a")then
+        plr.handrot=1
+        keyspacepress=1
+    else
+        plr.handrot=0
+        keyspacepress=0
+    end
+end
 
 function gamedraw()
     if not loading then
     love.graphics.setBackgroundColor(1,1,1)
     love.graphics.setColor(1,1,1)
+    if not device.console then
     donut.draw()
+    end
     cam:attach()
     obj.draw()
     --love.graphics.draw(gr.texture.gettex("slider"),100,0)
@@ -83,7 +224,9 @@ if inv.open==1 then
 end
 love.graphics.setColor(255,255,255)
 ---@diagnostic disable-next-line: undefined-field
+if not device.console then
 donut.draw(10,200)
+end
 obj.drawobjgui()
 local sx,sy = love.graphics.getDimensions()
 love.graphics.setColor(.25,.25,.25)
@@ -134,13 +277,14 @@ function gameupdate(dt)
     obj.tick(dt)
     plr.itemsys()
     inv.sys()
+    if not device.console then
     donut.update(fps, love.timer.getFPS())
     donut.update(xdebug,plr.x)
     donut.update(ydebug,plr.y)
+    end
     tmp1,tmp2=love.graphics.getDimensions()
     dividewidth  =tmp1/2
     divideheight =tmp2/2
-    if true then
     if plr.x>mapx then
         plr.x=mapx
     end
@@ -152,33 +296,6 @@ function gameupdate(dt)
     end
     if plr.y<0 then
         plr.y=0
-    end
-    if love.keyboard.isDown("1") then
-        plr.hotselect=1
-    end
-    if love.keyboard.isDown("2") then
-        plr.hotselect=2
-    end
-    if love.keyboard.isDown("3") then
-        plr.hotselect=3
-    end
-    if love.keyboard.isDown("4") then
-        plr.hotselect=4
-    end
-    if love.keyboard.isDown("5") then
-        plr.hotselect=5
-    end
-    if love.keyboard.isDown("6") then
-        plr.hotselect=6
-    end
-    if love.keyboard.isDown("7") then
-        plr.hotselect=7
-    end
-    if love.keyboard.isDown("8") then
-        plr.hotselect=8
-    end
-    if love.keyboard.isDown("9") then
-        plr.hotselect=9
     end
     spd=100
     if love.keyboard.isDown("lshift") then
@@ -212,39 +329,15 @@ function gameupdate(dt)
         plr.x=plr.x+dt*spd
         plr.rot="right"
     end
-    if love.keyboard.isDown("i") then
-        if invkeypress==0 then
-        if inv.open==1 then
-            inv.open=0
-        else
-            inv.open=1
-        end
-        invkeypress=1
-    end
-end
-if love.keyboard.isDown("l") then
-    if crtkeypress then
-        if plr.inventory[hvrinv] == nil then else
-        if plr.inventory[hvrinv].id == "ironore" then
-        plr.inventory[hvrinv].id="crafttable"
-        end
-    end
-    end
-    crtkeypress=true
-else
-    crtkeypress=true
-end
-end
-if love.keyboard.isDown("i") then
-else
-    invkeypress=0
-end
-if love.keyboard.isDown("space")then
+    if love.keyboard.isDown("space")then
         plr.handrot=1
         keyspacepress=1
-else
-    plr.handrot=0
-    keyspacepress=0
-end
-cam:lookAt(plr.x,plr.y)
+    else
+        plr.handrot=0
+        keyspacepress=0
+    end
+    if joymode then
+        padtick(dt)
+    end
+    cam:lookAt(plr.x,plr.y)
 end
