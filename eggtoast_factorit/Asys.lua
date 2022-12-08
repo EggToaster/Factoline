@@ -1,11 +1,16 @@
-require("Agame")
-require("loadapi")
-saveselecter=1
-clicktitle=false
-ftd=false
-sca=craftpage*5
-craftpage=0
-hotswap=true
+function loadSys()
+    spdrun=1
+    require("Agame")
+    require("loadapi")
+    saveselecter=1
+    clicktitle=false
+    ftd=false
+    sca=craftpage*5
+    craftpage=0
+    hotswap=false
+    require("noise")
+    generateNoiseGrid()
+end
 if device.console then
     if hotswap then
         hotswap = false
@@ -32,7 +37,7 @@ function love.update(dt)
     gui.action()
     mouse.tick(dt)
     if hotswap then
-    local scanned = lurker.scan()
+    --local scanned = lurker.scan()
     end
     if not device.console then
 
@@ -136,11 +141,18 @@ end
 ---@diagnostic disable-next-line: duplicate-set-field
 function love.keypressed(key)
     if title then
-        if key=="escape" or key=="e" then
+        if key=="escape" then
         love.event.quit()
         else
     end
     else
+        if key=="e" then
+            if inv.open==1 then
+                inv.open=0
+            else
+                inv.open=1
+            end
+        end
         gamekey(key)
     end
     if joymode then
@@ -157,10 +169,10 @@ function love.joystickpressed(joystick,button)
         mouse.device="stick"
     end
     if title then
-        if joysticks:isGamepadDown("a") then
+        if button=="a" then
             makegame()
         end
-        if joysticks:isGamepadDown("x") then
+        if "x"==button then
             love.quit()
         end
     else
@@ -207,6 +219,7 @@ end
 fntgame = love.graphics.newFont("rmpfont.ttf",30)
 love.graphics.setFont(fntgame)
 mousedebug=true
+socket = require("socket")
 ---@diagnostic disable-next-line: duplicate-set-field
 function love.draw()
     if title then

@@ -29,4 +29,5 @@ function loadergame()
     mnm = camera()
     sfx.loadsound()
     loading=false
+    anim = require("api.3rd.anim")
 end

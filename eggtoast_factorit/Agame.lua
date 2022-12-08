@@ -8,7 +8,7 @@ function gamekey(key)
     if key == "=" then
 ---@diagnostic disable-next-line: undefined-field
         ---@diagnostic disable-next-line: undefined-field
-		debug.toggle()
+		donut.toggle()
 	end
     if love.keyboard.isDown("escape") then
         if love.keyboard.isDown("l") then
@@ -56,35 +56,28 @@ function gamekey(key)
     if love.keyboard.isDown("9") then
         plr.hotselect=9
     end
-    if love.keyboard.isDown("i") then
-        if inv.open==1 then
-            inv.open=0
-        else
-            inv.open=1
-        end
-    end
 end
 end
 
 function gamepad(button)
-    if joysticks:isGamepadDown("x") then
+    if button=="x" then
         if inv.open==1 then
             inv.open=0
         else
             inv.open=1
         end
     end
-    if joysticks:isGamepadDown("back") then
+    if  button=="back" then
         spdrun = spdrun + 1
         if spdrun==6 then
             spdrun=1
         end
     end
-    if joysticks:isGamepadDown("start") then
+    if button=="start" then
         savesys.savegame()
         title=true
     end
-    if joysticks:isGamepadDown("b") then
+    if button=="b" then
         plr.craftopen=false
         crafteruse=false
         plr.craftopeni=nil
@@ -100,10 +93,10 @@ function gamepad(button)
         inv.open = 0
     end
     local y = 0
-    if joysticks:isGamepadDown("dpup") then
+    if button=="dpup" then
         y = y + 1
     end
-    if joysticks:isGamepadDown("dpdown") then
+    if button=="dpdown" then
         y = y - 1
     end
     if title then
@@ -271,7 +264,7 @@ end
     love.graphics.setStencilTest()
 end
 
-spdrun=1
+
 function gameupdate(dt)
     --mulplay.join()
     obj.tick(dt)

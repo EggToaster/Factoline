@@ -20,7 +20,7 @@ function love.load()
     if not device.console then
         discordRPC = require("api.3rd.discordRPC")
         lume = require("api.3rd.lume")
-        lurker = require("api.3rd.lurker")
+        --lurker = require("api.3rd.lurker")
         require("api.3rd.donut")
         donut = Donut.init(10, 10)
         fps = donut.add("FPS")
@@ -92,6 +92,7 @@ function love.load()
 end
     loadergame()
     require("Asys")
+    loadSys()
 end
 function love.quit()
     if not device.console then
