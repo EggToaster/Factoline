@@ -40,7 +40,6 @@ mouse = {
     event = function (x,y,b)
         local x = mouse.pos[1]
         local y = mouse.pos[2]
-        print("event "..tostring(b))
         inv.mouseclick(x,y,b)
         if b == 1 then
         if x > 295 and x <= 295+25 and y > 170 and y <= 170+25 then

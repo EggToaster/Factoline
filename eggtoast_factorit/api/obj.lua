@@ -4,6 +4,13 @@ require("machine.mecharm")
 require("machine.chest")
 require("machine.miner")
 obj={
+    customdraw=function (objct)
+        if table.contains(obj.sizemapid,objct.id) then
+            love.graphics.draw(gr.texture.gettex(objct.id),objct.x,objct.y,0,obj.sizemap[indexOf(obj.sizemapid,objct.id)]/2,obj.sizemap[indexOf(obj.sizemapid,objct.id)]/2)
+        else
+            love.graphics.draw(gr.texture.gettex(objct.id),objct.x,objct.y,0,0.4/2,0.4/2)
+        end
+    end,
     drawobjgui = function ()
         for i = 1 , #obj.list do
         if obj.list[i].id=="craftbench" then
@@ -185,13 +192,25 @@ obj={
                 if obj.list[i].id=="craftbench" then
                     craftbench.tick(i)
                 end
-                if love.keyboard.isDown("n") then
+                local isdownspace = false
+                if joymode then
+                    isdownspace = joysticks:isGamepadDown("dpleft")
+                else
+                    isdownspace = love.keyboard.isDown("n")
+                end
+                if isdownspace then
                     if obj.list[i].after == nil then else
                     obj.destroy(i)
                     break
                     end
                 end
-                if love.keyboard.isDown("space") then
+                local isdownspace = false
+                if joymode then
+                    isdownspace = joysticks:isGamepadDown("a")
+                else
+                    isdownspace = love.keyboard.isDown("space")
+                end
+                if isdownspace then
                     if spcobj then
                         if obj.list[i].id=="chestplcd" then
                             chest.toggleopen(i)

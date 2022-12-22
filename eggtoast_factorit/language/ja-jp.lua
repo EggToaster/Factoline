@@ -1,9 +1,5 @@
-jajplang ={
-    setlang = function ()
-        lang.reset()
-        lang.lang=jajplang.lang
-        lang.langindex=jajplang.langindex
-    end,
+
+lang.list["jajp"]={
     lang={
         "作業台",
         "開始",

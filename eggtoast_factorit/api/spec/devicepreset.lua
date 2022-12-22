@@ -91,6 +91,6 @@ local devicepreset = {
             "LS","RS"
         },
         detail = "100% not nintendo licensed build tool"
-    },
+    }
 }
 return devicepreset

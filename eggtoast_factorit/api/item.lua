@@ -7,20 +7,6 @@ item={
                     return(true)
               end
             end
-            --local foundit=false
-           -- local stopit=false
-           -- for i = 1,#plr.inventory do
-            --    if foundit then else if stopit then else
-           --     if plr.inventory[i].id==nil then
-          --          foundit=true
-         --           idzzz=i
-         --   end
-     --   end
- --   end
-      --  end
-     --   if foundit then
-    --        plr.inventory[idzzz]=tbl
-      --  end
       return(false)
     end
 end,

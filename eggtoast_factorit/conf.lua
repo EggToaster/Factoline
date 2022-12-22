@@ -1,9 +1,6 @@
-json = require("api.3rd.json")
-device = require("api.spec.devicepreset").switch
-require("api.mathutil")
 function love.conf(t)
-    require("moduleoption").main(t)
-t.console = {"192.168.1.3", 8000,true}
+    json = require("api.3rd.json")
+    require("api.mathutil")
     t.identity = "eggtoast_factorit"
     t.window.title = "Factorit!"
     t.version = "11.3"
@@ -38,7 +35,4 @@ t.console = {"192.168.1.3", 8000,true}
         love.filesystem.write("cfg.json",'{"mute":false,"fullscreen":false,"lang":"enus"}')  
     end
         t.window.fullscreen = conf.fullscreen
-end
-function love.lowmemory()
-    print("Running Out Of memory.(ALMOST CRASH!)")
 end

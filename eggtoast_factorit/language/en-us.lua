@@ -1,9 +1,4 @@
-enuslang ={
-    setlang = function ()
-        lang.reset()
-        lang.lang=enuslang.lang
-        lang.langindex=enuslang.langindex
-    end, 
+lang.list["enus"]={
     lang={
         "Craft Table",
         "PLAY GAME",
