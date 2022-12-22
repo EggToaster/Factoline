@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 local ffi = require "ffi"
 local discordRPClib = ffi.load("discord-rpc")
 
