@@ -1,3 +1,5 @@
+local upd = false
+local dwd = false
 controller = {
     tick = function(delta)
         if joymode then
