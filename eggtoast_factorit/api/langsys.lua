@@ -4,26 +4,21 @@ lang ={
     currentlang="enus",
     langcycle={"enus","jajp"},
     gettxt = function (txtid)
-        if lang.langindex==nil then
-            if table.contains(lang.list["enus"].langindex,txtid) then
-                return lang.list["enus"].lang[indexOf(lang.list["enus"].langindex,txtid)]
-            end
-        else
-            if table.contains(lang.langindex,txtid) then
-                return lang.lang[indexOf(lang.langindex,txtid)]
-            end
-        end
-        return "error"
+        return lang.lang[indexOf(lang.langindex,txtid)]
     end,
     reset = function ()
-        lang.lang={}
-        lang.langindex={}
+        lang.lang=lang.list["enus"].lang
+        lang.langindex=lang.list["enus"].langindex
     end,
     set = function (langs)
         if table.contains(lang.langcycle,langs) then
             lang.reset()
-            lang.lang = lang.list[langs].lang
-            lang.langindex = lang.list[langs].langindex
+            local tmp = lang.list[langs]
+            for i = 1,#tmp do
+                if table.contains(lang.langindex,tmp.langindex[i]) then
+                    lang.lang[indexOf(lang.langindex,tmp.langindex[i])]=tmp.lang[indexOf(lang.langindex,tmp.langindex[i])]
+                end
+            end
         end
     end,
     list={}

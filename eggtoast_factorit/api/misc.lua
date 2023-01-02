@@ -11,11 +11,10 @@ misc = {
                 love.filesystem.write("savegame/save"..tostring(saveselecter)..".fsg",json.encode(tosave))
         end,
         load = function (file)
-            toload = file
-            obj.list=toload.obj
-            plr.inventory = toload.plr.inv
-            plr.x = toload.plr.posx
-            plr.y = toload.plr.posy
+            obj.list=file.obj
+            plr.inventory = file.plr.inv
+            plr.x = file.plr.posx
+            plr.y = file.plr.posy
         end
     },
     filer={
