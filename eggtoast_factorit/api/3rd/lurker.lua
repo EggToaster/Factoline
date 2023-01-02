@@ -138,8 +138,6 @@ function lurker.onerror(e, nostacktrace)
     { lume.color("#66666a", 256) },
     { lume.color("#cdcdcd", 256) },
   }
-  love.graphics.reset()
-  love.graphics.setFont(love.graphics.newFont(12))
   love.graphics.setBackgroundColor(0,0,0)
 
   love.draw = function()
