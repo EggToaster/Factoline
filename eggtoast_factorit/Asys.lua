@@ -207,7 +207,6 @@ function love.draw()
     --love.graphics.print("RESTART TO APPLY CONFIG I TO INVENTORY",0,550,0,1,1)
     --love.graphics.print("WASD TO MOVE SPACE TO INTERACT/MINE",0,600,0,1,1)
     --love.graphics.print("N TO DISMANTILE TOUCHING BUILDING",0,650,0,1,1)
-    --love.graphics.print("L TO CREATE CRAFTTABLE WHILE HOVER IRONORE",0,700,0,1,1)
     love.graphics.setColor(1,1,1)
         end
     else

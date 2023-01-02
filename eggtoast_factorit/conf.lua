@@ -30,9 +30,9 @@ function love.conf(t)
         love.filesystem.createDirectory("savegame")     
     end
     conf = json.decode(love.filesystem.read("cfg.json"))
-    if table.contains(conf,lang) then
+    if table.haskey(conf,"lang") then
     else
-        love.filesystem.write("cfg.json",'{"mute":false,"fullscreen":false,"lang":"enus"}')  
+        love.filesystem.write("cfg.json",'{"mute":'..conf.mute..',"fullscreen":'..conf.fullscreen..',"lang":"enus"}')  
     end
         t.window.fullscreen = conf.fullscreen
 end

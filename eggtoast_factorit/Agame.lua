@@ -1,12 +1,10 @@
 function gameload()
     yesspd = 1
-    upd = false
-    dwd = false
     require("api.spec.controller")
 end
 
 function gamedraw()
-    local sx,sy = love.graphics.getDimensions()
+    local dx,dy = love.graphics.getDimensions()
 if not loading then
     love.graphics.setBackgroundColor(1,1,1)
     love.graphics.setColor(1,1,1)
@@ -36,26 +34,24 @@ if not loading then
     end
     obj.drawobjgui()
     love.graphics.setColor(.25,.25,.25)
-    love.graphics.rectangle("fill",sx-(150/512)*sx,110,(150/512)*sx,(150/512)*sx)
+    love.graphics.rectangle("fill",dx-(150/512)*dx,110,(150/512)*dx,(150/512)*dx)
     love.graphics.stencil(function ()
-        love.graphics.rectangle("fill",sx-(145/512)*sx,115,(145/512)*sx,(145/512)*sx)
+        love.graphics.rectangle("fill",dx-(145/512)*dx,115,(145/512)*dx,(145/512)*dx)
     end,"replace",1)
     love.graphics.setStencilTest("greater", 0)
     love.graphics.setColor(1,1,1)
     mnm:attach()
     mnm:zoomTo(0.25)
-    mnm:lookAt(plr.x-(425/1215)*sx*4.17,plr.y-(-275/1715)*sy*3.8)
+    mnm:lookAt(plr.x-(425/1215)*dx*4.17,plr.y-(-275/1715)*dy*3.8)
     for i = 1,#obj.list do
-        local this = obj.list[i]
-        local cx,cy = cam:cameraCoords(this.x,this.y)
-        local dx,dy = love.graphics.getDimensions()
+        local cx,cy = cam:cameraCoords(obj.list[i].x,obj.list[i].y)
         if cx>=-1000 and cx<=dx+1000 and cy >= -1000 and cy <= dy+1000 then
-            obj.customdraw(this)
+            obj.customdraw(obj.list[i])
         end
     end
     mnm:detach()
     love.graphics.setColor(0,1,0,0.5)
-    love.graphics.circle('fill',sx/1.27+(145/2000)*sx,sy/2+(-275/1700)*sy,15)
+    love.graphics.circle('fill',dx/1.27+(145/2000)*dx,dy/2+(-275/1700)*dy,15)
     love.graphics.setStencilTest()
     if not device.console then
         donut.draw(0,100)
