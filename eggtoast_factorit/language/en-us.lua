@@ -14,7 +14,9 @@ lang.list["enus"]={
         "Click Button to change machine bind",
         "Select 1st machine to bind",
         "Select 2nd machine to bind",
-        "General"
+        "General",
+        "Mute",
+        "Video"
     },
     langindex={
         "item.crafttable.name",
@@ -31,6 +33,8 @@ lang.list["enus"]={
         "item.mecharm.desc",
         "item.mecharm.setstuff1",
         "item.mecharm.setstuff2",
-        "stng.general"
+        "stng.general",
+        "stng.mute",
+        "stng.video"
     }
 }

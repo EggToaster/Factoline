@@ -15,7 +15,9 @@ lang.list["jajp"]={
         "機械の割り当てを変更するにはボタンをクリック",
         "1つ目に割り当てする機械をクリック",
         "2つ目に割り当てする機械をクリック",
-        "一般"
+        "一般",
+        "ミュート",
+        "描画"
     },
     langindex={
         "item.crafttable.name",
@@ -32,6 +34,8 @@ lang.list["jajp"]={
         "item.mecharm.desc",
         "item.mecharm.setstuff1",
         "item.mecharm.setstuff2",
-        "stng.general"
+        "stng.general",
+        "stng.mute",
+        "stng.video"
     }
 }
