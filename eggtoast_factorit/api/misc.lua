@@ -48,5 +48,14 @@ misc = {
         unzip = function(data)
             return love.data.decompress("data","lz4",data)
         end
+    },
+    sfx = {
+        play = function (name,onlyonce)
+            local onlyonce = onlyonce or true
+            if onlyonce then
+                love.audio.stop(sfx.get(name))
+            end
+            love.audio.play(sfx.get(name))
+        end
     }
 }
