@@ -55,6 +55,26 @@ function indexOf(array, value)
     end
     return nil
 end
+function  table.eachContain(array,varray)
+    for _, v in pairs(array) do
+        for _,val in pairs(varray) do
+            if v == val then
+            return true
+            end
+        end
+    end
+    return false
+end
+function  table.indexOfEach(array,varray)
+    for _, v in pairs(array) do
+        for _,val in pairs(varray) do
+            if v == val then
+            return val
+            end
+        end
+    end
+    return false
+end
 function table.keylist(t)
     local keys={}
     for key,_ in pairs(t) do
