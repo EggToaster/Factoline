@@ -4,12 +4,11 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
         {
-            "type": "lua",
+            "type":"lua",
             "request": "launch",
-            "name": "Debug",
-            "program": "${workspaceFolder}/eggtoast_factorit/mai.lua"
+            "name": "Factorit",
+            "program": "pixelbyte.love2d.run"
         }
     ]
 }

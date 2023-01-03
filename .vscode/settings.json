@@ -9,7 +9,7 @@
     ],
     "Lua.diagnostics.globals": [
     ],
-    "pixelbyte.love2d.srcDir": "./eggtoast_factorit/antirunwhensave",
-    "Love2d Run": false,
+    "pixelbyte.love2d.srcDir": "./eggtoast_factorit/",
+    "pixelbyte.love2d.runOnSave": false,
     "pixelbyte.love2d.path": "E:\\.toshistuff\\lua\\factorygame\\love2d\\love.exe"
 }
