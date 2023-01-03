@@ -83,12 +83,12 @@ gui = {
                 end
                     if string.sub(txt,1,1)=="#" then
                         txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
-                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
+                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2]-5,0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
                     else
                     if string.sub(txt,1,1)=="?" then
                         love.graphics.draw(gr.texture.gettex(string.sub(txt,2,string.len(txt))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
                     else
-                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.txs[2]+ofs[4])
+                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2]-10,0,this.size[1]+ofs[3],this.txs[2]+ofs[4])
                     end
                 end
                 local this = tmpthis
