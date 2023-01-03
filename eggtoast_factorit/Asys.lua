@@ -14,6 +14,7 @@ function loadSys()
             print("[Device]This is console, no hotswap!!")
         end
     end
+    love.audio.setVolume(conf.mute and 0 or 100)
     gameload()
 end
 function love.update(dt)
@@ -41,6 +42,7 @@ function love.update(dt)
         end
         if mouse.ison(1) and clicktitle==false and mousecoordx>250 and mousecoordy>525 and mousecoordx<750 and mousecoordy<700 then
             stng=true
+            stngtab="general"
         end
 end
 function makegame()
@@ -186,7 +188,7 @@ socket = require("socket")
 function love.draw()
     if title then
         if stng then
-            gui.draw(guiload.get("settingtitle-general"))
+            gui.draw(guiload.get("settingtitle-"..stngtab))
         else
             love.graphics.setColor(1,1,1)
     love.graphics.setBackgroundColor(1,1,1)
