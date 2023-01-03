@@ -2,27 +2,23 @@ lang ={
     lang={},
     langindex=nil,
     currentlang="enus",
-    langcycle={"enus","jajp"},
     gettxt = function (txtid)
-        return lang.lang[indexOf(lang.langindex,txtid)]
+        return lang.lang[indexOf(lang.langindex,txtid)] or lang.list.enus[indexOf(lang.langindex,txtid)] or "error"
     end,
     reset = function ()
-        lang.lang=lang.list["enus"].lang
-        lang.langindex=lang.list["enus"].langindex
+        lang.lang={}
+        lang.langindex={}
     end,
     set = function (langs)
-        if table.contains(lang.langcycle,langs) then
+        if table.haskey(lang.list,langs) then
             lang.reset()
-            local tmp = lang.list[langs]
-            for i = 1,#tmp do
-                if table.contains(lang.langindex,tmp.langindex[i]) then
-                    lang.lang[indexOf(lang.langindex,tmp.langindex[i])]=tmp.lang[indexOf(lang.langindex,tmp.langindex[i])]
-                end
-            end
+            lang.lang = lang.list[langs].lang
+            lang.langindex = lang.list[langs].langindex
+            lang.currentlang = langs
+            print("[lang]Set Lang to "..lang.currentlang)
         end
     end,
     list={}
 }
 require("language.en-us")
 require("language.ja-jp")
-lang.set(conf.lang)

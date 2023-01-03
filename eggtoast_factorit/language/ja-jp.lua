@@ -17,7 +17,9 @@ lang.list["jajp"]={
         "2つ目に割り当てする機械をクリック",
         "一般",
         "ミュート",
-        "描画"
+        "描画",
+        "常に最大",
+        "変更"
     },
     langindex={
         "item.crafttable.name",
@@ -36,6 +38,8 @@ lang.list["jajp"]={
         "item.mecharm.setstuff2",
         "stng.general",
         "stng.mute",
-        "stng.video"
+        "stng.video",
+        "stng.alwmax",
+        "stng.change"
     }
 }

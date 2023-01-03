@@ -16,7 +16,9 @@ lang.list["enus"]={
         "Select 2nd machine to bind",
         "General",
         "Mute",
-        "Video"
+        "Video",
+        "Always Maximize",
+        "Change"
     },
     langindex={
         "item.crafttable.name",
@@ -35,6 +37,8 @@ lang.list["enus"]={
         "item.mecharm.setstuff2",
         "stng.general",
         "stng.mute",
-        "stng.video"
+        "stng.video",
+        "stng.alwmax",
+        "stng.change"
     }
 }
