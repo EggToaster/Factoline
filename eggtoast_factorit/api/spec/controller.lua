@@ -144,12 +144,11 @@ function gamekey(key)
     if love.keyboard.isDown("escape") then
         if love.keyboard.isDown("l") then
             misc.save.savegame()
-        title=true
+            title=true
         else
             plr.craftopen=false
             crafteruse=false
             plr.craftopeni=nil
-            print("craftoff")
             plr.craftopen=false
             for i = 1,#obj.list do
                 if table.haskey(obj.list[i].nbt,"craftopen") then
@@ -160,12 +159,12 @@ function gamekey(key)
             end
             inv.open = 0
         end
-        for i = 1,9 do
-            if love.keyboard.isDown(tostring(i)) then
-                plr.hotselect=i
-            end
+    end
+    for i = 1,9 do
+        if love.keyboard.isDown(tostring(i)) then
+            plr.hotselect=i
         end
-end
+    end
 end
 function gamepad(button)
     if buttonis("x",button) then
