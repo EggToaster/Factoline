@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type":"lua",
+            "type": "lua",
             "request": "launch",
-            "name": "Factorit",
-            "program": "pixelbyte.love2d.run"
+            "name": "Debug",
+            "program": "${workspaceFolder}/eggtoast_factorit/guimap/settingtitle-general.lua"
         }
     ]
 }
