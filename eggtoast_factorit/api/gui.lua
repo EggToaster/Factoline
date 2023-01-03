@@ -9,7 +9,10 @@ gui = {
             for i = 1,#tbl.text do
                 local this = tbl.text[i]
                 local ofs={0,0,0,0}
-                if table.contains(this.tag,tbl.stencil.stenciltag) then
+                local stenreset = false
+                if table.eachContain(tbl.stencil.stenciltag,this.tag) then
+                    stenreset = true
+                    gui.script.stencilTag=table.indexOfEach(tbl.stencil.stenciltag,this.tag)
                     love.graphics.stencil(tbl.stencil.try,"replace",1)
                     love.graphics.setStencilTest("greater", 0)
                 end
@@ -19,16 +22,27 @@ gui = {
                 local tmp = {this.pos[1],this.pos[2],this.size[1],this.size[2]}
                 for ii = 1,4 do
                     if type(tmp[ii])=="string" then
-                        ofs[ii]=ofs[ii]+gui.script.func[tmp[ii]].func()
+                        this[(3>ii) and "pos" or "size"][(3>ii) and (ii) or (ii-2)] = gui.script.func[tmp[ii]].func() 
+                    end
+                    if type(tmp[ii])=="function" then
+                        this[(3>ii) and "pos" or "size"][(3>ii) and (ii) or (ii-2)] = this[(3>ii) and "pos" or "size"][(3>ii) and (ii) or (ii-2)]()
                     end
                 end
                 gui.script.setctbl(this.color)
                 local txt = this.text
-                if string.sub(txt,1,1)=="#" then
-                    txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
+                if type(txt)=="function" then
+                    love.graphics.draw(txt(),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
+                else
+                    if string.sub(txt,1,1)=="#" then
+                        txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
+                    end
+                    if string.sub(txt,1,1)=="?" then
+                        love.graphics.draw(gr.texture.gettex(string.sub(txt,2,string.len(txt))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
+                    else
+                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
+                    end
                 end
-                love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
-                if table.contains(this.tag,tbl.stencil.stenciltag) then
+                if stenreset then
                     love.graphics.setStencilTest()
                 end
             end
@@ -37,7 +51,10 @@ gui = {
             for i = 1,#tbl.button do
                 local this = tbl.button[i]
                 local ofs={0,0,0,0}
-                if table.contains(this.tag,tbl.stencil.stenciltag) then
+                local stenreset = false
+                if table.eachContain(tbl.stencil.stenciltag,this.tag) then
+                    stenreset = true
+                    gui.script.stencilTag=table.indexOfEach(tbl.stencil.stenciltag,this.tag)
                     love.graphics.stencil(tbl.stencil.try,"replace",1)
                     love.graphics.setStencilTest("greater", 0)
                 end
@@ -49,7 +66,11 @@ gui = {
                 for ii = 1,4 do
                     if type(tmp[ii])=="string" then
                         this[(3>ii) and "pos" or "size"][(3>ii) and (ii) or (ii-2)] = gui.script.func[tmp[ii]].func()
+                    else
+                    if type(tmp[ii])=="function" then
+                        this[(3>ii) and "pos" or "size"][(3>ii) and (ii) or (ii-2)] = this[(3>ii) and "pos" or "size"][(3>ii) and (ii) or (ii-2)]()
                     end
+                end
                 end
                 gui.script.setctbl(this.bg)
                 love.graphics.rectangle("fill",this.pos[1]+ofs[1],this.pos[2]+ofs[2],this.size[1]+ofs[3],this.size[2]+ofs[4])
@@ -57,12 +78,21 @@ gui = {
                 love.graphics.rectangle("line",this.pos[1]+ofs[1],this.pos[2]+ofs[2],this.size[1]+ofs[3],this.size[2]+ofs[4])
                 gui.script.setctbl(this.txc)
                 local txt = this.text
-                if string.sub(txt,1,1)=="#" then
-                    txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
+                if type(txt)=="function" then
+                    txt = txt()
                 end
-                love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])   
+                    if string.sub(txt,1,1)=="#" then
+                        txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
+                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
+                    else
+                    if string.sub(txt,1,1)=="?" then
+                        love.graphics.draw(gr.texture.gettex(string.sub(txt,2,string.len(txt))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
+                    else
+                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.txs[2]+ofs[4])
+                    end
+                end
                 local this = tmpthis
-                if table.contains(this.tag,tbl.stencil.stenciltag) then
+                if stenreset then
                     love.graphics.setStencilTest()
                 end
             end
@@ -71,7 +101,10 @@ gui = {
             for i = 1,#tbl.rect do
                 local this = tbl.rect[i]
                 local ofs={0,0,0,0}
-                if table.contains(this.tag,tbl.stencil.stenciltag) then
+                local stenreset = false
+                if table.eachContain(tbl.stencil.stenciltag,this.tag) then
+                    stenreset = true
+                    gui.script.stencilTag=table.indexOfEach(tbl.stencil.stenciltag,this.tag)
                     love.graphics.stencil(tbl.stencil.try,"replace",1)
                     love.graphics.setStencilTest("greater", 0)
                 end
@@ -90,7 +123,7 @@ gui = {
                 gui.script.setctbl(this.color)
                 love.graphics.rectangle("line",this.pos[1]+ofs[1],this.pos[2]+ofs[2],this.size[1]+ofs[3],this.size[2]+ofs[4])
                 local this = tmpthis
-                if table.contains(this.tag,tbl.stencil.stenciltag) then
+                if stenreset then
                     love.graphics.setStencilTest()
                 end
             end
@@ -99,7 +132,10 @@ gui = {
             for i = 1,#tbl.recttxt do
                 local this = tbl.recttxt[i]
                 local ofs={0,0,0,0}
-                if table.contains(this.tag,tbl.stencil.stenciltag) then
+                local stenreset = false
+                if table.eachContain(tbl.stencil.stenciltag,this.tag) then
+                    stenreset = true
+                    gui.script.stencilTag=table.indexOfEach(tbl.stencil.stenciltag,this.tag)
                     love.graphics.stencil(tbl.stencil.try,"replace",1)
                     love.graphics.setStencilTest("greater", 0)
                 end
@@ -123,7 +159,7 @@ gui = {
                 end
                 love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
                 local this = tmpthis
-                if table.contains(this.tag,tbl.stencil.stenciltag) then
+                if stenreset then
                     love.graphics.setStencilTest()
                 end
             end
@@ -158,7 +194,7 @@ gui = {
                         for i = 1,#tbl.button do
                             local this = tbl.button[i]
                             local mx,my = mouse.getPos()
-                            if mx >= this.pos[1] and mx <= this.pos[1]+this.size[1] and my >= this.pos[2] and my <= this.pos[2]+this.size[2] then
+                            if mx >= this.hitbox[1] and mx <= this.hitbox[1]+this.hitbox[3] and my >= this.hitbox[2] and my <= this.hitbox[2]+this.hitbox[4] then
                                 this.action()
                             end
                         end
@@ -209,7 +245,8 @@ gui = {
             local alpha = tbl[4] or 255
             love.graphics.setColor(tbl[1],tbl[2],tbl[3],alpha)
         end,
-        isvalid = function (tbl)
+        stencilTag="",
+        isValid = function (tbl)
             local tried = {}
             table.insert(tried,gui.script.validelemlist(tbl))
             table.insert(tried,gui.script.validtbl(tbl))
@@ -218,7 +255,7 @@ gui = {
             end
             return false
         end,
-        validelemlist = function (tbl)
+        validElemList = function (tbl)
             return true
         end,
         validtbl = function (tbl)
@@ -227,7 +264,7 @@ gui = {
             end
             return false
         end,
-        resetslider = function (tbl)
+        resetSlider = function ()
             gui.script.sliderpos = 0
         end,
         sliderpos = 0,
