@@ -2,6 +2,7 @@ function loadSys()
     spdrun=1
     require("Agame")
     require("loadapi")
+    lang.set(conf.lang)
     saveselecter=1
     clicktitle=false
     ftd=false
@@ -15,6 +16,9 @@ function loadSys()
         end
     end
     love.audio.setVolume(conf.mute and 0 or 100)
+    if conf.alwmax then
+        love.window.maximize()
+    end
     gameload()
 end
 function love.update(dt)
