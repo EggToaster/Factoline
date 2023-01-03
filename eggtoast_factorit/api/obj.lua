@@ -11,64 +11,54 @@ obj={
             love.graphics.draw(gr.texture.gettex(objct.id),objct.x,objct.y,0,0.4/2,0.4/2)
         end
     end,
+    guilist = {
+        "craftbench","craftbench",
+        "crafterplcd","crafter",
+        "mecharmplcd","mecharm",
+        "chestplcd","chest"
+    },
     drawobjgui = function ()
-        for i = 1 , #obj.list do
-        if obj.list[i].id=="craftbench" then
-            if obj.list[i].nbt.craftopen==true then
-            craftbench.draw(i)
+        for i = 1,#obj.list do
+            if table.contains(obj.guilist,obj.list[i].id) then
+                if obj.list[i].nbt.craftopen==true then
+                    _G[obj.guilist[indexOf(obj.guilist,obj.list[i].id)+1]].draw(i)
+                end
+            end
         end
-    end
-    if obj.list[i].id=="crafterplcd" then
-        if obj.list[i].nbt.craftopen==true then
-            crafter.draw(i)
-        end
-    end
-    if obj.list[i].id=="mecharmplcd" then
-        if obj.list[i].nbt.craftopen==true then
-            mecharm.draw(i)
-        end
-    end
-    if obj.list[i].id=="chestplcd" then
-        if obj.list[i].nbt.craftopen==true then
-            chest.draw(i)
-        end
-    end
-    end
     end,
     draw = function ()
         for i = 1 , #obj.list do
-           -- if obj.list[i].x < dividewidth+plr.x then
-              --  if obj.list[i].x > plr.x-dividewidth then
-                --    if obj.list[i].y < divideheight+plr.y then
-                  --      if obj.list[i].y > plr.y-divideheight then
-                  local this = obj.list[i]
-                  local cx,cy = cam:cameraCoords(this.x,this.y)
-                  local dx,dy = love.graphics.getDimensions()
-                  if cx>=-1000 and cx<=dx+1000 and cy >= -1000 and cy <= dy+1000 then
-                  if table.contains(obj.sizemapid,obj.list[i].id) then
-                            love.graphics.draw(gr.texture.gettex(obj.list[i].id),obj.list[i].x,obj.list[i].y,0,obj.sizemap[indexOf(obj.sizemapid,obj.list[i].id)],obj.sizemap[indexOf(obj.sizemapid,obj.list[i].id)])
-                  else
-                    love.graphics.draw(gr.texture.gettex(obj.list[i].id),obj.list[i].x,obj.list[i].y,0,0.4,0.4)
-                  end
-                            if obj.list[i].id=="tree" then
-                                if obj.list[i].nbt.health<=2 then
-                                    love.graphics.setColor(0,0,0)
-                                    love.graphics.print(tostring(obj.list[i].nbt.health).." hp",obj.list[i].x,obj.list[i].y+13)
-                                    love.graphics.setColor(1,1,1)
-                                end
-                            end
-                        end
-                   --     end
-                --    end
-            --    end
-        --    end
+            local this = obj.list[i]
+            local cx,cy = cam:cameraCoords(this.x,this.y)
+            local dx,dy = love.graphics.getDimensions()
+            if cx>=-1000 and cx<=dx+1000 and cy >= -1000 and cy <= dy+1000 then
+                local sm = 0.4
+                if table.contains(obj.sizemapid,this.id) then
+                    sm = obj.sizemap[indexOf(obj.sizemapid,this.id)]
+                end
+                love.graphics.draw(gr.texture.gettex(this.id),this.x,this.y,0,sm,sm)
+                if this.id=="tree" then
+                    if this.nbt.health<=2 then
+                        love.graphics.setColor(1,0,0)
+                        love.graphics.rectangle("fill",this.x+5,this.y+5,175,15)
+                        love.graphics.setColor(0,1,0)
+                        love.graphics.rectangle("fill",this.x+5,this.y+5,5+(this.nbt.health*58),15)
+                        love.graphics.setColor(0,0,0)
+                        love.graphics.rectangle("line",this.x+5,this.y+5,175,15)
+                        love.graphics.line(this.x+68,this.y+5,this.x+68,this.y+20,this.x+127,this.y+20,this.x+127,this.y+5)
+                        love.graphics.print(tostring(this.nbt.health).." hp",this.x+75,this.y+1,0,0.5)
+                        love.graphics.setColor(1,1,1)
+                    end
+                end
+            end
         end
     end,
     destroy=function (i)
         if obj.list[i].id == "craftbench" then
             plr.craftopen=false
+            obj.list[i].nbt.craftopen=false
         end
-        item.give({id=obj.list[i].after,hover=1,drag=0})
+        item.give({id=obj.list[i].after})
         table.remove(obj.list,i)
         for ia = 1,#obj.list do
             if obj.list[ia].name=="mecharmplcd" then
@@ -81,14 +71,14 @@ obj={
             end
         end
     end,
-    list={}, -- old 1 new 2000
+    list={},
     genworld = function ()
         for i = 1,5000 do
-            obj.gen.genore("ironore")
-            obj.gen.genore("copperore")
+            obj.make("ironore")
+            obj.make("copperore")
         end
         for i = 1,3000 do
-            obj.gen.make("tree",math.random(0,mapx),math.random(0,mapy),nil,{health=3})
+            obj.make("tree",math.random(0,mapx),math.random(0,mapy),{health=3},nil)
         end
     end,
     getsize = function (i)
@@ -97,28 +87,13 @@ obj={
         end
         return 0.4
     end,
-    gen={
-        genore = function (id)
-            ids=id
-            xc=math.random(0,mapx)
-            yc=math.random(0,mapy)
-            obj.gen.make(ids,xc,yc,nil,{})
-        end,
-        make = function (id,x,y,after,nbt)
-            ids=id
-            xc=x
-            yc=y
-            --[[if table.contains(obj.sizemapid,id) then
-                size=obj.sizemap[indexOf(obj.sizemaipd,id)]
-            else 
-                size=0.4
-            end]]--
-            table.insert(obj.list,{id=ids,x=xc,y=yc,after=after,nbt=nbt})
-        end,
-        del = function (i)
-            table.remove(obj.list,i)
-        end
-    },
+    make = function (id,x,y,nbt,after)
+        local x = x or math.random(0,mapx)
+        local y = y or math.random(0,mapy)
+        local nbt = nbt or {}
+        local after = after or nil
+        table.insert(obj.list,{id=id,x=x,y=y,after=after,nbt=nbt})
+    end,
     sizemap={
         0.2,
         0.2
@@ -128,29 +103,30 @@ obj={
         "chestplcd"
     },
     placeable={
+        --can be placed with interact key
         "miner",
         "crafter",
         "mecharm",
         "chest"
     },
-    --container={
-    --    "miner",
-     --   "crafter",
-    --    "mecharm",
-    --    "chest"
-    --},
-    --containertype={
-    --    2,
-    --    3,
-    --    1,
-    --    4,
-    --},
     plctag = {
-        nature = {
-            "tree",
-            "ironore",
-            "copperore"
+
+        -- behavior related stuff
+
+        withgui = {
+            "craftbench",
+            "crafterplcd",
+            "mecharmplcd",
+            "chestplcd"
         },
+        guiname = {
+            "craftbench",
+            "crafter",
+            "mecharm",
+            "chest"
+        },
+        -- interface related stuff
+
         inv= {
             "minerplcd",
             "chestplcd",
@@ -169,6 +145,14 @@ obj={
         },
         slot1bothio={
             "chestplcd"
+        },
+        
+        --type related stuff
+
+        nature = {
+            "tree",
+            "ironore",
+            "copperore"
         }
     },
     placeablenbt={
@@ -183,13 +167,10 @@ obj={
             if i < #obj.list+1 then
             objwidth, objheight = gr.texture.gettex(obj.list[i].id):getDimensions()
             objwidth = objwidth/4
-            objheight=objheight/4
+            objheight = objheight/4
             if plr.x > obj.list[i].x and plr.y > obj.list[i].y and plr.x < obj.list[i].x+objwidth and plr.y < obj.list[i].y+objheight then
                 if obj.list[i].id=="craftbench" then
                     crtouch=true
-                    thisistempjustforbugfix = true
-                end
-                if obj.list[i].id=="craftbench" then
                     craftbench.tick(i)
                 end
                 local isdownspace = false
@@ -200,8 +181,8 @@ obj={
                 end
                 if isdownspace then
                     if obj.list[i].after == nil then else
-                    obj.destroy(i)
-                    break
+                        obj.destroy(i)
+                        break
                     end
                 end
                 local isdownspace = false
@@ -212,41 +193,23 @@ obj={
                 end
                 if isdownspace then
                     if spcobj then
-                        if obj.list[i].id=="chestplcd" then
-                            chest.toggleopen(i)
+                        if table.contains(obj.plctag.withgui,obj.list[i].id) then
+                            _G[obj.plctag.guiname[indexOf(obj.plctag.withgui,obj.list[i].id)]].toggleopen(i)
                             inv.open=1
-                            print("building.chest.opened")
-                        end
-                        if obj.list[i].id=="craftbench" then
-                            craftbench.toggleopen(i)
-                            inv.open=1
-                            print("building.craftbench.opened")
-                        end
-                        if obj.list[i].id=="crafterplcd" then
-                            crafter.toggleopen(i)
-                            inv.open=1
-                            print("machine.crafter.opened")
-                        end
-                        if obj.list[i].id=="mecharmplcd" then
-                            mecharm.toggleopen(i)
-                            inv.open=1
-                            print("machine.mecharm.opened")
                         end
                         if obj.list[i].id=="ironore" then
                             if grabbing.id=="miningpick" then
                                 if keyspacepress==0 then
-                                    love.audio.stop(sfx.get("orehit"))
-                                   love.audio.play(sfx.get("orehit"))
-                                   item.give({id="ironore"})
+                                    misc.sfx.play("orehit")
+                                    item.give({id="ironore"})
                                 end
                             end
                         end
                         if obj.list[i].id=="copperore" then
                             if grabbing.id=="miningpick" then
                                 if keyspacepress==0 then
-                                    love.audio.stop(sfx.get("orehit"))
-                                   love.audio.play(sfx.get("orehit"))
-                                   item.give({id="copperore"})
+                                    misc.sfx.play("orehit")
+                                    item.give({id="copperore"})
                                 end
                             end
                         end
@@ -254,27 +217,24 @@ obj={
                             if grabbing.id=="axe" then
                                 if keyspacepress==0 then
                                     obj.list[i].nbt.health=obj.list[i].nbt.health-1
-                                    love.audio.stop(sfx.get("woodhit"))
-                                    love.audio.play(sfx.get("woodhit"))
+                                    misc.sfx.play("woodhit")
                                     if obj.list[i].nbt.health==0 then
-                                    item.give({id="woodlog"})
-                                    obj.destroy(i)
-                                    break
+                                        item.give({id="woodlog"})
+                                        obj.destroy(i)
+                                        break
                                     end
                                 end
                             end
                         end
-                spcobj=false
+                    spcobj=false
+                    end
+                else
+                    spcobj=true
                 end
-            else
-                spcobj=true
             end
-        end
         end
         if obj.list[i].id=="craftbench" then
-            if thisistempjustforbugfix == false then
-                crtouch=false
-            end
+            crtouch=false
         end
         if obj.list[i].id=="crafterplcd" then
             crafter.tick(i)
@@ -282,7 +242,6 @@ obj={
         if obj.list[i].id=="mecharmplcd" then
             mecharm.tick(i)
         end
-        thisistempjustforbugfix = false
-    end
+        end
     end
 }
