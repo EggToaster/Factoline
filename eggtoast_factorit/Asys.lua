@@ -15,7 +15,7 @@ function loadSys()
             print("[Device]This is console, no hotswap!!")
         end
     end
-    love.audio.setVolume(conf.mute and 0 or 100)
+    love.audio.setVolume(conf.mute and 0 or 1)
     if conf.alwmax then
         love.window.maximize()
     end

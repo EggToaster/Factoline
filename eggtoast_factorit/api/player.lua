@@ -20,13 +20,14 @@ plr={
         end
         if isdownspace then
             if grabbing.id =="crafttable" then
-                obj.gen.make("craftbench",plr.x,plr.y,"crafttable",{craftopen=false})
+                obj.make("craftbench",plr.x,plr.y,{craftopen=false},"crafttable")
                 plr.inventory[plr.hotselect+32]={id=nil}
-            end
+            else
             if table.contains(obj.placeable,grabbing.id) then
-                obj.gen.make(grabbing.id.."plcd",plr.x,plr.y,grabbing.id,obj.placeablenbt[indexOf(obj.placeable,grabbing.id)])
+                obj.make(grabbing.id.."plcd",plr.x,plr.y,obj.placeablenbt[indexOf(obj.placeable,grabbing.id)],grabbing.id)
                 plr.inventory[plr.hotselect+32]={id=nil}
             end
+        end 
         end
     end,
     itemdraw = function ()

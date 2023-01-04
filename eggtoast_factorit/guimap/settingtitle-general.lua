@@ -27,7 +27,7 @@ button = {
         return "?slider"
         end,pos={725,185},size={220,75},slide=true,action=function ()
         conf.mute=not conf.mute
-        love.audio.setVolume((conf.mute and 0 or 100))
+        love.audio.setVolume((conf.mute and 0 or 1))
         misc.filer.write("cfg.json",json.encode(conf),true)
     end},
     {tag={"stenciloptionclick"},hitbox={725,350,220,75},color={0,0,0},txs={2,2},bg={1,1,1},txc={0,0,0},text="#stng.change",pos={725,350},size={220,75},slide=true,action=function ()

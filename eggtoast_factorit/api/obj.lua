@@ -107,7 +107,8 @@ obj={
         "miner",
         "crafter",
         "mecharm",
-        "chest"
+        "chest",
+        "crafttable"
     },
     plctag = {
 
@@ -123,7 +124,7 @@ obj={
             "craftbench",
             "crafter",
             "mecharm",
-            "chest"
+            "chest",
         },
         -- interface related stuff
 
@@ -159,7 +160,8 @@ obj={
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},timer=60,ore=nil},
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},invslt2={id=nil},timer=120,recipe=nil,craftopen=false},
         {inv={id=nil},timer=15,machine1=nil,machine2=nil,},
-        {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}}}
+        {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}}},
+        {craftopen=false}
     },
     tick=function (dt)
         for i = 1 , #obj.list do
