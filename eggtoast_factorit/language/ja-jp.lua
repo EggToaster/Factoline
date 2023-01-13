@@ -19,7 +19,8 @@ lang.list["jajp"]={
         "ミュート",
         "描画",
         "常に最大",
-        "変更"
+        "変更",
+        "チェスト"
     },
     langindex={
         "item.crafttable.name",
@@ -40,6 +41,7 @@ lang.list["jajp"]={
         "stng.mute",
         "stng.video",
         "stng.alwmax",
-        "stng.change"
+        "stng.change",
+        "item.chest.name"
     }
 }

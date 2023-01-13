@@ -18,7 +18,8 @@ lang.list["enus"]={
         "Mute",
         "Video",
         "Always Maximize",
-        "Change"
+        "Change",
+        "Chest"
     },
     langindex={
         "item.crafttable.name",
@@ -39,6 +40,7 @@ lang.list["enus"]={
         "stng.mute",
         "stng.video",
         "stng.alwmax",
-        "stng.change"
+        "stng.change",
+        "item.chest.name"
     }
 }
