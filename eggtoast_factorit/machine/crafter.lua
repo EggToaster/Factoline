@@ -65,22 +65,13 @@ crafter={
         mdcrafting = true
     end
         if obj.list[i].nbt.recipe==nil then else
-            --print("crafter.timertick2")
-            tpp=nil
             tpp = obj.list[i].nbt.recipe.ingrelist
-            --print(json.encode(obj.list[i].nbt.recipe.ingrelist))
-            --print(json.encode(tpp))
-            --print(json.encode(temmmp.nbt.inv))
-            --print(json.encode(tpp[1]))
-            --print(tostring(item.iHasAt(temmmp.nbt.inv,tpp[1])))
             if item.iHasAt(obj.list[i].nbt.inv,tpp[1],1) then
                 if #tpp ==1 then
-                    --print(item.getItemCount(obj.list[i].nbt.inv))
                     if item.getItemCount(obj.list[i].nbt.inv)==1 then
                     crafter.hasitem(i)
                     end
                 else
-                    --print(item.iHasAt(obj.list[i].nbt.inv,tpp[2],2))
                 if item.iHasAt(obj.list[i].nbt.inv,tpp[2],2) then
                     if #tpp ==2 then
                         if item.getItemCount(obj.list[i].nbt.inv)==2 then
@@ -334,7 +325,7 @@ crafttableput = function (z,x,y)
    local ob3 = (y-1)*8+x
    print("crafttableput."..tostring(ob3))
    obj.list[plr.craftopeni].nbt.inv[z] = ob2
-   item.delete(ob2)
+   plr.inventory[ob3]={id=nil}
 end
 crafterhover={
     {hover=0},

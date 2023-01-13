@@ -1,13 +1,12 @@
 mecharmstat=0
 mecharm={
     tick=function (i)
-        mx,my = mouse.getPos()
+        local mx,my = mouse.getPos()
         if mouse.ison(1) then
-            if mdcrafting then
+            if i == plr.craftopeni then
+            if mdmecharm then
                 if mecharmstat==1 then
-                    mx,my = mouse.getPos()
-                    mx,my = cam:mousePosition()
-                    --print("debug "..tostring(mx)..tostring(my))
+                    local mx,my = cam:mousePosition()
                     for sr = 1,#obj.list do
                         ox,oy = obj.list[sr].x,obj.list[sr].y
                         if table.contains(obj.sizemapid,obj.list[sr].name) then
@@ -15,24 +14,19 @@ mecharm={
                         else
                             sz = 0.4
                         end
-                        --print(tostring(mx).." a "..tostring(ox))
-                        --print(tostring(my).." b "..tostring(oy))
-                        if ((mx - ox) > 0) and ((mx - ox) <= sz*200) and ((my - oy) > 0) and ((my - oy) <=sz*200) then
+                        if ((mx-ox) >= 0) and ((mx - ox) <= sz*500) and ((my - oy) > 0) and ((my - oy) <=sz*500) then
                             local tppmp=obj.list[sr].id
                             print(tostring(tppmp:gsub("plcd","")))
                             if table.contains(obj.plctag.hasslot2,tppmp) or table.contains(obj.plctag.slot1bothio,tppmp) then--:gsub("plcd","")) then
                             obj.list[i].machine1=sr
-                            --print("break "..tostring(obj.list[i].machine1))
                             break
                             end
                         end
                     end
                     mecharmstat=0
-            end
+                else
             if mecharmstat==2 then
-                mx,my = mouse.getPos()
-                mx,my = cam:mousePosition()
-                --print("debug "..tostring(mx)..tostring(my))
+                local mx,my = cam:mousePosition()
                 for sr = 1,#obj.list do
                     ox,oy = obj.list[sr].x,obj.list[sr].y
                     if table.contains(obj.sizemapid,obj.list[sr].name) then
@@ -40,28 +34,23 @@ mecharm={
                     else
                         sz = 0.4
                     end
-                    --print(tostring(mx).." a "..tostring(ox))
-                    --print(tostring(my).." b "..tostring(oy))
-                    if ((mx - ox) > 0) and ((mx - ox) <= sz*200) and ((my - oy) > 0) and ((my - oy) <=sz*200) then
+                    if ((mx - ox) > 0) and ((mx - ox) <= sz*500) and ((my - oy) > 0) and ((my - oy) <=sz*500) then
                         local tppmp=obj.list[sr].id
                         print(tostring(tppmp:gsub("plcd","")))
                         if table.contains(obj.plctag.hasslot,tppmp) or table.contains(obj.plctag.slot1bothio,tppmp) then
                         obj.list[i].machine2=sr
-                        --print("break "..tostring(obj.list[i].machine1))
                         break
                         end
                     end
                 end
                 mecharmstat=0
             else
-        print("moreaaaa")
                 if ((mx - 300) > 0) and ((mx - 300) <= 25) and ((my - 55) > 0) and ((my - 55) <=25) then
                     item.give(obj.list[i].nbt.inv)
                     obj.list[i].nbt.inv={id=nil}
                 end
                 if ((mx >= 55) and (mx <= 80) and (my >= 280) and (my <= 305)) then
                     mecharmstat=1
-                    print("aosdjasdojiasdijos")
                 end
                 if ((mx - 125) > 0) and ((mx - 125) <= 25) and ((my - 280) > 0) and ((my - 280) <=25) then
                     mecharmstat=2
@@ -72,31 +61,71 @@ mecharm={
                 end
             end
         end
-            mdcrafting=false
-        else
-            mdcrafting=true
         end
-        obn=obj.list[i].nbt
-        if obn.machine1==nil then else
-            if obn.machine2==nil then else
-                
+            mdmecharm=false
+        else
+            mdmecharm=true
+        end
+        local obn=obj.list[i].nbt
+        local this=obj.list[i]
+        local m1 = this.machine1
+        local m2 = this.machine2
+        if not (m1==nil) then
+            if not (m2==nil) then
+                if (table.contains(obj.plctag.slot1bothio,obj.list[m1].id)) or (table.contains(obj.plctag.hasslot2,obj.list[m1].id)) then
+                        --machine 1 ready
+                        if table.contains(obj.plctag.hasslot,obj.list[m2].id) then
+                            local isoktoready=false
+                            for ti = 1,#obj.list[m2].nbt.inv do
+                                if obj.list[m2].nbt.inv[ti].id==nil then
+                                    isoktoready=true
+                                    break
+                                end
+                            end
+                            if isoktoready then
+                                if ((obj.list[m1].nbt[(table.contains(obj.plctag.slot1bothio,obj.list[m1].id) and "inv" or "invslt2")].id==nil)) then
+                                    this.nbt.timer = this.nbt.timer-1
+                                end
+                                if this.nbt.timer == 0 then
+                                    if this.nbt.inv.id == nil then
+                                        local invorinv2 =table.contains(obj.plctag.slot1bothio,obj.list[m1].id) and "inv" or "invslt2"
+                                        this.nbt.inv = obj.list[m1].nbt[invorinv2]
+                                        obj.list[m1].nbt[invorinv2]={id=nil}
+                                        this.nbt.timer=30
+                                    else
+                                        local i2 = 0
+                                        for ti = 1,#obj.list[m2].nbt.inv do
+                                            if obj.list[m2].nbt.inv[ti].id==nil then
+                                                i2=ti
+                                                break
+                                            end
+                                        end
+                                        obj.list[m2].nbt.inv[i2]=this.nbt.inv
+                                        this.nbt.inv={id=nil}
+                                        this.nbt.timer=30
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
             end
         end
     end,
     draw=function (i)
         if inv.open==1 then
-        obnbt=obj.list[i].nbt
-        objct=obj.list[i]
+        local obnbt=obj.list[i].nbt
+        local objct=obj.list[i]
         cam:attach()
         if objct.machine1==nil then else
             love.graphics.setColor(1,0,0)
-            love.graphics.circle("line",obj.list[objct.machine1].x+(obj.getsize(i)*500),obj.list[objct.machine1].y+(obj.getsize(i)*500),100)
-            love.graphics.circle("line",obj.list[objct.machine1].x+(obj.getsize(i)*500),obj.list[objct.machine1].y+(obj.getsize(i)*500),10)
+            love.graphics.circle("line",obj.list[objct.machine1].x+(obj.getsize(objct.machine1)*250),obj.list[objct.machine1].y+(obj.getsize(objct.machine1)*250),250*obj.getsize(objct.machine1))
+            love.graphics.circle("line",obj.list[objct.machine1].x+(obj.getsize(objct.machine1)*250),obj.list[objct.machine1].y+(obj.getsize(objct.machine1)*250),25*obj.getsize(objct.machine1))
         end
         if objct.machine2==nil then else
             love.graphics.setColor(0,0,1)
-            love.graphics.circle("line",obj.list[objct.machine2].x+(obj.getsize(i)*500),obj.list[objct.machine2].y+(obj.getsize(i)*500),100)
-            love.graphics.circle("line",obj.list[objct.machine2].x+(obj.getsize(i)*500),obj.list[objct.machine2].y+(obj.getsize(i)*500),10)
+            love.graphics.circle("line",obj.list[objct.machine2].x+(obj.getsize(objct.machine2)*250),obj.list[objct.machine2].y+(obj.getsize(objct.machine2)*250),250*obj.getsize(objct.machine2))
+            love.graphics.circle("line",obj.list[objct.machine2].x+(obj.getsize(objct.machine2)*250),obj.list[objct.machine2].y+(obj.getsize(objct.machine2)*250),25*obj.getsize(objct.machine2))
         end
         cam:detach()
 
@@ -140,7 +169,7 @@ mecharm={
         local ob3 = (y-1)*8+x
         print("mecharmput."..tostring(ob3))
         obj.list[plr.craftopeni].nbt.inv = ob2
-        item.delete(ob2)
+        plr.inventory[ob3]={id=nil}
     end,
     toggleopen = function(i)
         if obj.list[i].nbt.craftopen==true then
