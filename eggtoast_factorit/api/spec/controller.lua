@@ -170,6 +170,16 @@ function gamepad(button)
     if buttonis("x",button) then
         if inv.open==1 then
             inv.open=0
+            plr.craftopen=false
+            plr.craftopeni=0
+            crafteruse=false
+            for i = 1,#obj.list do
+                if table.haskey(obj.list[i].nbt,"craftopen") then
+                    if obj.list[i].nbt.craftopen==true then
+                        obj.list[i].nbt.craftopen=false
+                    end
+                end
+            end
         else
             inv.open=1
         end
