@@ -64,7 +64,7 @@ function makegame()
     obj.genworld()
     grabbing=plr.inventory[plr.hotselect+32]
     else
-        misc.save.load(json.decode(love.filesystem.read("savegame/save"..tostring(saveselecter)..".fsg")))
+        misc.save.load(love.filesystem.read("savegame/save"..tostring(saveselecter)..".fsg"))
         title=false
     end
 end
@@ -89,6 +89,16 @@ function love.keypressed(key)
         if key=="e" then
             if inv.open==1 then
                 inv.open=0
+                plr.craftopen=false
+                plr.craftopeni=0
+                crafteruse=false
+                for i = 1,#obj.list do
+                    if table.haskey(obj.list[i].nbt,"craftopen") then
+                        if obj.list[i].nbt.craftopen==true then
+                            obj.list[i].nbt.craftopen=false
+                        end
+                    end
+                end
             else
                 inv.open=1
             end
