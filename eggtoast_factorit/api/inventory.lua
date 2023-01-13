@@ -118,10 +118,10 @@ inv = {
               else
                 if crafteruse then
                   if plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil then else
-                    for i = 1,7 do
+                    for i = 1,#obj.list[plr.craftopeni].nbt.inv do
                       if obj.list[plr.craftopeni].nbt.inv[i].id == nil then
-                        crafttableput(i,mouseOn.x,mouseOn.y)
-                        break
+                        _G[string.gsub(obj.list[plr.craftopeni].id,"plcd","").."put"](i,mouseOn.x,mouseOn.y)
+                        goto inventorymouseclickend
                       end
                     end
                   end
@@ -153,5 +153,6 @@ inv = {
             end
           end
         end
+        ::inventorymouseclickend::
       end
 }

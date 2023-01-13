@@ -8,9 +8,10 @@ misc = {
                     obj = obj.list,
                     plr = {inv = plr.inventory,posx = plr.x,posy = plr.y}
                 }
-                love.filesystem.write("savegame/save"..tostring(saveselecter)..".fsg",json.encode(tosave))
+                love.filesystem.write("savegame/save"..tostring(saveselecter)..".fsg",misc.filer.zip(json.encode(tosave)))
         end,
         load = function (file)
+            local file = json.decode(misc.filer.unzip(file))
             obj.list=file.obj
             plr.inventory = file.plr.inv
             plr.x = file.plr.posx
@@ -43,10 +44,10 @@ misc = {
             end
         end,
         zip = function(data)
-            return love.data.compress("data","lz4",data)
+            return love.data.compress("string","lz4",data)
         end,
         unzip = function(data)
-            return love.data.decompress("data","lz4",data)
+            return love.data.decompress("string","lz4",data)
         end
     },
     sfx = {

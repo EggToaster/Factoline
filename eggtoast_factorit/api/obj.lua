@@ -126,6 +126,11 @@ obj={
             "mecharm",
             "chest",
         },
+        withtick = {
+            "crafterplcd",
+            "mecharmplcd",
+            "chestplcd"
+        },
         -- interface related stuff
 
         inv= {
@@ -159,13 +164,12 @@ obj={
     placeablenbt={
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},timer=60,ore=nil},
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},invslt2={id=nil},timer=120,recipe=nil,craftopen=false},
-        {inv={id=nil},timer=15,machine1=nil,machine2=nil,},
+        {inv={id=nil},timer=30,machine1=nil,machine2=nil,},
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}}},
         {craftopen=false}
     },
     tick=function (dt)
         for i = 1 , #obj.list do
-            local thisistempjustforbugfix = false
             if i < #obj.list+1 then
             objwidth, objheight = gr.texture.gettex(obj.list[i].id):getDimensions()
             objwidth = objwidth/4
@@ -174,6 +178,9 @@ obj={
                 if obj.list[i].id=="craftbench" then
                     crtouch=true
                     craftbench.tick(i)
+                end
+                if table.contains(obj.plctag.withtick,obj.list[i].id) then
+                    _G[string.gsub(obj.list[i].id,"plcd","")].tick(i)
                 end
                 local isdownspace = false
                 if joymode then
