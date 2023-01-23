@@ -5,7 +5,8 @@
     ],
     "Lua.workspace.checkThirdParty": false,
     "Lua.diagnostics.disable": [
-        "lowercase-global"
+        "lowercase-global",
+        "param-type-mismatch"
     ],
     "Lua.diagnostics.globals": [
         "device"
