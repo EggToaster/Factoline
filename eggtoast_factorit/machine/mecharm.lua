@@ -164,7 +164,7 @@ mecharm={
         love.graphics.print(lang.gettxt("item.mecharm.setstuff2"),55,315,0,0.5,0.5)
     end
     end,
-    crafttableput = function (x,y)
+    mecharmput = function (x,y)
         local ob2 = plr.inventory[(y-1)*8+x]
         local ob3 = (y-1)*8+x
         print("mecharmput."..tostring(ob3))

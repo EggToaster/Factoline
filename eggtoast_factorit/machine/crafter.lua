@@ -319,7 +319,7 @@ crafter={
         end
     end
 }
-crafttableput = function (z,x,y)
+crafterput = function (z,x,y)
    local obb = obj.list[plr.craftopeni].nbt.inv[z]
    local ob2 = plr.inventory[(y-1)*8+x]
    local ob3 = (y-1)*8+x
