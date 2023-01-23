@@ -8,6 +8,7 @@
         "lowercase-global"
     ],
     "Lua.diagnostics.globals": [
+        "device"
     ],
     "pixelbyte.love2d.srcDir": "./eggtoast_factorit/",
     "pixelbyte.love2d.runOnSave": false,
