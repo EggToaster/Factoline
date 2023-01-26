@@ -8,6 +8,14 @@ controller = {
             controller.keytick(delta)
         end
     end,
+    abutton = function ()
+        if joymode then
+            return joysticks:isGamepadDown("a")
+        else
+            return love.keyboard.isDown("space")
+        end
+        return false
+    end,
     keytick = function (dt)
         spd=100
         if love.keyboard.isDown("lshift") then
