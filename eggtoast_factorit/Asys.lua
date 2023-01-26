@@ -1,5 +1,7 @@
 function loadSys()
     spdrun=1
+    require("noise")
+    generateNoiseGrid()
     require("Agame")
     require("loadapi")
     lang.set(conf.lang)
