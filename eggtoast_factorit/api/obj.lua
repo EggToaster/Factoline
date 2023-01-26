@@ -170,18 +170,18 @@ obj={
     },
     tick=function (dt)
         for i = 1 , #obj.list do
-            if i < #obj.list+1 then
             objwidth, objheight = gr.texture.gettex(obj.list[i].id):getDimensions()
             objwidth = objwidth/4
             objheight = objheight/4
+            
+            if obj.list[i].id=="craftbench" then
+                crtouch=true
+                craftbench.tick(i)
+            end
+            if table.contains(obj.plctag.withtick,obj.list[i].id) then
+                _G[string.gsub(obj.list[i].id,"plcd","")].tick(i)
+            end
             if plr.x > obj.list[i].x and plr.y > obj.list[i].y and plr.x < obj.list[i].x+objwidth and plr.y < obj.list[i].y+objheight then
-                if obj.list[i].id=="craftbench" then
-                    crtouch=true
-                    craftbench.tick(i)
-                end
-                if table.contains(obj.plctag.withtick,obj.list[i].id) then
-                    _G[string.gsub(obj.list[i].id,"plcd","")].tick(i)
-                end
                 local isdownspace = false
                 if joymode then
                     isdownspace = joysticks:isGamepadDown("dpleft")
@@ -241,16 +241,6 @@ obj={
                     spcobj=true
                 end
             end
-        end
-        if obj.list[i].id=="craftbench" then
-            crtouch=false
-        end
-        if obj.list[i].id=="crafterplcd" then
-            crafter.tick(i)
-        end
-        if obj.list[i].id=="mecharmplcd" then
-            mecharm.tick(i)
-        end
         end
     end
 }
