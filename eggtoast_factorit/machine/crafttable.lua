@@ -24,7 +24,7 @@ craftbenchsquareposhover = {
 craftpage=0
 craftrecipe = {
     add = function (tables)
-        table.insert(craftrecipe.list,tables)
+        table.insert(craftrecipe.list,tables,#craftrecipe.list-5)
     end,
     list = {
         {result={id="ironore"},ingrelist={"crafttable"}},
@@ -43,27 +43,25 @@ craftrecipe = {
         {result=nil,ingrelist=nil},
         {result=nil,ingrelist=nil},
         {result=nil,ingrelist=nil}
-
     }
 }
 function crtdrawrec()
-    cbsp = craftbenchsquarepos
-    sca=craftpage*5
-    if #craftrecipe.list-sca < 1 then else
-    for aia = 1,math.min(#craftrecipe.list-sca,5) do
-        if craftrecipe.list[aia+sca].result==nil then else
-        love.graphics.draw(gr.texture.gettex(craftrecipe.list[aia+sca].result.id),craftbenchsquarepos[aia].x,craftbenchsquarepos[aia].y,0,0.065,0.065)
-        for ii = 1,#craftrecipe.list[aia+sca].ingrelist do
-            love.graphics.draw(gr.texture.gettex(craftrecipe.list[aia+sca].ingrelist[ii]),craftbenchx[ii],craftbenchsquarepos[aia].y,0,0.065,0.065)
+    if #craftrecipe.list-(craftpage*5) < 1 then else
+        for ii = 1,math.min(#craftrecipe.list-(craftpage*5),5) do
+            if not (craftrecipe.list[ii+(craftpage*5)].result==nil) then
+                love.graphics.draw(gr.texture.gettex(craftrecipe.list[ii+(craftpage*5)].result.id),craftbenchsquarepos[ii].x,craftbenchsquarepos[ii].y,0,0.065,0.065)
+                for iii = 1,#craftrecipe.list[ii+(craftpage*5)].ingrelist do
+                    love.graphics.draw(gr.texture.gettex(craftrecipe.list[ii+(craftpage*5)].ingrelist[iii]),craftbenchx[iii],craftbenchsquarepos[ii].y,0,0.065,0.065)
+                end
+            end
         end
     end
 end
-end
-end
+
 craftbench={
     wheel = function (y)
         if y <= 0 then
-            craftpage =craftpage+1
+            craftpage=craftpage+1
         else
             craftpage=craftpage-1
         end
@@ -75,61 +73,59 @@ craftbench={
         end
     end,
     tick = function (i)
-        if mouse.ison(1) then
+        if mouse.ison(1) and (plr.craftopeni==i) then
             if mdcrafting then
-            for aai = 1,#craftbenchsquareposhover do
-                if craftbenchsquareposhover[aai].hover==0 then
-                    if craftrecipe.list[aai+sca].result==nil then else
-                        recip = craftrecipe.list[aai+sca]
-                        craftprep = {}
-                        craftprepid = {}
-                        for lahee = 1,#plr.inventory do
-                            if plr.inventory[lahee].id==nil then else
-                                local tmp1 = plr.inventory[lahee].id
-                                itemsid = ""
----@diagnostic disable-next-line: param-type-mismatch
+                for ii = 1,#craftbenchsquareposhover do
+                    if craftbenchsquareposhover[ii].hover==0 then
+                        if not (craftrecipe.list[ii+(craftpage*5)].result==nil) then
+                            local recip = craftrecipe.list[ii+(craftpage*5)]
+                            local craftprep = {}
+                            local craftprepid = {}
+                            for iii = 1,#plr.inventory do
+                                if not (plr.inventory[iii].id==nil) then
+                                    local tmp1 = plr.inventory[iii].id
+                                    local itemsid = ""
+                                    for i = 1,string.len(tmp1) do
+                                        itemsid = itemsid..string.byte(tmp1,i)
+                                    end
+                                    if table.contains(craftprepid,itemsid) then
+                                        craftprep[indexOf(craftprepid,itemsid)] = craftprep[indexOf(craftprepid,itemsid)] + 1
+                                    else
+                                        table.insert(craftprepid,itemsid)
+                                        table.insert(craftprep,1)
+                                    end
+                                end
+                            end
+                            local fail = false
+                            for iii = 1,#recip.ingrelist do
+                                local itmid = ""
+                                local tmp1 = recip.ingrelist[iii]
                                 for i = 1,string.len(tmp1) do
----@diagnostic disable-next-line: param-type-mismatch
-                                    itemsid = itemsid..string.byte(tmp1,i)
+                                    itmid = itmid..string.byte(tmp1,i)
                                 end
-                                if table.contains(craftprepid,itemsid) then
-                                    craftprep[indexOf(craftprepid,itemsid)] = craftprep[indexOf(craftprepid,itemsid)] + 1
+                                if table.contains(craftprepid,itmid) then
+                                    craftprep[indexOf(craftprepid,itmid)] = craftprep[indexOf(craftprepid,itmid)]-1
+                                    if craftprep[indexOf(craftprepid,itmid)]==0 then
+                                        table.remove(craftprep,indexOf(craftprepid,itmid))
+                                        table.remove(craftprepid,indexOf(craftprepid,itmid))
+                                    end
                                 else
-                                    table.insert(craftprepid,itemsid)
-                                    table.insert(craftprep,1)
+                                    fail = true
                                 end
                             end
-                        end
-                        fail = false
-                        for aia = 1,#recip.ingrelist do
-                            itmid = ""
-                            local tmp1 = recip.ingrelist[aia]
-                            for i = 1,string.len(tmp1) do
-                                itmid = itmid..string.byte(tmp1,i)
-                            end
-                            if table.contains(craftprepid,itmid) then
-                                craftprep[indexOf(craftprepid,itmid)] = craftprep[indexOf(craftprepid,itmid)]-1
-                                if craftprep[indexOf(craftprepid,itmid)]==0 then
-                                    table.remove(craftprep,indexOf(craftprepid,itmid))
-                                    table.remove(craftprepid,indexOf(craftprepid,itmid))
+                            if not fail then
+                                for iii = 1,#recip.ingrelist do
+                                    item.delete({id=recip.ingrelist[iii]})
                                 end
-                            else
-                                fail = true
-                            end
-                        end
-                        if fail then else
-                            for eeeeee = 1,#recip.ingrelist do
-                                item.delete({id=recip.ingrelist[eeeeee]})
-                            end
                             item.give(recip.result)
+                            end
                         end
                     end
                 end
             end
-            end
-        mdcrafting = false
-    else
-        mdcrafting = true
+            mdcrafting = false
+        else
+            mdcrafting = true
         end
     end,
     draw = function (i)

@@ -30,35 +30,31 @@ crafter={
     end,
     tick = function (i)
         crtouch=true
-        if mouse.ison(1) then
+        if mouse.ison(1) and (plr.craftopeni==i) then
             if mdcrafting then
-                
-            for aai = 1,#craftbenchsquareposhover do
-                if craftbenchsquareposhover[aai].hover==0 then
-                    --print("crafter.tryingto.setrec")
-                    if craftrecipe.list[aai+sca].result==nil then else
-                        recip = craftrecipe.list[aai+sca]
-                        obj.list[i].nbt.recipe=recip
-                        --print("crafter.tryingto.setrec2")
+                for aai = 1,#craftbenchsquareposhover do
+                    if craftbenchsquareposhover[aai].hover==0 then
+                        if craftrecipe.list[aai+sca].result==nil then else
+                            recip = craftrecipe.list[aai+sca]
+                            obj.list[i].nbt.recipe=recip
+                        end
                     end
                 end
-            end
             if crafteruse then
-            if crafterhover=={{hover=0},{hover=0},{hover=0},{hover=0},{hover=0},{hover=0},{hover=0},{hover=0}} then else
-                print("crafter.extractitem")
-                for iii = 1,8 do
-                    if crafterhover[iii].hover==1 then
-                        if iii==8 then
-                            print(tostring(item.give(obj.list[i].nbt.invslt2)))
-                            obj.list[i].nbt.invslt2={id=nil}
-                        else
-                            print(tostring(item.give(obj.list[i].nbt.inv[iii])))
-                            obj.list[i].nbt.inv[iii]={id=nil}
+                if crafterhover=={{hover=0},{hover=0},{hover=0},{hover=0},{hover=0},{hover=0},{hover=0},{hover=0}} then else
+                    for iii = 1,8 do
+                        if crafterhover[iii].hover==1 then
+                            if iii==8 then
+                                print(tostring(item.give(obj.list[i].nbt.invslt2)))
+                                obj.list[i].nbt.invslt2={id=nil}
+                            else
+                                print(tostring(item.give(obj.list[i].nbt.inv[iii])))
+                                obj.list[i].nbt.inv[iii]={id=nil}
+                            end
                         end
                     end
                 end
             end
-        end
         end
         mdcrafting = false
     else
@@ -66,70 +62,18 @@ crafter={
     end
         if obj.list[i].nbt.recipe==nil then else
             tpp = obj.list[i].nbt.recipe.ingrelist
-            if item.iHasAt(obj.list[i].nbt.inv,tpp[1],1) then
-                if #tpp ==1 then
-                    if item.getItemCount(obj.list[i].nbt.inv)==1 then
-                    crafter.hasitem(i)
-                    end
-                else
-                if item.iHasAt(obj.list[i].nbt.inv,tpp[2],2) then
-                    if #tpp ==2 then
-                        if item.getItemCount(obj.list[i].nbt.inv)==2 then
+            for ii = 1,6 do
+                if item.iHasAt(obj.list[i].nbt.inv,tpp[1],ii) then
+                    if #tpp ==1 then
+                        if item.getItemCount(obj.list[i].nbt.inv)==ii then
                             crafter.hasitem(i)
-                            end
-                    else 
-                    if item.iHasAt(obj.list[i].nbt.inv,tpp[3],3) then
-                        if #tpp ==3 then
-                            if item.getItemCount(obj.list[i].nbt.inv)==3 then
-                                crafter.hasitem(i)
-                                end
-                        else
-                            if item.iHasAt(obj.list[i].nbt.inv,tpp[4],4) then
-                                if #tpp ==4 then
-                                    if item.getItemCount(obj.list[i].nbt.inv)==4 then
-                                        crafter.hasitem(i)
-                                        end                                else
-                                    if item.iHasAt(obj.list[i].nbt.inv,tpp[5],5) then
-                                        if #tpp ==5 then
-                                            if item.getItemCount(obj.list[i].nbt.inv)==5 then
-                                                crafter.hasitem(i)
-                                                end                                        else
-                                                    if item.iHasAt(obj.list[i].nbt.inv,tpp[6],6) then
-                                                        if #tpp ==6 then
-                                                            if item.getItemCount(obj.list[i].nbt.inv)==6 then
-                                                                crafter.hasitem(i)
-                                                                end                                    end
-                                                    else
-                                                        if item.iHasAt(obj.list[i].nbt.inv,tpp[6],6) then
-                                                            if #tpp ==6 then
-                                                                if item.getItemCount(obj.list[i].nbt.inv)==6 then
-                                                                    crafter.hasitem(i)
-                                                                else
-                                                                    crafter.noitem(i)
-                                                                end                                   end
-                                                        else
-                                    crafter.noitem(i)
-                                end
-                            end
-                        end
-                        else
-                            crafter.noitem(i)
-                            end
                         end
                     else
-                        crafter.noitem(i)
+                        if ii == 6 then
+                            crafter.noitem(i)
                         end
                     end
-                else
-                    crafter.noitem(i)
-                    end
                 end
-            else
-                crafter.noitem(i)
-                end
-            end
-        else
-            crafter.noitem(i)
             end
         end
     end,

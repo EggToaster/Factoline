@@ -62,10 +62,12 @@ chest = {--30 slot
     end
 }
 chestput = function (z,x,y)
-    local obb = obj.list[plr.craftopeni].nbt.inv[z]
-    local ob2 = plr.inventory[(y-1)*8+x]
-    local ob3 = (y-1)*8+x
-    print("crafttableput."..tostring(ob3))
-    obj.list[plr.craftopeni].nbt.inv[z] = ob2
-    plr.inventory[ob3]={id=nil}
+    print(tostring(plr.craftopeni))
+    for i = 1,#obj.list[plr.craftopeni].nbt.inv do
+        if obj.list[plr.craftopeni].nbt.inv[i].id==nil then
+            obj.list[plr.craftopeni].nbt.inv[i] = plr.inventory[(y-1)*8+x]
+            break
+        end
+    end
+    plr.inventory[(y-1)*8+x]={id=nil}
  end
