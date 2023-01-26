@@ -7,7 +7,6 @@ function gamedraw()
     local dx,dy = love.graphics.getDimensions()
 if not loading then
     love.graphics.setBackgroundColor(0,0,0)
-    drawNoise()
     love.graphics.setColor(1,1,1)
     cam:attach()
     obj.draw()
