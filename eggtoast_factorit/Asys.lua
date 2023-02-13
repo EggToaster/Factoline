@@ -22,6 +22,7 @@ function loadSys()
     gameload()
 end
 function love.update(dt)
+    love.graphics.setBackgroundColor(1,1,1)
     gui.action()
     mouse.tick(dt)
     if not device.console then
