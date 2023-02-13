@@ -1,0 +1,47 @@
+
+lang.list["jajp"]={
+    lang={
+        "作業台",
+        "開始",
+        "設定",
+        "フルスクリーン",
+        "戻る",
+        "再起動が必要です",
+        "言語",
+        "セーブデータは",
+        "です、マウスホイールで変更",
+        "自動作業台",
+        "自動アーム",
+        "機械の割り当てを変更するにはボタンをクリック",
+        "1つ目に割り当てする機械をクリック",
+        "2つ目に割り当てする機械をクリック",
+        "一般",
+        "ミュート",
+        "描画",
+        "常に最大",
+        "変更",
+        "チェスト"
+    },
+    langindex={
+        "item.crafttable.name",
+        "title.playbutton",
+        "title.settingsbutton",
+        "title.fullscreen",
+        "title.back",
+        "title.fullscreentogglewarn",
+        "title.lang",
+        "title.saveselect1",
+        "title.saveselect2",
+        "item.crafter.name",
+        "item.mecharm.name",
+        "item.mecharm.desc",
+        "item.mecharm.setstuff1",
+        "item.mecharm.setstuff2",
+        "stng.general",
+        "stng.mute",
+        "stng.video",
+        "stng.alwmax",
+        "stng.change",
+        "item.chest.name"
+    }
+}

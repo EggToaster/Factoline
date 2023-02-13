@@ -1,0 +1,32 @@
+noise = {}
+local hei = 25
+local wid = 35
+function generateNoiseGrid()
+	-- Fill each tile in our grid with noise.
+	local baseX = 10000 * love.math.random()
+	local baseY = 10000 * love.math.random()
+	for y = 1, hei do
+		noise[y] = {}
+		for x = 1, wid do
+			noise[y][x] = love.math.noise(baseX+.1*x, baseY+.2*y)
+		end
+	end
+	noisecomp = noise
+	noise=nil
+	noise = noisecomp
+	--if love.filesystem.getInfo("savegame/save1.noise")==nil then
+	--	love.filesystem.newFile("savegame/save1.noise")
+	--end
+	--love.filesystem.write("savegame/save1.noise",json.encode(noisecomp))
+end
+
+function drawNoise()
+    local tileSize = 5
+	for y = 1, #noise do
+		for x = 1, #noise[y] do
+			love.graphics.setColor(0,1,0, noise[y][x]+0.1)
+			love.graphics.rectangle("fill", (x-1)*tileSize, (y-1)*tileSize, tileSize-1, tileSize-1)
+		end
+	end
+	love.graphics.setColor(1,1,1,255)
+end
