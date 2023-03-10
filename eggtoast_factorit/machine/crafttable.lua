@@ -45,6 +45,7 @@ craftrecipe = {
         {result=nil,ingrelist=nil}
     }
 }
+crafttabledown=false
 function crtdrawrec()
     if #craftrecipe.list-(craftpage*5) < 1 then else
         for ii = 1,math.min(#craftrecipe.list-(craftpage*5),5) do
@@ -57,7 +58,6 @@ function crtdrawrec()
         end
     end
 end
-
 craftbench={
     wheel = function (y)
         if y <= 0 then
@@ -73,59 +73,63 @@ craftbench={
         end
     end,
     tick = function (i)
-        if mouse.ison(1) and (plr.craftopeni==i) then
-            if mdcrafting then
-                for ii = 1,#craftbenchsquareposhover do
-                    if craftbenchsquareposhover[ii].hover==0 then
-                        if not (craftrecipe.list[ii+(craftpage*5)].result==nil) then
-                            local recip = craftrecipe.list[ii+(craftpage*5)]
-                            local craftprep = {}
-                            local craftprepid = {}
-                            for iii = 1,#plr.inventory do
-                                if not (plr.inventory[iii].id==nil) then
-                                    local tmp1 = plr.inventory[iii].id
-                                    local itemsid = ""
-                                    for i = 1,string.len(tmp1) do
-                                        itemsid = itemsid..string.byte(tmp1,i)
-                                    end
-                                    if table.contains(craftprepid,itemsid) then
-                                        craftprep[indexOf(craftprepid,itemsid)] = craftprep[indexOf(craftprepid,itemsid)] + 1
-                                    else
-                                        table.insert(craftprepid,itemsid)
-                                        table.insert(craftprep,1)
+        if mouse.ison(1) then
+            if (plr.craftopeni==i) then
+                if not crafttabledown then
+                    for ii = 1,#craftbenchsquareposhover do
+                        if craftbenchsquareposhover[ii].hover==0 then
+                            if not (craftrecipe.list[ii+(craftpage*5)].result==nil) then
+                                local recip = craftrecipe.list[ii+(craftpage*5)]
+                                local craftprep = {}
+                                local craftprepid = {}
+                                for iii = 1,#plr.inventory do
+                                    if not (plr.inventory[iii].id==nil) then
+                                        local tmp1 = plr.inventory[iii].id
+                                        local itemsid = ""
+                                        for i = 1,string.len(tmp1) do
+                                            itemsid = itemsid..string.byte(tmp1,i)
+                                        end
+                                        if table.contains(craftprepid,itemsid) then
+                                            craftprep[indexOf(craftprepid,itemsid)] = craftprep[indexOf(craftprepid,itemsid)] + 1
+                                        else
+                                            table.insert(craftprepid,itemsid)
+                                            table.insert(craftprep,1)
+                                        end
                                     end
                                 end
-                            end
-                            local fail = false
-                            for iii = 1,#recip.ingrelist do
-                                local itmid = ""
-                                local tmp1 = recip.ingrelist[iii]
-                                for i = 1,string.len(tmp1) do
-                                    itmid = itmid..string.byte(tmp1,i)
-                                end
-                                if table.contains(craftprepid,itmid) then
-                                    craftprep[indexOf(craftprepid,itmid)] = craftprep[indexOf(craftprepid,itmid)]-1
-                                    if craftprep[indexOf(craftprepid,itmid)]==0 then
-                                        table.remove(craftprep,indexOf(craftprepid,itmid))
-                                        table.remove(craftprepid,indexOf(craftprepid,itmid))
-                                    end
-                                else
-                                    fail = true
-                                end
-                            end
-                            if not fail then
+                                local fail = false
                                 for iii = 1,#recip.ingrelist do
-                                    item.delete({id=recip.ingrelist[iii]})
+                                    local itmid = ""
+                                    local tmp1 = recip.ingrelist[iii]
+                                    for i = 1,string.len(tmp1) do
+                                        itmid = itmid..string.byte(tmp1,i)
+                                    end
+                                    if table.contains(craftprepid,itmid) then
+                                        craftprep[indexOf(craftprepid,itmid)] = craftprep[indexOf(craftprepid,itmid)]-1
+                                        if craftprep[indexOf(craftprepid,itmid)]==0 then
+                                            table.remove(craftprep,indexOf(craftprepid,itmid))
+                                            table.remove(craftprepid,indexOf(craftprepid,itmid))
+                                        end
+                                    else
+                                        fail = true
+                                    end
                                 end
-                            item.give(recip.result)
+                                if not fail then
+                                    for iii = 1,#recip.ingrelist do
+                                        item.delete({id=recip.ingrelist[iii]})
+                                    end
+                                item.give(recip.result)
+                                end
                             end
                         end
                     end
                 end
+                crafttabledown = true
             end
-            mdcrafting = false
         else
-            mdcrafting = true
+            if (plr.craftopeni == i) then
+                crafttabledown = false
+            end
         end
     end,
     draw = function (i)
