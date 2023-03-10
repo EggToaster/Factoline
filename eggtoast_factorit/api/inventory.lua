@@ -117,10 +117,10 @@ inv = {
               if mouseOn.trash then
               else
                 if crafteruse then
-                  if plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil then else
+                  if not (plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil) then
                     for i = 1,#obj.list[plr.craftopeni].nbt.inv do
                       if obj.list[plr.craftopeni].nbt.inv[i].id == nil then
-                        _G[string.gsub(obj.list[plr.craftopeni].id,"plcd","").."put"](i,mouseOn.x,mouseOn.y)
+                        _G[string.gsub(obj.list[plr.craftopeni].id,"plcd","").."put"](i,mouseOn.x,mouseOn.y,plr.craftopeni)
                         goto inventorymouseclickend
                       end
                     end

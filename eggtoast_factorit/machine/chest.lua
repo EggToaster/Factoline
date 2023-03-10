@@ -15,7 +15,7 @@ local craftbenchx = {
     265,
     300
 }
-chest = {--30 slot
+chest = {
     draw = function (i)
         if inv.open and (i==plr.craftopeni) and plr.craftopen and crafteruse then
             for y = 1,5 do
@@ -62,12 +62,11 @@ chest = {--30 slot
     end
 }
 chestput = function (z,x,y)
-    print(tostring(plr.craftopeni))
     for i = 1,#obj.list[plr.craftopeni].nbt.inv do
         if obj.list[plr.craftopeni].nbt.inv[i].id==nil then
             obj.list[plr.craftopeni].nbt.inv[i] = plr.inventory[(y-1)*8+x]
+            plr.inventory[(y-1)*8+x]={id=nil}
             break
         end
     end
-    plr.inventory[(y-1)*8+x]={id=nil}
- end
+end

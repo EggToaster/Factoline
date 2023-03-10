@@ -1,4 +1,5 @@
 grabbing={id=nil}
+cc=0
 plr={
     x=mapx/2,
     y=mapy/2,
@@ -18,8 +19,11 @@ plr={
                 plr.inventory[plr.hotselect+32]={id=nil}
             else
                 if table.contains(obj.placeable,grabbing.id) then
+                    cc=cc+1
+                    print(cc)
                     obj.make(grabbing.id.."plcd",plr.x,plr.y,obj.placeablenbt[indexOf(obj.placeable,grabbing.id)],grabbing.id)
                     plr.inventory[plr.hotselect+32]={id=nil}
+                    print()
                 end
             end 
         end
