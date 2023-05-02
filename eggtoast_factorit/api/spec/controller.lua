@@ -87,42 +87,36 @@ controller = {
         else
             if crafteruse then
                 crafter.wheel(y)
+            elseif plr.craftopen then 
+                crafttable.wheel(y)
             else
-            if plr.craftopen then 
-                craftbench.wheel(y)
-            else
-        if y < 0 then
-            plr.hotselect=plr.hotselect+1
-            if plr.hotselect>9 then
-                plr.hotselect=1
-            end
-        elseif y > 0 then
-            plr.hotselect= plr.hotselect-1
-            if plr.hotselect<1 then
-                plr.hotselect=9
+                if y < 0 then
+                    plr.hotselect=plr.hotselect+1
+                    if plr.hotselect>9 then
+                        plr.hotselect=1
+                    end
+                elseif y > 0 then
+                    plr.hotselect= plr.hotselect-1
+                    if plr.hotselect<1 then
+                        plr.hotselect=9
+                    end
+                end
             end
         end
-    end
-    end
-    end
         if joysticks:isGamepadDown("y") then
             if spdrun == 1 then
                 spd = 300
-            end
-            if spdrun == 2 then
+            elseif spdrun == 2 then
                 spd = 500
-            end
-            if spdrun == 3 then
+            elseif spdrun == 3 then
                 spd = 750
-            end
-            if spdrun == 4 then
+            elseif spdrun == 4 then
                 spd = 1000
-            end
-            if spdrun==5 then
+            elseif spdrun==5 then
                 spd= 1500
             end
-        end
-        yesspd = (spd-yesspd)/3+yesspd
+            end
+        yesspd = (joysticks:isGamepadDown("leftstick") and (((spd)-yesspd)/3+yesspd) or 100)
         plr.y=plr.y+((dt*yesspd)*joysticks:getGamepadAxis("lefty"))
         plr.x=plr.x+((dt*yesspd)*joysticks:getGamepadAxis("leftx"))
         if joysticks:getGamepadAxis("leftx") > 0 then
@@ -137,7 +131,7 @@ controller = {
             plr.handrot=0
             keyspacepress=0
         end
-        end
+    end
 }
 function gamekey(key)
     if love.keyboard.isDown("c") then

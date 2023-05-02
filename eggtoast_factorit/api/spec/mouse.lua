@@ -1,4 +1,6 @@
 local meow
+local meow2 = false
+local meow3 = false
 mouse = {
     getPos = function ()
         return mouse.pos[1],mouse.pos[2]
@@ -7,8 +9,14 @@ mouse = {
         local x = mouse.pos[1]
         local y = mouse.pos[2]
         if mouse.device=="stick" then
-            mouse.pos[1] = mouse.pos[1] + (joysticks:getGamepadAxis("rightx")*dt*250)
-            mouse.pos[2] = mouse.pos[2] + (joysticks:getGamepadAxis("righty")*dt*250)
+            if meow2 then
+                mouse.pos[1] = mouse.pos[1] + (joysticks:getGamepadAxis("rightx")*dt*250)
+                mouse.pos[2] = mouse.pos[2] + (joysticks:getGamepadAxis("righty")*dt*250)
+            else
+                local dx,dy=love.graphics.getDimensions()
+                mouse.pos[1] = (joysticks:getGamepadAxis("rightx")*dt*250)-dx/2
+                mouse.pos[2] = (joysticks:getGamepadAxis("righty")*dt*250)-dy/2
+            end
             if mouse.ison(1) or mouse.ison(2) then
             if not meow then
                 meow=true
@@ -20,6 +28,14 @@ mouse = {
             end
         else
             meow = false
+        end
+        if joysticks:isGamepadDown("rightstick") then
+            if not meow3 then
+                meow2 = not meow2
+                meow3 = true
+            end
+        else
+            meow3=false
         end
         end
         if mouse.device=="mouse" then
