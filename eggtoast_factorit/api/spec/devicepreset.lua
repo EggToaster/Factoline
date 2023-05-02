@@ -90,7 +90,7 @@ local devicepreset = {
             "DPAD",
             "LS","RS"
         },
-        detail = "100% not nintendo licensed build tool"
+        detail = "1% not nintendo licensed build tool"
     }
 }
 return devicepreset
