@@ -16,6 +16,7 @@ misc = {
             plr.inventory = file.plr.inv
             plr.x = file.plr.posx
             plr.y = file.plr.posy
+            chest.loadsave()
         end
     },
     filer={

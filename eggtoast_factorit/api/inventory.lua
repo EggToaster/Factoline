@@ -113,18 +113,15 @@ inv = {
     mouseclick = function(x,y,b)
         if b == 1 then
           if mouseOn.is then
+            
             if not selected.is then
               if mouseOn.trash then
               else
                 if crafteruse then
                   if not (plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil) then
-                    for i = 1,#obj.list[plr.craftopeni].nbt.inv do
-                      if obj.list[plr.craftopeni].nbt.inv[i].id == nil then
                         _G[string.gsub(obj.list[plr.craftopeni].id,"plcd","").."put"](i,mouseOn.x,mouseOn.y,plr.craftopeni)
                         goto inventorymouseclickend
-                      end
                     end
-                  end
                 if mecharmuse then
                     if plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil then else
                       if obj.list[plr.craftopeni].nbt.inv.id==nil then

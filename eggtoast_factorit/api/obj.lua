@@ -138,7 +138,7 @@ obj={
             "minerplcd",
             "chestplcd",
             "crafterplcd",
-            "crafttable",
+            "crafttableplcd",
             "mecharmplcd"
         },
         hasslot={
@@ -153,7 +153,10 @@ obj={
         slot1bothio={
             "chestplcd"
         },
-        
+        interactableinv={
+            "crafttableplcd",
+            "chestplcd"
+        },
         --type related stuff
 
         nature = {
@@ -166,7 +169,7 @@ obj={
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},timer=60,ore=nil},
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},invslt2={id=nil},timer=120,recipe=nil,craftopen=false},
         {inv={id=nil},timer=30,machine1=nil,machine2=nil,},
-        {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}}},
+        {inv={}},
         {craftopen=false}
     },
     tick=function (dt)
@@ -178,7 +181,12 @@ obj={
                 _G[string.gsub(obj.list[i].id,"plcd","")].tick(i)
             end
             local mx,my = mouse.getPos()
+            local px = plr.x
+            local py = plr.y
             local ox,oy = cam:cameraCoords(obj.list[i].x,obj.list[i].y)
+            if table.contains(obj.plctag.interactableinv,obj.list[i].id) then
+                _G[obj.plctag.guiname[indexOf(obj.plctag.withgui,obj.list[i].id)]].tick(i)
+            end
             if mx > ox and my > oy and mx < ox+objwidth*1.3 and my < oy+objheight*1.3 then
                 local isdownspace = false
                 if joymode then

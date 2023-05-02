@@ -15,15 +15,24 @@ local craftbenchx = {
     265,
     300
 }
+chestlist = {}
 chest = {
+    loadsave= function ()
+        chestlist={}
+        for i = 1,#obj.list do
+            if obj.list[i].id == "chestplcd" then
+                chestlist[i]=obj.list[i].nbt.inv
+            end
+        end
+    end,
     draw = function (i)
         if inv.open and (i==plr.craftopeni) and plr.craftopen and crafteruse then
             for y = 1,5 do
                 for x = 1,6 do
                     love.graphics.setColor(1,1,1)
                     love.graphics.rectangle("fill",craftbenchx[x]+5,craftbenchy[y],30,30)
-                    if not (obj.list[i].nbt.inv[(y-1)*6+x]==nil) then
-                        love.graphics.draw(gr.texture.gettex(obj.list[i].nbt.inv[(y-1)*6+x].id),craftbenchx[x]+5,craftbenchy[y],0,0.065)
+                    if not (chestlist[i][(y-1)*6+x]==nil) then
+                        love.graphics.draw(gr.texture.gettex(chestlist[i][(y-1)*6+x].id),craftbenchx[x]+5,craftbenchy[y],0,0.065)
                     end
                 end
             end
@@ -31,17 +40,21 @@ chest = {
         end
     end,
     tick = function (i)
+        if not (table.haskey(chestlist,i)) then
+            chestlist[i]={}
+        end
         if mouse.ison(1) and inv.open and (i==plr.craftopeni) then
             for y = 1,5 do
                 for x = 1,6 do
                     local mx,my = mouse.getPos()
                     if (mx>craftbenchx[x]+5) and (mx<craftbenchx[x]+5+30) and (my>craftbenchy[y]) and (my<craftbenchy[y]+30) then
-                        item.give(obj.list[i].nbt.inv[(y-1)*6+x])
-                        obj.list[i].nbt.inv[(y-1)*6+x]={id=nil}
+                        item.give(chestlist[i][(y-1)*6+x])
+                        chestlist[i][(y-1)*6+x]={id=nil}
                     end
                 end
             end
         end
+        obj.list[i].nbt.inv=chestlist[i]
     end,
     toggleopen = function(i)
         if obj.list[i].nbt.craftopen==true then
@@ -62,11 +75,8 @@ chest = {
     end
 }
 chestput = function (z,x,y)
-    for i = 1,#obj.list[plr.craftopeni].nbt.inv do
-        if obj.list[plr.craftopeni].nbt.inv[i].id==nil then
-            obj.list[plr.craftopeni].nbt.inv[i] = plr.inventory[(y-1)*8+x]
-            plr.inventory[(y-1)*8+x]={id=nil}
-            break
-        end
+    if #chestlist[plr.craftopeni]~=30 then
+        table.insert(chestlist[plr.craftopeni],plr.inventory[(y-1)*8+x])
+        plr.inventory[(y-1)*8+x]={id=nil}
     end
 end
