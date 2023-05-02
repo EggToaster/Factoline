@@ -177,7 +177,9 @@ obj={
             if table.contains(obj.plctag.withtick,obj.list[i].id) then
                 _G[string.gsub(obj.list[i].id,"plcd","")].tick(i)
             end
-            if plr.x > obj.list[i].x and plr.y > obj.list[i].y and plr.x < obj.list[i].x+objwidth and plr.y < obj.list[i].y+objheight then
+            local mx,my = mouse.getPos()
+            local ox,oy = cam:cameraCoords(obj.list[i].x,obj.list[i].y)
+            if mx > ox and my > oy and mx < ox+objwidth*1.3 and my < oy+objheight*1.3 then
                 local isdownspace = false
                 if joymode then
                     isdownspace = joysticks:isGamepadDown("dpleft")
@@ -190,13 +192,7 @@ obj={
                         break
                     end
                 end
-                local isdownspace = false
-                if joymode then
-                    isdownspace = joysticks:isGamepadDown("a")
-                else
-                    isdownspace = love.keyboard.isDown("space")
-                end
-                if isdownspace then
+                if mouse.ison(1) then
                     if spcobj then
                         if table.contains(obj.plctag.withgui,obj.list[i].id) then
                             _G[obj.plctag.guiname[indexOf(obj.plctag.withgui,obj.list[i].id)]].toggleopen(i)
