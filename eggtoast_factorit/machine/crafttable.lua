@@ -58,7 +58,7 @@ function crtdrawrec()
         end
     end
 end
-craftbench={
+crafttable={
     wheel = function (y)
         if y <= 0 then
             craftpage=craftpage+1

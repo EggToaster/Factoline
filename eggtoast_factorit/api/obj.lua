@@ -93,6 +93,7 @@ obj={
         local nbt = nbt or {}
         local after = after or nil
         table.insert(obj.list,{id=id,x=x,y=y,after=after,nbt=nbt})
+        return #obj.list
     end,
     sizemap={
         0.2,
@@ -173,11 +174,6 @@ obj={
             objwidth, objheight = gr.texture.gettex(obj.list[i].id):getDimensions()
             objwidth = objwidth/4
             objheight = objheight/4
-            
-            if obj.list[i].id=="craftbench" then
-                crtouch=true
-                craftbench.tick(i)
-            end
             if table.contains(obj.plctag.withtick,obj.list[i].id) then
                 _G[string.gsub(obj.list[i].id,"plcd","")].tick(i)
             end

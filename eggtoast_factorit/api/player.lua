@@ -1,5 +1,4 @@
 grabbing={id=nil}
-cc=0
 plr={
     x=mapx/2,
     y=mapy/2,
@@ -14,18 +13,10 @@ plr={
                 table.insert(plr.inventory,{id=nil})
         end
         if controller.abutton() then
-            if grabbing.id =="crafttable" then
-                obj.make("craftbench",plr.x,plr.y,{craftopen=false},"crafttable")
+            if table.contains(obj.placeable,grabbing.id) then
+                obj.make(grabbing.id.."plcd",plr.x,plr.y,obj.placeablenbt[indexOf(obj.placeable,grabbing.id)],grabbing.id)
                 plr.inventory[plr.hotselect+32]={id=nil}
-            else
-                if table.contains(obj.placeable,grabbing.id) then
-                    cc=cc+1
-                    print(cc)
-                    obj.make(grabbing.id.."plcd",plr.x,plr.y,obj.placeablenbt[indexOf(obj.placeable,grabbing.id)],grabbing.id)
-                    plr.inventory[plr.hotselect+32]={id=nil}
-                    print()
-                end
-            end 
+            end
         end
     end,
     itemdraw = function ()
