@@ -59,19 +59,19 @@ controller = {
     end,
     padtick = function (dt)
         local y = 0
-        if buttonis("dpup",0) and (not upd) then
+        if (buttonis("dpup",0)) and (not upd) then
             y = y + 1
             upd = true
         else
-            if not buttonis("dpup",0) then
+            if not (buttonis("dpup",0)) then
             upd = false
             end
         end
-        if buttonis("dpdown",0) and (not dwd) then
+        if (buttonis("dpdown",0)) and (not dwd) then
             y = y - 1
             dwd = true
         else
-            if not buttonis("dpdown",0) then
+            if not (buttonis("dpdown",0)) then
             dwd = false
             end
         end
@@ -115,8 +115,10 @@ controller = {
             elseif spdrun==5 then
                 spd = 1500
             end
+        else
+            spd=100
         end
-        yesspd = (spd-yesspd)/3+yesspd
+        yesspd = ((spd)-yesspd)/3+yesspd
         plr.y=plr.y+((dt*yesspd)*joysticks:getGamepadAxis("lefty"))
         plr.x=plr.x+((dt*yesspd)*joysticks:getGamepadAxis("leftx"))
         if joysticks:getGamepadAxis("leftx") > 0 then
