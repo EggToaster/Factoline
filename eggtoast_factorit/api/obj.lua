@@ -12,7 +12,7 @@ obj={
         end
     end,
     guilist = {
-        "craftbench","craftbench",
+        "crafttableplcd","crafttable",
         "crafterplcd","crafter",
         "mecharmplcd","mecharm",
         "chestplcd","chest"
@@ -116,13 +116,13 @@ obj={
         -- behavior related stuff
 
         withgui = {
-            "craftbench",
+            "crafttableplcd",
             "crafterplcd",
             "mecharmplcd",
             "chestplcd"
         },
         guiname = {
-            "craftbench",
+            "crafttable",
             "crafter",
             "mecharm",
             "chest",
