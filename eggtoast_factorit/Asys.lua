@@ -176,24 +176,20 @@ function love.wheelmoved(x, y)
     else
         if crafteruse then
             crafter.wheel(y)
-        else
-        if plr.craftopen then 
+        elseif plr.craftopen then 
             crafttable.wheel(y)
-        else
-    if y < 0 then
-        plr.hotselect=plr.hotselect+1
-        if plr.hotselect>9 then
-            plr.hotselect=1
-        end
-    elseif y > 0 then
-        plr.hotselect= plr.hotselect-1
-        if plr.hotselect<1 then
-            plr.hotselect=9
+        elseif y < 0 then
+            plr.hotselect=plr.hotselect+1
+            if plr.hotselect>9 then
+                plr.hotselect=1
+            end
+        elseif y > 0 then
+            plr.hotselect= plr.hotselect-1
+            if plr.hotselect<1 then
+                plr.hotselect=9
+            end
         end
     end
-end
-end
-end
 end
 fntgame = love.graphics.newFont("rmpfont.ttf",30)
 love.graphics.setFont(fntgame)
