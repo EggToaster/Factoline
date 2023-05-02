@@ -103,7 +103,7 @@ controller = {
                 end
             end
         end
-        if joysticks:isGamepadDown("y") then
+        if joysticks:isGamepadDown("leftstick") then
             if spdrun == 1 then
                 spd = 300
             elseif spdrun == 2 then
@@ -113,10 +113,10 @@ controller = {
             elseif spdrun == 4 then
                 spd = 1000
             elseif spdrun==5 then
-                spd= 1500
+                spd = 1500
             end
-            end
-        yesspd = (joysticks:isGamepadDown("leftstick") and (((spd)-yesspd)/3+yesspd) or 100)
+        end
+        yesspd = (spd-yesspd)/3+yesspd
         plr.y=plr.y+((dt*yesspd)*joysticks:getGamepadAxis("lefty"))
         plr.x=plr.x+((dt*yesspd)*joysticks:getGamepadAxis("leftx"))
         if joysticks:getGamepadAxis("leftx") > 0 then

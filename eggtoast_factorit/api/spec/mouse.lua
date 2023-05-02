@@ -14,8 +14,8 @@ mouse = {
                 mouse.pos[2] = mouse.pos[2] + (joysticks:getGamepadAxis("righty")*dt*250)
             else
                 local dx,dy=love.graphics.getDimensions()
-                mouse.pos[1] = (joysticks:getGamepadAxis("rightx")*dt*250)-dx/2
-                mouse.pos[2] = (joysticks:getGamepadAxis("righty")*dt*250)-dy/2
+                mouse.pos[1] = (joysticks:getGamepadAxis("rightx")*150)+(dx/2)
+                mouse.pos[2] = (joysticks:getGamepadAxis("righty")*150)+(dy/2)
             end
             if mouse.ison(1) or mouse.ison(2) then
             if not meow then
