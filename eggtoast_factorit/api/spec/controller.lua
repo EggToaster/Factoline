@@ -59,22 +59,23 @@ controller = {
     end,
     padtick = function (dt)
         local y = 0
-        if (buttonis("dpup",0)) and (not upd) then
+        if (joysticks:isGamepadDown("dpup")) and (not upd) then
             y = y + 1
             upd = true
         else
-            if not (buttonis("dpup",0)) then
+            if not (joysticks:isGamepadDown("dpup")) then
             upd = false
             end
         end
-        if (buttonis("dpdown",0)) and (not dwd) then
+        if (joysticks:isGamepadDown("dpdown")) and (not dwd) then
             y = y - 1
             dwd = true
         else
-            if not (buttonis("dpdown",0)) then
+            if not (joysticks:isGamepadDown("dpdown")) then
             dwd = false
             end
         end
+        if y == 0 then else
         if title then
             if y <= 0 then
                 saveselecter =saveselecter-1
@@ -85,20 +86,21 @@ controller = {
                 saveselecter=1
             end
         else
-            if crafteruse then
-                crafter.wheel(y)
-            elseif plr.craftopen then 
-                crafttable.wheel(y)
-            else
-                if y < 0 then
-                    plr.hotselect=plr.hotselect+1
-                    if plr.hotselect>9 then
-                        plr.hotselect=1
-                    end
-                elseif y > 0 then
-                    plr.hotselect= plr.hotselect-1
-                    if plr.hotselect<1 then
-                        plr.hotselect=9
+                if crafteruse then
+                    crafter.wheel(y)
+                elseif plr.craftopen then 
+                    crafttable.wheel(y)
+                else
+                    if y < 0 then
+                        plr.hotselect=plr.hotselect+1
+                        if plr.hotselect>9 then
+                            plr.hotselect=1
+                        end
+                    elseif y > 0 then
+                        plr.hotselect= plr.hotselect-1
+                        if plr.hotselect<1 then
+                            plr.hotselect=9
+                        end
                     end
                 end
             end
