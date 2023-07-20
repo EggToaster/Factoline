@@ -1,4 +1,5 @@
 function loadSys()
+    enet = require("enet")
     spdrun=1
     require("Agame")
     require("loadapi")
@@ -58,6 +59,7 @@ function makegame()
     plr.handrot=0
     plr.craftopen=false
     plr.rot="right"
+    plr.lst = {}
     plr.inventory={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="miningpick"},{id="crafttable"},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="trash"}}
     plr.hotselect=1
     obj.list={}

@@ -7,6 +7,7 @@ plr={
     rot="right",
     inventory={},
     hotselect=1,
+    lst = {},
     itemsys = function ()
         grabbing=plr.inventory[plr.hotselect+32]
         local mx,my = mouse.getPos()
