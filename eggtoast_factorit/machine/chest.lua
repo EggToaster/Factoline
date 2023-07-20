@@ -15,6 +15,7 @@ local craftbenchx = {
     265,
     300
 }
+local mouseclickcraft = false
 chestlist = {}
 chest = {
     loadsave= function ()
@@ -43,16 +44,24 @@ chest = {
         if not (table.haskey(chestlist,i)) then
             chestlist[i]={}
         end
-        if mouse.ison(1) and inv.open and (i==plr.craftopeni) then
-            for y = 1,5 do
-                for x = 1,6 do
-                    local mx,my = mouse.getPos()
-                    if (mx>craftbenchx[x]+5) and (mx<craftbenchx[x]+5+30) and (my>craftbenchy[y]) and (my<craftbenchy[y]+30) then
-                        item.give(chestlist[i][(y-1)*6+x])
-                        chestlist[i][(y-1)*6+x]={id=nil}
+        if mouse.ison(1) then
+            if inv.open and (i==plr.craftopeni) then
+                if not mouseclickcraft then
+                    for y = 1,5 do
+                        for x = 1,6 do
+                            local mx,my = mouse.getPos()
+                            if (mx>craftbenchx[x]+5) and (mx<craftbenchx[x]+5+30) and (my>craftbenchy[y]) and (my<craftbenchy[y]+30) then
+                                item.give(chestlist[i][(y-1)*6+x])
+                                table.remove(chestlist[i],(y-1)*6+x)
+                                break
+                            end
+                        end
                     end
+                    mouseclickcraft=true
                 end
-            end
+            end 
+        else
+            mouseclickcraft=false
         end
         obj.list[i].nbt.inv=chestlist[i]
     end,

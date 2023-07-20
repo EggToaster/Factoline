@@ -123,6 +123,19 @@ crafttable={
                             end
                         end
                     end
+                    mx,my = mouse.getPos()
+                    if (mx >= 90) and (mx<=120) and (my>=265) and (my<=295) then
+                        craftpage = craftpage -1
+                        if craftpage == -1 then
+                            craftpage = 0
+                        end
+                    end
+                    if (mx >= 90) and (mx<=120) and (my>=400) and (my<=430) then
+                        craftpage = craftpage +1
+                        if (craftpage+1)*5>=#craftrecipe.list then
+                            craftpage = craftpage - 1
+                        end
+                    end
                 end
                 crafttabledown = true
             end
@@ -152,6 +165,9 @@ crafttable={
             end
             crtdrawrec()
             love.graphics.setColor(1,1,1)
+            love.graphics.polygon("fill",90,295,105,265,120,295)
+            love.graphics.polygon("fill",90,400,105,430,120,400)
+            love.graphics.print(craftpage+1,95,325)
         end
     end,
     toggleopen = function(i)

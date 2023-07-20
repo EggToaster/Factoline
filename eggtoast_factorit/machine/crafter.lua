@@ -171,63 +171,12 @@ crafter={
           --      love.graphics.setColor(0,0,0)
           --  end
           mx,my = mouse.getPos()
-          for iaz = 1,8 do
-            if iaz == 1 then
-                if ((mx - 335) > 0) and ((mx - 335) <= 25) and ((my - 55) > 0) and ((my - 55) <=25) then
-                    crafterhover[iaz].hover=1
+          for i = 1,8 do
+                if ((mx - 335) > 0) and ((mx - 335) <= 25) and ((my -(55+(35*(i-1)))) > 0) and ((my -(55+(35*(i-1)))) <=25) then
+                    crafterhover[i].hover=1
                 else
-                  crafterhover[iaz].hover=0
+                  crafterhover[i].hover=0
                 end
-            end
-            if iaz == 2 then
-                if ((mx - 335) > 0) and ((mx - 335) <= 25) and ((my - 90) > 0) and ((my - 90) <=25) then
-                    crafterhover[iaz].hover=1
-                else
-                  crafterhover[iaz].hover=0
-                end
-            end
-            if iaz == 3 then
-                if ((mx - 335) > 0) and ((mx - 335) <= 25) and ((my - 125) > 0) and ((my - 125) <=25) then
-                    crafterhover[iaz].hover=1
-                else
-                  crafterhover[iaz].hover=0
-                end
-            end
-            if iaz == 4 then
-                if ((mx - 335) > 0) and ((mx - 335) <= 25) and ((my - 160) > 0) and ((my - 160) <=25) then
-                    crafterhover[iaz].hover=1
-                else
-                  crafterhover[iaz].hover=0
-                end
-            end
-            if iaz == 5 then
-                if ((mx - 335) > 0) and ((mx - 335) <= 25) and ((my - 195) > 0) and ((my - 195) <=25) then
-                    crafterhover[iaz].hover=1
-                else
-                  crafterhover[iaz].hover=0
-                end
-            end
-            if iaz == 6 then
-                if ((mx - 335) > 0) and ((mx - 335) <= 25) and ((my - 230) > 0) and ((my - 230) <=25) then
-                    crafterhover[iaz].hover=1
-                else
-                  crafterhover[iaz].hover=0
-                end
-            end
-            if iaz == 7 then
-                if ((mx - 300) > 0) and ((mx - 300) <= 25) and ((my - 230) > 0) and ((my - 230) <=25) then
-                    crafterhover[iaz].hover=1
-                else
-                  crafterhover[iaz].hover=0
-                end
-            end
-            if iaz == 8 then
-                if ((mx - 300) > 0) and ((mx - 300) <= 25) and ((my - 55) > 0) and ((my - 55) <=25) then
-                    crafterhover[iaz].hover=1
-                else
-                  crafterhover[iaz].hover=0
-                end
-            end
           end
             for iaz = 1, #insqp do
                 if ((mx - insqp[iaz].x) > 0) and ((mx - insqp[iaz].x) <= 25) and ((my - insqp[iaz].y) > 0) and ((my - insqp[iaz].y) <= 25) then        
@@ -268,7 +217,7 @@ crafterput = function (z,x,y)
    local ob2 = plr.inventory[(y-1)*8+x]
    local ob3 = (y-1)*8+x
    print("crafttableput."..tostring(ob3))
-   obj.list[plr.craftopeni].nbt.inv[z] = ob2
+   table.insert(obj.list[plr.craftopeni].nbt.inv,ob2)
    plr.inventory[ob3]={id=nil}
 end
 crafterhover={

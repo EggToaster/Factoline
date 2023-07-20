@@ -167,7 +167,7 @@ obj={
     },
     placeablenbt={
         {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},timer=60,ore=nil},
-        {inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}},invslt2={id=nil},timer=120,recipe=nil,craftopen=false},
+        {inv={},invslt2={id=nil},timer=120,recipe=nil,craftopen=false},
         {inv={id=nil},timer=30,machine1=nil,machine2=nil,},
         {inv={}},
         {craftopen=false}
