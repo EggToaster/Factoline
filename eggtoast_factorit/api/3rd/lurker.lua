@@ -107,27 +107,27 @@ end
 
 
 function lurker.onerror(e, nostacktrace)
-  love.graphics.setBackgroundColor(0,0,0)
+  love.graphics.setBackgroundColor(1,1,1)
   lurker.print("An error occurred; switching to error state")
   lurker.state = "error"
   -- Release mouse
   local setgrab = love.mouse.setGrab or love.mouse.setGrabbed
   setgrab(false)
-  love.graphics.setBackgroundColor(0,0,0)
+  love.graphics.setBackgroundColor(1,1,1)
   -- Set up callbacks
   for _, v in pairs(lovecallbacknames) do
     love[v] = function() end
   end
-  love.graphics.setBackgroundColor(0,0,0)
+  love.graphics.setBackgroundColor(1,1,1)
   love.update = lurker.update
-  love.graphics.setBackgroundColor(0,0,0)
+  love.graphics.setBackgroundColor(1,1,1)
   love.keypressed = function(k)
     if k == "escape" then
       lurker.print("Exiting...")
       love.event.quit()
     end
   end
-  love.graphics.setBackgroundColor(0,0,0)
+  love.graphics.setBackgroundColor(1,1,1)
   local stacktrace = nostacktrace and "" or
                      lume.trim((debug.traceback("", 2):gsub("\t", "")))
   local msg = lume.format("{1}\n\n{2}", {e, stacktrace})
@@ -138,7 +138,7 @@ function lurker.onerror(e, nostacktrace)
     { lume.color("#66666a", 256) },
     { lume.color("#cdcdcd", 256) },
   }
-  love.graphics.setBackgroundColor(0,0,0)
+  love.graphics.setBackgroundColor(1,1,1)
 
   love.draw = function()
     local pad = 25
