@@ -134,36 +134,39 @@ crafter={
             love.graphics.rectangle("fill",300,90,30,30)
             love.graphics.setColor(1,1,1)
             if tpp.invslt2.id==nil then else
-                love.graphics.draw(gr.texture.gettex(tpp.invslt2.id),300,55,0,0.065,0.065)
+                love.graphics.draw(texture.gettex(tpp.invslt2.id),300,55,0,0.065,0.065)
             end
             if tpp.recipe==nil then else
-            love.graphics.draw(gr.texture.gettex(tpp.recipe.result.id),300,90,0,0.065,0.065)
+            love.graphics.draw(texture.gettex(tpp.recipe.result.id),300,90,0,0.065,0.065)
             end
-            if tpp.inv[1].id==nil then else
-                love.graphics.draw(gr.texture.gettex(tpp.inv[1].id),335,55,0,0.065,0.065)
-            end
-            if tpp.inv[2].id==nil then else
-                love.graphics.draw(gr.texture.gettex(tpp.inv[2].id),335,90,0,0.065,0.065)
-            end
-            if tpp.inv[3].id==nil then else
-                love.graphics.draw(gr.texture.gettex(tpp.inv[3].id),335,125,0,0.065,0.065)
-            end
-            if tpp.inv[4].id==nil then else
-                love.graphics.draw(gr.texture.gettex(tpp.inv[4].id),335,160,0,0.065,0.065)
-            end
-            if tpp.inv[5].id==nil then else
-                love.graphics.draw(gr.texture.gettex(tpp.inv[5].id),335,195,0,0.065,0.065)
-            end
-            if tpp.inv[6].id==nil then else
-                love.graphics.draw(gr.texture.gettex(tpp.inv[6].id),335,230,0,0.065,0.065)
-            end
-            if tpp.inv[7].id==nil then else
-                love.graphics.draw(gr.texture.gettex(tpp.inv[7].id),300,230,0,0.065,0.065)
+            if #tpp.inv ~= 0 then
+                if tpp.inv[1].id==nil then else
+                    love.graphics.draw(texture.gettex(tpp.inv[1].id),335,55,0,0.065,0.065)
+                end
+                if tpp.inv[2].id==nil then else
+                    love.graphics.draw(texture.gettex(tpp.inv[2].id),335,90,0,0.065,0.065)
+                end
+                if tpp.inv[3].id==nil then else
+                    love.graphics.draw(texture.gettex(tpp.inv[3].id),335,125,0,0.065,0.065)
+                end
+                if tpp.inv[4].id==nil then else
+                    love.graphics.draw(texture.gettex(tpp.inv[4].id),335,160,0,0.065,0.065)
+                end
+                if tpp.inv[5].id==nil then else
+                    love.graphics.draw(texture.gettex(tpp.inv[5].id),335,195,0,0.065,0.065)
+                end
+                if tpp.inv[6].id==nil then else
+                    love.graphics.draw(texture.gettex(tpp.inv[6].id),335,230,0,0.065,0.065)
+                end
+                if tpp.inv[7].id==nil then else
+                    love.graphics.draw(texture.gettex(tpp.inv[7].id),300,230,0,0.065,0.065)
+                end
             end
             
         love.graphics.setColor(1,1,1)
         love.graphics.print(lang.gettxt("item.crafter.name"),55,245,0,0.5,0.5)
-        insqp=craftbenchsquarepos
+        insqp = craftbenchsquarepos
+        cph = {0,0,0,0,0}
             ai=i
             --for aaai = 1,#craftbenchx do 
            --     love.graphics.setColor(1,1,1)
@@ -180,14 +183,16 @@ crafter={
           end
             for iaz = 1, #insqp do
                 if ((mx - insqp[iaz].x) > 0) and ((mx - insqp[iaz].x) <= 25) and ((my - insqp[iaz].y) > 0) and ((my - insqp[iaz].y) <= 25) then        
-                   craftbenchsquareposhover[iaz].hover=0
+                   cph[iaz]=0
                 else
-                    craftbenchsquareposhover[iaz].hover=1
+                    cph[iaz]=1
                 end
-                gr.draw.square(insqp[iaz].x,insqp[iaz].y,30,30,"fill",insqp[iaz].hover,insqp[iaz].hover,insqp[iaz].hover)
+                love.graphics.setColor(cph[i],cph[i],cph[i])
+                love.graphics.rectangle("fill",insqp[i].x,insqp[i].y,30,30)
+                love.graphics.setColor(1,1,1)
                 ai=i
-                for ia = 1,#craftbenchx do 
-                    gr.draw.square(craftbenchx[ia],insqp[iaz].y,30,30,"fill",1,1,1)
+                for i = 1,#craftbenchx do 
+                    love.graphics.rectangle("fill",craftbenchx[i],insqp[ai].y,30,30)
                 end
             end
         crtdrawrec()

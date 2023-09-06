@@ -18,7 +18,7 @@ mecharm={
                             local tppmp=obj.list[sr].id
                             print(tostring(tppmp:gsub("plcd","")))
                             if table.contains(obj.plctag.hasslot2,tppmp) or table.contains(obj.plctag.slot1bothio,tppmp) then--:gsub("plcd","")) then
-                            obj.list[i].machine1=sr
+                            obj.list[i].nbt.machine1=sr
                             break
                             end
                         end
@@ -38,7 +38,7 @@ mecharm={
                         local tppmp=obj.list[sr].id
                         print(tostring(tppmp:gsub("plcd","")))
                         if table.contains(obj.plctag.hasslot,tppmp) or table.contains(obj.plctag.slot1bothio,tppmp) then
-                        obj.list[i].machine2=sr
+                        obj.list[i].nbt.machine2=sr
                         break
                         end
                     end
@@ -144,15 +144,13 @@ mecharm={
         love.graphics.setColor(1,1,1)
         love.graphics.print(lang.gettxt("item.mecharm.name"),55,245,0,0.5,0.5)
         if obnbt.inv.id==nil then else
-            love.graphics.draw(gr.texture.gettex(obnbt.inv.id),300,55,0,0.065,0.065)
+            love.graphics.draw(texture.gettex(obnbt.inv.id),300,55,0,0.065,0.065)
         end
         if objct.machine1==nil then else
-            --print("debug")
-            --print("aa "..obj.list[objct.machine1].id)
-            love.graphics.draw(gr.texture.gettex(obj.list[objct.machine1].id),55,280,0,0.065,0.065)
+            love.graphics.draw(texture.gettex(obj.list[obnbt.machine1].id),55,280,0,0.065,0.065)
         end
         if objct.machine2==nil then else
-            love.graphics.draw(gr.texture.gettex(obj.list[objct.machine2].id),125,280,0,0.065,0.065)
+            love.graphics.draw(texture.gettex(obj.list[obnbt.machine2].id),125,280,0,0.065,0.065)
         end
     end
     if mecharmstat==1 then

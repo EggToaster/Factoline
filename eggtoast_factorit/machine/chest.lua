@@ -33,7 +33,7 @@ chest = {
                     love.graphics.setColor(1,1,1)
                     love.graphics.rectangle("fill",craftbenchx[x]+5,craftbenchy[y],30,30)
                     if not (chestlist[i][(y-1)*6+x]==nil) then
-                        love.graphics.draw(gr.texture.gettex(chestlist[i][(y-1)*6+x].id),craftbenchx[x]+5,craftbenchy[y],0,0.065)
+                        love.graphics.draw(texture.gettex(chestlist[i][(y-1)*6+x].id),craftbenchx[x]+5,craftbenchy[y],0,0.065)
                     end
                 end
             end

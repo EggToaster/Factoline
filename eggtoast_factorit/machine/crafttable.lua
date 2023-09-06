@@ -50,9 +50,9 @@ function crtdrawrec()
     if #craftrecipe.list-(craftpage*5) < 1 then else
         for ii = 1,math.min(#craftrecipe.list-(craftpage*5),5) do
             if not (craftrecipe.list[ii+(craftpage*5)].result==nil) then
-                love.graphics.draw(gr.texture.gettex(craftrecipe.list[ii+(craftpage*5)].result.id),craftbenchsquarepos[ii].x,craftbenchsquarepos[ii].y,0,0.065,0.065)
+                love.graphics.draw(texture.gettex(craftrecipe.list[ii+(craftpage*5)].result.id),craftbenchsquarepos[ii].x,craftbenchsquarepos[ii].y,0,0.065,0.065)
                 for iii = 1,#craftrecipe.list[ii+(craftpage*5)].ingrelist do
-                    love.graphics.draw(gr.texture.gettex(craftrecipe.list[ii+(craftpage*5)].ingrelist[iii]),craftbenchx[iii],craftbenchsquarepos[ii].y,0,0.065,0.065)
+                    love.graphics.draw(texture.gettex(craftrecipe.list[ii+(craftpage*5)].ingrelist[iii]),craftbenchx[iii],craftbenchsquarepos[ii].y,0,0.065,0.065)
                 end
             end
         end
@@ -157,10 +157,12 @@ crafttable={
                 else
                     craftbenchsquareposhover[i].hover=1
                 end
-                gr.draw.square(craftbenchsquarepos[i].x,craftbenchsquarepos[i].y,30,30,"fill",craftbenchsquareposhover[i].hover,craftbenchsquareposhover[i].hover,craftbenchsquareposhover[i].hover)
+                love.graphics.setColor(craftbenchsquareposhover[i].hover,craftbenchsquareposhover[i].hover,craftbenchsquareposhover[i].hover)
+                love.graphics.rectangle("fill",craftbenchsquarepos[i].x,craftbenchsquarepos[i].y,30,30)
+                love.graphics.setColor(1,1,1)
                 ai=i
                 for i = 1,#craftbenchx do 
-                    gr.draw.square(craftbenchx[i],craftbenchsquarepos[ai].y,30,30,"fill",1,1,1)
+                    love.graphics.rectangle("fill",craftbenchx[i],craftbenchsquarepos[ai].y,30,30)
                 end
             end
             crtdrawrec()
