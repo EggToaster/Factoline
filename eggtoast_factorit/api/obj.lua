@@ -6,9 +6,9 @@ require("machine.miner")
 obj={
     customdraw=function (objct)
         if table.contains(obj.sizemapid,objct.id) then
-            love.graphics.draw(gr.texture.gettex(objct.id),objct.x,objct.y,0,obj.sizemap[indexOf(obj.sizemapid,objct.id)]/2,obj.sizemap[indexOf(obj.sizemapid,objct.id)]/2)
+            love.graphics.draw(texture.gettex(objct.id),objct.x,objct.y,0,obj.sizemap[indexOf(obj.sizemapid,objct.id)]/2,obj.sizemap[indexOf(obj.sizemapid,objct.id)]/2)
         else
-            love.graphics.draw(gr.texture.gettex(objct.id),objct.x,objct.y,0,0.4/2,0.4/2)
+            love.graphics.draw(texture.gettex(objct.id),objct.x,objct.y,0,0.4/2,0.4/2)
         end
     end,
     guilist = {
@@ -36,7 +36,7 @@ obj={
                 if table.contains(obj.sizemapid,this.id) then
                     sm = obj.sizemap[indexOf(obj.sizemapid,this.id)]
                 end
-                love.graphics.draw(gr.texture.gettex(this.id),this.x,this.y,0,sm,sm)
+                love.graphics.draw(texture.gettex(this.id),this.x,this.y,0,sm,sm)
                 if this.id=="tree" then
                     if this.nbt.health<=2 then
                         love.graphics.setColor(1,0,0)
@@ -174,7 +174,7 @@ obj={
     },
     tick=function (dt)
         for i = 1 , #obj.list do
-            objwidth, objheight = gr.texture.gettex(obj.list[i].id):getDimensions()
+            objwidth, objheight = texture.gettex(obj.list[i].id):getDimensions()
             objwidth = objwidth/4
             objheight = objheight/4
             if table.contains(obj.plctag.withtick,obj.list[i].id) then
