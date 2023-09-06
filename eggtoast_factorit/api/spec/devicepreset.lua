@@ -5,8 +5,7 @@ local devicepreset = {
         padonly = false,
         noclick = false,
         device = "PC",
-        detail = "",
-        padbutton = {
+        padbutton = {--xbox/nx/dualsense, no steering wheel here
             "A","B","X","Y",
             "L","R",
             "ZL","ZR",
@@ -16,12 +15,12 @@ local devicepreset = {
         specialpad = {
             "DPAD",
             "LS","RS"
-        }
+        },
+        detail = "personal computer"
     },
-    threds={
+    threeds={--threeds because table doesnt allow numbers
         console = true,
         dualscreen = true,
-        dualtype = "upbig",
         padonly = true,
         noclick = true,
         device = "3DS",
@@ -30,42 +29,6 @@ local devicepreset = {
             "L","R",
             "ZL","ZR",--yes this game going to be only n3ds
             "SELECT","START",
-        },
-        specialpad = {
-            "DPAD",
-            "LS","RS"
-        },
-        detail = "100% not nintendo licensed build tool"
-    },
-    dsi={--why
-        console = true,
-        dualscreen = true,
-        dualtype="normal",
-        padonly = true,
-        noclick = true,
-        device = "DSi",
-        padbutton = {
-            "A","B","X","Y",
-            "L","R",
-            "SELECT","START",
-        },
-        specialpad = {
-            "DPAD"
-        },
-        detail = "1000% not nintendo licensed build tool"
-    },
-    wiiu={
-        console = true,
-        dualscreen = false,
-        padonly = true,
-        noclick = true,
-        device = "WiiU",
-        padbutton = {
-            "A","B","X","Y",
-            "L","R",
-            "ZL","ZR",
-            "SELECT","START",
-            "LSP","RSP"
         },
         specialpad = {
             "DPAD",
@@ -90,7 +53,7 @@ local devicepreset = {
             "DPAD",
             "LS","RS"
         },
-        detail = "1% not nintendo licensed build tool"
+        detail = "nx"
     }
 }
 return devicepreset
