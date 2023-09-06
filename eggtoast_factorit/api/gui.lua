@@ -37,7 +37,7 @@ gui = {
                         txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
                     end
                     if string.sub(txt,1,1)=="?" then
-                        love.graphics.draw(gr.texture.gettex(string.sub(txt,2,string.len(txt))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
+                        love.graphics.draw(texture.gettex(string.sub(txt,2,string.len(txt))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
                     else
                         love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
                     end
@@ -86,7 +86,7 @@ gui = {
                         love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2]-5,0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
                     else
                     if string.sub(txt,1,1)=="?" then
-                        love.graphics.draw(gr.texture.gettex(string.sub(txt,2,string.len(txt))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
+                        love.graphics.draw(texture.gettex(string.sub(txt,2,string.len(txt))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
                     else
                         love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2]-10,0,this.size[1]+ofs[3],this.txs[2]+ofs[4])
                     end
@@ -194,7 +194,8 @@ gui = {
                         for i = 1,#tbl.button do
                             local this = tbl.button[i]
                             local mx,my = mouse.getPos()
-                            if mx >= this.hitbox[1] and mx <= this.hitbox[1]+this.hitbox[3] and my >= this.hitbox[2] and my <= this.hitbox[2]+this.hitbox[4] then
+                            local hitbox = ((this.hitbox~=nil)and this.hitbox or {this.pos[1],this.pos[2],this.size[1],this.size[2]})
+                            if mx >= hitbox[1] and mx <= hitbox[1]+hitbox[3] and my >= hitbox[2] and my <= hitbox[2]+hitbox[4] then
                                 this.action()
                             end
                         end
@@ -246,24 +247,6 @@ gui = {
             love.graphics.setColor(tbl[1],tbl[2],tbl[3],alpha)
         end,
         stencilTag="",
-        isValid = function (tbl)
-            local tried = {}
-            table.insert(tried,gui.script.validelemlist(tbl))
-            table.insert(tried,gui.script.validtbl(tbl))
-            if table.alltrue(tried) then
-                return true
-            end
-            return false
-        end,
-        validElemList = function (tbl)
-            return true
-        end,
-        validtbl = function (tbl)
-            if isTable(tbl) then
-                return true
-            end
-            return false
-        end,
         resetSlider = function ()
             gui.script.sliderpos = 0
         end,

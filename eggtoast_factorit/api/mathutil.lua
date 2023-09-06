@@ -56,10 +56,12 @@ function indexOf(array, value)
     return nil
 end
 function  table.eachContain(array,varray)
-    for _, v in pairs(array) do
-        for _,val in pairs(varray) do
-            if v == val then
-            return true
+    if ((array ~= nil) and (#array ~=0)) and ((varray ~= nil) and (#array ~= 0)) then
+        for _, v in pairs(array) do
+            for _,val in pairs(varray) do
+                if v == val then
+                return true
+                end
             end
         end
     end

@@ -1,6 +1,4 @@
 function loadergame()
-    --deprecated soon more info:api/dprc/readme.txt
-    require("api.dprc.graphics")
     love.graphics.clear()
     love.graphics.setColor(0,0,0)
     love.graphics.print("LOADING GAME",100,100,1,1)
@@ -10,6 +8,15 @@ function loadergame()
     require("api.loader.guiloader")
     require("api.loader.sfx")
     --general
+    if not device.console then
+        lume = require("api.3rd.lume")
+        lurker = require("api.3rd.lurker")
+        require("api.3rd.donut")
+        donut = Donut.init(10, 10)
+        fps = donut.add("FPS")
+        xdebug=donut.add("X")
+        ydebug=donut.add("Y")
+    end
     require("api.misc")
     require("api.player")
     require("api.langsys")
@@ -18,16 +25,13 @@ function loadergame()
     require("api.obj")
     require("api.gui")
     camera = require("api.3rd.camera")
-    --activate loader
     guiload.loadgui()
     love.audio.setVolume(0.25)
-    gr.texture.load()
-    gr.texture.parse()
-    --game camera
+    texture.load()
+    texture.parse()
     cam = camera()
-    --minimap
     mnm = camera()
     sfx.loadsound()
+    --anim = require("api.3rd.anim")
     loading=false
-    anim = require("api.3rd.anim")
 end

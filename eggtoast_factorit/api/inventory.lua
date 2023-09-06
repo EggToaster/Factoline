@@ -90,7 +90,7 @@ inv = {
               local item = plr.inventory[(y-1)*8+x]
              if item.id==nil then else
               love.graphics.setColor(1,1,1)
-              love.graphics.draw(gr.texture.gettex(item.id),drawX,drawY,0,0.065,0.065)
+              love.graphics.draw(texture.gettex(item.id),drawX,drawY,0,0.065,0.065)
             end
             end
           end
@@ -99,13 +99,13 @@ inv = {
           local item = plr.inventory[(5-1)*8+9]
           if item.id==nil then else
             love.graphics.setColor(1,1,1)
-            love.graphics.draw(gr.texture.gettex(item.id),drawX,drawY,0,0.065,0.065)
+            love.graphics.draw(texture.gettex(item.id),drawX,drawY,0,0.065,0.065)
           end
           if selected.is and mouseOn.trash==false then
             local mx,my = mouse.getPos()
             love.graphics.setColor(1,1,1)
             local item = plr.inventory[(selected.y-1)*8+selected.x]
-            love.graphics.draw(gr.texture.gettex(item.id),mx,my,0,0.065,0.065)
+            love.graphics.draw(texture.gettex(item.id),mx,my,0,0.065,0.065)
           end
           love.graphics.setColor(1,1,1)
         end
