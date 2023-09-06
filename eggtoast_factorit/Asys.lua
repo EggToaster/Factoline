@@ -1,9 +1,9 @@
 function loadSys()
     enet = require("enet")
-    spdrun=1
     require("Agame")
     require("loadapi")
     lang.set(conf.lang)
+    spdrun=1
     saveselecter=1
     clicktitle=false
     ftd=false
@@ -11,45 +11,13 @@ function loadSys()
     craftpage=0
     hotswap=true
     if device.console then
-        if hotswap then
-            hotswap = false
-            print("[Device]This is console, no hotswap!!")
-        end
+        hotswap = false
     end
     love.audio.setVolume(conf.mute and 0 or 1)
     if conf.alwmax then
         love.window.maximize()
     end
     gameload()
-end
-function love.update(dt)
-    love.graphics.setBackgroundColor(1,1,1)
-    gui.action()
-    mouse.tick(dt)
-    if not device.console then
-    if hotswap then
----@diagnostic disable-next-line: undefined-global
-        local scanned = lurker.scan()
-    end
-    if nextPresenceUpdate < love.timer.getTime() then
-        if title then
-        discordRPC.updatePresence(presencetitle)
-        else
-        discordRPC.updatePresence(presencegame)
-        end
-        nextPresenceUpdate = love.timer.getTime() + 2.0
-    end
-    discordRPC.runCallbacks()
-    end
-        if title then
-        mousecoordx,mousecoordy = mouse.getPos()
-        if mouse.ison(1) and clicktitle==false and mousecoordx>250 and mousecoordy>350 and mousecoordx<750 and mousecoordy<500 then
-            makegame()
-        end
-        if mouse.ison(1) and clicktitle==false and mousecoordx>250 and mousecoordy>525 and mousecoordx<750 and mousecoordy<700 then
-            stng=true
-            stngtab="general"
-        end
 end
 function makegame()
     info = love.filesystem.getInfo("savegame/save"..tostring(saveselecter)..".fsg")
@@ -71,15 +39,17 @@ function makegame()
         title=false
     end
 end
-if title then
-    if mouse.ison(1) then
-        clicktitle=true
-    else
-        clicktitle=false
+function love.update(dt)
+    gui.action()
+    mouse.tick(dt)
+    if not device.console then
+        if hotswap then
+            local scanned = lurker.scan()
+        end
     end
-else
-    gameupdate(dt)
-end
+    if not title then
+        gameupdate(dt)
+    end
 end
 ---@diagnostic disable-next-line: duplicate-set-field
 function love.keypressed(key)
@@ -199,32 +169,21 @@ mousedebug=true
 socket = require("socket")
 ---@diagnostic disable-next-line: duplicate-set-field
 function love.draw()
+    love.graphics.setBackgroundColor(1,1,1)
     if title then
         if stng then
             gui.draw(guiload.get("settingtitle-"..stngtab))
         else
-            love.graphics.setColor(1,1,1)
-    love.graphics.setBackgroundColor(1,1,1)
-    love.graphics.draw(titleimg,0,0)
-    love.graphics.rectangle("fill",250,525,500,150)
-    love.graphics.rectangle("fill",250,350,500,150)
-    love.graphics.setColor(0,0,0)
-    love.graphics.rectangle("line",250,525,500,150)
-    love.graphics.rectangle("line",250,350,500,150)
-    love.graphics.setColor(0,0,0)
-    love.graphics.print(lang.gettxt("title.playbutton"),275,375,0,2.5,2.5)
-    love.graphics.print(lang.gettxt("title.saveselect1")..tostring(saveselecter)..lang.gettxt("title.saveselect2"),0,0,0,0.5,0.5)
-    love.graphics.setColor(0,0,0)
-    love.graphics.print(lang.gettxt("title.settingsbutton"),275,550,0,2.5,2.5)
-    --love.graphics.print("E OR ESCAPE IN TITLE SCREEN TO EXIT",0,400,0,1,1)
-    --love.graphics.print("ESC AND L TO EXIT TO TITLE SCREEN",0,450,0,1,1)
-    --love.graphics.print("PRESS ANY KEY TO START P TO TOGGLE FULLSCREEN",0,500,0,1,1)
-    --love.graphics.print("RESTART TO APPLY CONFIG I TO INVENTORY",0,550,0,1,1)
-    --love.graphics.print("WASD TO MOVE SPACE TO INTERACT/MINE",0,600,0,1,1)
-    --love.graphics.print("N TO DISMANTILE TOUCHING BUILDING",0,650,0,1,1)
-    love.graphics.setColor(1,1,1)
+            gui.draw(guiload.get("titlescreen"))
+            --love.graphics.print("E OR ESCAPE IN TITLE SCREEN TO EXIT",0,400,0,1,1)
+            --love.graphics.print("ESC AND L TO EXIT TO TITLE SCREEN",0,450,0,1,1)
+            --love.graphics.print("PRESS ANY KEY TO START P TO TOGGLE FULLSCREEN",0,500,0,1,1)
+            --love.graphics.print("RESTART TO APPLY CONFIG I TO INVENTORY",0,550,0,1,1)
+            --love.graphics.print("WASD TO MOVE SPACE TO INTERACT/MINE",0,600,0,1,1)
+            --love.graphics.print("N TO DISMANTILE TOUCHING BUILDING",0,650,0,1,1)
         end
     else
+        gui.tempguinow = nil
         gamedraw()
     end
     if mousedebug and (not device.console) then
