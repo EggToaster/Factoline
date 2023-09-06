@@ -1,2 +1,1 @@
-# Factorit
-a factory making game!
+no readme yet
