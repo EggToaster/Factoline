@@ -1,4 +1,25 @@
 function love.load()
+    conf = json.decode(love.filesystem.read("cfg.json") or'{"mute":false,"fullscreen":false,"lang":"enus","alwmax":false,"vsync":true}' )
+    if not table.haskey(conf,"vsync") then
+        conf.vsync = true
+    end
+    if not table.haskey(conf,"lang") then
+        conf.lang = "enus"
+    end
+    if not table.haskey(conf,"alwmax") then
+        conf.alwmax=false
+    end
+    if not table.haskey(conf,"mute") then
+        conf.mute=false
+    end
+    if not table.haskey(conf,"fullscreen") then
+        conf.fullscreen=false
+    end
+    love.filesystem.write("cfg.json",json.encode(conf))  
+    info = love.filesystem.getInfo("savegame")
+    if info == nil then
+        love.filesystem.createDirectory("savegame")     
+    end
     require("api.spec.device")
     require("api.spec.mouse")
     require("api.mathutil")
