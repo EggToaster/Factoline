@@ -144,9 +144,6 @@ function gamekey(key)
             spdrun=1
         end
     end
-    if key == "=" then
-		donut.toggle()
-	end
     if love.keyboard.isDown("escape") then
         if love.keyboard.isDown("l") then
             misc.save.savegame()
