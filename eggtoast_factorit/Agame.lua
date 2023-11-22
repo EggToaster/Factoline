@@ -53,9 +53,6 @@ function gamedraw()
         love.graphics.setColor(0,1,0,0.5)
         love.graphics.circle('fill',dx/1.27+(145/2000)*dx,dy/2+(-275/1700)*dy,15)
         love.graphics.setStencilTest()
-        if not device.console then
-            donut.draw(0,100)
-        end
     end
 end
 
@@ -64,11 +61,6 @@ function gameupdate(dt)
     obj.tick(dt)
     plr.itemsys()
     inv.sys()
-    if not device.console then
-    donut.update(fps, love.timer.getFPS())
-    donut.update(xdebug,plr.x)
-    donut.update(ydebug,plr.y)
-    end
     local sx,sy=love.graphics.getDimensions()
     dividewidth  =sx/2
     divideheight =sy/2
