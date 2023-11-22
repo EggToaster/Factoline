@@ -188,14 +188,12 @@ crafttable={
             plr.craftopen=false
             crafteruse=false
             plr.craftopeni=nil
-            print("craftoff "..i)
         else
             if plr.craftopen==false then
             obj.list[i].nbt.craftopen=true
             plr.craftopen=true
             crafteruse=false
             plr.craftopeni=i
-            print("crafton "..i)
             end
         end
     end
