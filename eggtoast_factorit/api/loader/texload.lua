@@ -1,21 +1,23 @@
 texture = {
-    empty = nil,
-    gettex = function (texstrg)
-        local texstrg = texstrg or nil
-        if texstrg==nil then
+    gettex = function (txname)
+        local txname = txname or nil
+        if txname==nil then
             return(texture.empty)
         end
-        return(texture.texture[indexOf(texture.texture2,texstrg..".png")])
+        return(texture.tex[indexOf(texture.texnames,txname)])
     end,
-    texture={},
-    load = function ()
-        texture.texture2 = love.filesystem.getDirectoryItems("/res/")
-    end,
-    parse = function ()
+    tex={},texnames={},empty = nil,
+    loadtex = function ()
+        local names  = love.filesystem.getDirectoryItems("/res/")
         texture.empty = love.graphics.newImage("res/nil.png")
-        for i=1,#texture.texture2 do
-            local fn = texture.texture2[i]
-            table.insert(texture.texture,love.graphics.newImage("/res/"..texture.texture2[i]))
+        for i = 1,#names do
+            local name = names[i]
+            table.insert(texture.tex,love.graphics.newImage("/res/"..name))
         end
-    end
+        local tmp= {}
+        for i = 1,#names do
+            tmp[i] = string.gsub(names[i],"%..*","")
+        end
+        texture.texnames=tmp
+    end,
 }
