@@ -4,7 +4,8 @@ texture = {
         if txname==nil then
             return(texture.empty)
         end
-        return(texture.tex[indexOf(texture.texnames,txname)])
+        local temp = texture.tex[indexOf(texture.texnames,txname)]
+        return((temp==nil and texture.empty or temp))
     end,
     tex={},texnames={},empty = nil,
     loadtex = function ()
