@@ -22,13 +22,13 @@ function love.load()
     loading=true
     title=true
     fulltogg=true
-    titleimg = love.graphics.newImage("res/factoryicn.png")
     love.window.setIcon(love.image.newImageData("res/factoryicn.bmp"))
     crtkeypress=true
     require("loadapi")
     require("Asys")
     loadergame()
     loadSys()
+
     function getdx()
         local dx,dy = love.graphics.getDimensions()
         return dx
@@ -36,6 +36,18 @@ function love.load()
     function getdy()
         local dx,dy = love.graphics.getDimensions()
         return dy
+    end
+    function getdx(offset)
+        local dx,dy = love.graphics.getDimensions()
+        return dx+offset
+    end
+    function getdy(offset)
+        local dx,dy = love.graphics.getDimensions()
+        return dy+offset
+    end
+    --Return first args,really trash
+    function dummy(arg)
+        return arg
     end
 end
 
