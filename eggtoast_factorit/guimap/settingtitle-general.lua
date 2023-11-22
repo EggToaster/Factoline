@@ -46,11 +46,11 @@ button = {
     end}
 },
 rect = {
-    {tag={},color={0,0,0},bg={0,0,0},pos={0,74},size={"dx",3}},
-    {tag={},color={0,0,0},bg={0,0,0},pos={0,149},size={"dx",3},slide=false},
-    {tag={"stencil"},color={0,0,0},bg={0,0,0},pos={0,237},size={"dx",3},slide=true},
-    {tag={"stencil"},color={0,0,0},bg={0,0,0},pos={0,337},size={"dx",3},slide=true},
-    {tag={"stencil"},color={0,0,0},bg={0,0,0},pos={0,437},size={"dx",3},slide=true}
+    {tag={},color={0,0,0},bg={0,0,0},pos={0,74},size={{"getdx",-0},3}},
+    {tag={},color={0,0,0},bg={0,0,0},pos={0,149},size={{"getdx",0},3},slide=false},
+    {tag={"stencil"},color={0,0,0},bg={0,0,0},pos={0,237},size={{"getdx",0},3},slide=true},
+    {tag={"stencil"},color={0,0,0},bg={0,0,0},pos={0,337},size={{"getdx",0},3},slide=true},
+    {tag={"stencil"},color={0,0,0},bg={0,0,0},pos={0,437},size={{"getdx",0},3},slide=true}
 },
 recttxt = {
     {tag={},color={1,1,1},bg={0,0,0},text="#stng.general",pos={0,75},size={180,75},txc={0,0,0},txs={1.5,1.5},slide=false}

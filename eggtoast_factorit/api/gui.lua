@@ -99,30 +99,29 @@ gui = {
         end
         if table.haskey(tbl,"rect") then
             for i = 1,#tbl.rect do
-                local this = tbl.rect[i]
+                local object = tbl.rect[i]
                 local ofs={0,0,0,0}
                 local stenreset = false
-                if table.eachContain(tbl.stencil.stenciltag,this.tag) then
+                if table.eachContain(tbl.stencil.stenciltag,object.tag) then
                     stenreset = true
-                    gui.script.stencilTag=table.indexOfEach(tbl.stencil.stenciltag,this.tag)
+                    gui.script.stencilTag=table.indexOfEach(tbl.stencil.stenciltag,object.tag)
                     love.graphics.stencil(tbl.stencil.try,"replace",1)
                     love.graphics.setStencilTest("greater", 0)
                 end
-                if this.slide then
+                if object.slide then
                     ofs[2] = -1*gui.script.sliderpos
                 end
-                local tmpthis = this
-                local tmp = {this.pos[1],this.pos[2],this.size[1],this.size[2]}
+                local tmp = {object.pos[1],object.pos[2],object.size[1],object.size[2]}
                 for ii = 1,4 do
-                    if type(tmp[ii])=="string" then
-                        this[(3>ii) and "pos" or "size"][(3>ii) and (ii) or (ii-2)] = gui.script.func[tmp[ii]].func()
+                    if type(tmp[ii]) == "number" then
+                        tmp[ii] =  {"dummy",tmp[ii]}
                     end
                 end
-                gui.script.setctbl(this.bg)
-                love.graphics.rectangle("fill",this.pos[1]+ofs[1],this.pos[2]+ofs[2],this.size[1]+ofs[3],this.size[2]+ofs[4])
-                gui.script.setctbl(this.color)
-                love.graphics.rectangle("line",this.pos[1]+ofs[1],this.pos[2]+ofs[2],this.size[1]+ofs[3],this.size[2]+ofs[4])
-                local this = tmpthis
+                gui.script.setctbl(object.bg)
+                print(json.encode(tmp))
+                love.graphics.rectangle("fill",_G[tmp[1][1]](tmp[1][2])+ofs[1],_G[tmp[2][1]](tmp[2][2])+ofs[2],_G[tmp[3][1]](tmp[3][2])+ofs[3],_G[tmp[4][1]](tmp[4][2])+ofs[4])
+                gui.script.setctbl(object.color)
+                love.graphics.rectangle("line",_G[tmp[1][1]](tmp[1][2])+ofs[1],_G[tmp[2][1]](tmp[2][2])+ofs[2],_G[tmp[3][1]](tmp[3][2])+ofs[3],_G[tmp[4][1]](tmp[4][2])+ofs[4])
                 if stenreset then
                     love.graphics.setStencilTest()
                 end
