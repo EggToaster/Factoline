@@ -19,7 +19,11 @@ lang.list["enus"]={
         "Video",
         "Always Maximize",
         "Change",
-        "Chest"
+        "Chest",
+        "Iron Ore",
+        "Copper Ore",
+        "Iron Plate",
+        "Copper Plate"
     },
     langindex={
         "item.crafttable.name",
@@ -41,6 +45,10 @@ lang.list["enus"]={
         "stng.video",
         "stng.alwmax",
         "stng.change",
-        "item.chest.name"
+        "item.chest.name",
+        "item.ironore",
+        "item,coppeore",
+        "item.ironplate",
+        "item.copperplate"
     }
 }
