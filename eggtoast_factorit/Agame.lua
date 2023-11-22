@@ -51,7 +51,7 @@ function gamedraw()
         end
         mnm:detach()
         love.graphics.setColor(0,1,0,0.5)
-        love.graphics.circle('fill',dx/1.27+(145/2000)*dx,dy/2+(-275/1700)*dy,15)
+        love.graphics.circle('fill',dx/1.27+(145/2000)*dx,dy/2+(-275/1700)*dy,10)
         love.graphics.setStencilTest()
     end
 end
