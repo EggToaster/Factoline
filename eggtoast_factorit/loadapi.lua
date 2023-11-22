@@ -3,6 +3,9 @@ function loadergame()
     require("api.loader.texload")
     require("api.loader.guiloader")
     require("api.loader.sfx")
+    guiload.loadgui()
+    texture.loadtex()
+    sfx.loadsound()
 
     --general
     if not device.console then
@@ -17,13 +20,12 @@ function loadergame()
     require("api.inventory")
     require("api.obj")
     require("api.gui")
+
     camera = require("api.3rd.camera")
-    guiload.loadgui()
-    love.audio.setVolume(0.25)
-    texture.loadtex()
     cam = camera()
     mnm = camera()
-    sfx.loadsound()
-    --anim = require("api.3rd.anim")
+    
+    love.audio.setVolume(0.25)
+
     loading=false
 end
