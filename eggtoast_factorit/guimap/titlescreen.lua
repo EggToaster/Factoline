@@ -21,7 +21,7 @@ local this ={
         end},
     },
     text = {
-        {color={1,1,1},text="?factoryicn",pos={0,-0},size={1.03,1.03},slide=false},
+        {color={1,1,1},text="?factorylogo",pos={0,-0},size={1.03,1.03},slide=false},
     },
     stencil = {}
 }
