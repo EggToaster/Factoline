@@ -1,11 +1,5 @@
-craftbenchsquarepos = {
-    {x=55,y=265},
-    {x=55,y=300},
-    {x=55,y=335},
-    {x=55,y=370},
-    {x=55,y=405}
-}
 craftbenchx = {
+    90,
     125,
     160,
     195,
@@ -14,13 +8,14 @@ craftbenchx = {
     300,
     335
 }
-craftbenchsquareposhover = {
-    {hover=0},
-    {hover=0},
-    {hover=0},
-    {hover=0},
-    {hover=0}
+craftbenchy = {
+    265,
+    300,
+    335,
+    370,
+    405
 }
+craftbenchsquareposhover = {}
 craftpage=0
 craftrecipe = {
     add = function (tables)
@@ -38,26 +33,9 @@ craftrecipe = {
         {result={id="copperwire"},ingrelist={"copperplate"}},
         {result={id="circuitboard"},ingrelist={"copperwire","ironplate","copperplate","woodlog"}},
         {result={id="chest"},ingrelist={"ironplate","ironplate","copperplate"}},
-        {result=nil,ingrelist=nil},
-        {result=nil,ingrelist=nil},
-        {result=nil,ingrelist=nil},
-        {result=nil,ingrelist=nil},
-        {result=nil,ingrelist=nil}
     }
 }
 crafttabledown=false
-function crtdrawrec()
-    if #craftrecipe.list-(craftpage*5) < 1 then else
-        for ii = 1,math.min(#craftrecipe.list-(craftpage*5),5) do
-            if not (craftrecipe.list[ii+(craftpage*5)].result==nil) then
-                love.graphics.draw(texture.gettex(craftrecipe.list[ii+(craftpage*5)].result.id),craftbenchsquarepos[ii].x,craftbenchsquarepos[ii].y,0,0.065,0.065)
-                for iii = 1,#craftrecipe.list[ii+(craftpage*5)].ingrelist do
-                    love.graphics.draw(texture.gettex(craftrecipe.list[ii+(craftpage*5)].ingrelist[iii]),craftbenchx[iii],craftbenchsquarepos[ii].y,0,0.065,0.065)
-                end
-            end
-        end
-    end
-end
 crafttable={
     wheel = function (y)
         if y <= 0 then
@@ -68,17 +46,33 @@ crafttable={
         if craftpage<=0 then
             craftpage=0
         end
-        if (craftpage+1)*5>=#craftrecipe.list then
+        if craftrecipe.list[(craftpage*(#craftbenchx*#craftbenchy))+1] == nil then
             craftpage=craftpage-1
         end
     end,
     tick = function (i)
+        if #craftbenchsquareposhover ~= #craftbenchx*#craftbenchy then
+            craftbenchsquareposhover = {}
+            for i = 1,#craftbenchx*#craftbenchy do
+                table.insert(craftbenchsquareposhover,1)
+            end
+        end
+        local mx,my = mouse.getPos()
+        for i = 1, #craftbenchy do
+            for ii = 1,#craftbenchx do
+                if (mx - craftbenchx[ii] > 0) and ((mx - craftbenchx[ii]) <= 25) and ((my - craftbenchy[i]) > 0) and ((my - craftbenchy[i]) <= 25) then        
+                    craftbenchsquareposhover[ii+((i-1)*#craftbenchx)]=0
+                else
+                    craftbenchsquareposhover[ii+((i-1)*#craftbenchx)]=1
+                end
+            end
+        end
         if mouse.ison(1) then
             if (plr.craftopeni==i) then
                 if not crafttabledown then
                     for ii = 1,#craftbenchsquareposhover do
-                        if craftbenchsquareposhover[ii].hover==0 then
-                            if not (craftrecipe.list[ii+(craftpage*5)].result==nil) then
+                        if craftbenchsquareposhover[ii] ==0 then
+                            if not (craftrecipe.list[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))] == nil) then
                                 local recip = craftrecipe.list[ii+(craftpage*5)]
                                 local craftprep = {}
                                 local craftprepid = {}
@@ -125,16 +119,10 @@ crafttable={
                     end
                     mx,my = mouse.getPos()
                     if (mx >= 90) and (mx<=120) and (my>=265) and (my<=295) then
-                        craftpage = craftpage -1
-                        if craftpage == -1 then
-                            craftpage = 0
-                        end
+                        crafttable.wheel(1)
                     end
                     if (mx >= 90) and (mx<=120) and (my>=400) and (my<=430) then
-                        craftpage = craftpage +1
-                        if (craftpage+1)*5>=#craftrecipe.list then
-                            craftpage = craftpage - 1
-                        end
+                        crafttable.wheel(0)
                     end
                 end
                 crafttabledown = true
@@ -145,31 +133,58 @@ crafttable={
             end
         end
     end,
-    draw = function (i)
+    draw = function(i)
         if inv.open == 1 then
             love.graphics.setColor(1,1,1)
             love.graphics.print(lang.gettxt("item.crafttable.name"),55,245,0,0.5,0.5)
-            insqp=craftbenchsquarepos
-            mx,my = mouse.getPos()
-            for i = 1, #craftbenchsquarepos do
-                if ((mx - insqp[i].x) > 0) and ((mx - insqp[i].x) <= 25) and ((my - insqp[i].y) > 0) and ((my - insqp[i].y) <= 25) then        
-                    craftbenchsquareposhover[i].hover=0
-                else
-                    craftbenchsquareposhover[i].hover=1
-                end
-                love.graphics.setColor(craftbenchsquareposhover[i].hover,craftbenchsquareposhover[i].hover,craftbenchsquareposhover[i].hover)
-                love.graphics.rectangle("fill",craftbenchsquarepos[i].x,craftbenchsquarepos[i].y,30,30)
-                love.graphics.setColor(1,1,1)
-                ai=i
-                for i = 1,#craftbenchx do 
-                    love.graphics.rectangle("fill",craftbenchx[i],craftbenchsquarepos[ai].y,30,30)
+            for i = 1, #craftbenchy do
+                for ii = 1,#craftbenchx do
+                    local cbsph = craftbenchsquareposhover
+                    local ishovered = cbsph[ii+((i-1)*#craftbenchx)]
+                    love.graphics.setColor(ishovered,ishovered,ishovered)
+                    love.graphics.rectangle("fill",craftbenchx[ii],craftbenchy[i],30,30)
+                    love.graphics.setColor(1,1,1)
                 end
             end
-            crtdrawrec()
+            for iii = 1,#craftbenchy do
+                for ii =1,#craftbenchx do
+                    if not (craftrecipe.list[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)]==nil) then
+                        love.graphics.draw(texture.gettex(craftrecipe.list[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)].result.id),craftbenchx[ii],craftbenchy[iii],0,0.065,0.065)
+                    end
+                end
+            end
             love.graphics.setColor(1,1,1)
-            love.graphics.polygon("fill",90,295,105,265,120,295)
-            love.graphics.polygon("fill",90,400,105,430,120,400)
-            love.graphics.print(craftpage+1,95,325)
+            love.graphics.polygon("fill",55,295,70,265,85,295)
+            love.graphics.polygon("fill",55,400,70,430,85,400)
+            love.graphics.print(craftpage+1,60,325)
+            for iii = 1,#craftbenchy do
+                for ii =1,#craftbenchx do
+                    if not (craftrecipe.list[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)]==nil) then
+                        love.graphics.draw(texture.gettex(craftrecipe.list[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)].result.id),craftbenchx[ii],craftbenchy[iii],0,0.065,0.065)
+                    end
+                end
+            end
+            local cbsph = craftbenchsquareposhover
+            for i = 1, #craftbenchy do
+                for ii = 1,#craftbenchx do
+                    if cbsph[ii+((i-1)*#craftbenchx)] == 0 then
+                        if not (craftrecipe.list[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))] == nil) then
+                            local recipe = craftrecipe.list[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))]
+                            love.graphics.setColor(0,0,0,.85)   
+                            local mx,my = mouse.getPos()
+                            love.graphics.rectangle("fill",mx+5,my+5,260,75)
+                            love.graphics.setColor(1,1,1)
+                            love.graphics.print(lang.gettxt("item."..recipe.result.id),mx+10,my+10,0,.5)
+                            for iii = 1,7 do
+                                love.graphics.rectangle("fill",craftbenchx[iii]+mx-75,my+35,30,30)
+                            end
+                            for iii = 1,#recipe.ingrelist do        
+                                love.graphics.draw(texture.gettex(recipe.ingrelist[iii]),craftbenchx[iii]+mx-75,my+35,0,0.065,0.065)    
+                            end
+                        end
+                    end
+                end
+            end
         end
     end,
     toggleopen = function(i)
