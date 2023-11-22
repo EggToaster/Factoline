@@ -13,6 +13,17 @@ function loadSys()
     if device.console then
         hotswap = false
     end
+    info = love.filesystem.getInfo("cfg.json")
+    if info == nil then
+        love.filesystem.newFile("cfg.json")
+        love.filesystem.write("cfg.json",'{"mute":false,"fullscreen":false,"lang":"enus","alwmax":false,"vsync":true}')        
+    end
+    local conwao = love.filesystem.read("cfg.json")
+    conf = json.decode((not (conwao == nil)) and conwao or'{"mute":false,"fullscreen":false,"lang":"enus","alwmax":false,"vsync":true}' )
+    local dx,dy = love.graphics.getDimensions()
+    love.window.setMode(dx,dy,{resizable=(not conf.alwmax)})
+    love.window.setFullscreen(conf.fullscreen)
+    love.window.setVSync(conf.vsync)
     love.audio.setVolume(conf.mute and 0 or 1)
     if conf.alwmax then
         love.window.maximize()
