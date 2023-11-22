@@ -7,7 +7,6 @@ plr={
     rot="right",
     inventory={},
     hotselect=1,
-    lst = {},
     itemsys = function ()
         grabbing=plr.inventory[plr.hotselect+32]
         local mx,my = mouse.getPos()
@@ -46,8 +45,8 @@ plr={
                 end
             end
             if not (plr.inventory[plr.hotselect+32].id ==nil) then
-                local sx = (plr.rot=="left") and 0.1 or -0.1
-                local sy = (plr.rot=="left") and 0.1 or -0.1
+                local sx = 0.1 * ((plr.rot=="left") and 1 or -1)
+                local sy = 0.1 * ((plr.rot=="left") and 1 or -1)
                 local xoff = (plr.rot=="left") and 0 or 75
                 local xoff2=(plr.rot=="left") and 0 or -25
                 local yoff2=(plr.rot=="left") and 0 or 25
