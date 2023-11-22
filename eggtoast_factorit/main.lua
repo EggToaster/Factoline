@@ -29,7 +29,16 @@ function love.load()
     require("Asys")
     loadergame()
     loadSys()
+    function getdx()
+        local dx,dy = love.graphics.getDimensions()
+        return dx
+    end
+    function getdy()
+        local dx,dy = love.graphics.getDimensions()
+        return dy
+    end
 end
+
 function love.quit()
 
 end
