@@ -18,10 +18,6 @@ craftbenchy = {
 craftbenchsquareposhover = {}
 craftpage=0
 craftrecipe = {
-    add = function (tables)
-        table.insert(craftrecipe.list,tables,#craftrecipe.list-5)
-    end,
-    list = {
         {result={id="ironore"},ingrelist={"crafttable"}},
         {result={id="ironplate"},ingrelist={"ironore","ironore"}},
         {result={id="coppergear"},ingrelist={"copperplate"}},
@@ -33,7 +29,6 @@ craftrecipe = {
         {result={id="copperwire"},ingrelist={"copperplate"}},
         {result={id="circuitboard"},ingrelist={"copperwire","ironplate","copperplate","woodlog"}},
         {result={id="chest"},ingrelist={"ironplate","ironplate","copperplate"}},
-    }
 }
 crafttabledown=false
 crafttable={
@@ -46,7 +41,7 @@ crafttable={
         if craftpage<=0 then
             craftpage=0
         end
-        if craftrecipe.list[(craftpage*(#craftbenchx*#craftbenchy))+1] == nil then
+        if craftrecipe[(craftpage*(#craftbenchx*#craftbenchy))+1] == nil then
             craftpage=craftpage-1
         end
     end,
@@ -72,8 +67,8 @@ crafttable={
                 if not crafttabledown then
                     for ii = 1,#craftbenchsquareposhover do
                         if craftbenchsquareposhover[ii] ==0 then
-                            if not (craftrecipe.list[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))] == nil) then
-                                local recip = craftrecipe.list[ii+(craftpage*5)]
+                            if not (craftrecipe[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))] == nil) then
+                                local recip = craftrecipe[ii+(craftpage*5)]
                                 local craftprep = {}
                                 local craftprepid = {}
                                 for iii = 1,#plr.inventory do
@@ -148,8 +143,8 @@ crafttable={
             end
             for iii = 1,#craftbenchy do
                 for ii =1,#craftbenchx do
-                    if not (craftrecipe.list[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)]==nil) then
-                        love.graphics.draw(texture.gettex(craftrecipe.list[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)].result.id),craftbenchx[ii],craftbenchy[iii],0,0.065,0.065)
+                    if not (craftrecipe[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)]==nil) then
+                        love.graphics.draw(texture.gettex(craftrecipe[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)].result.id),craftbenchx[ii],craftbenchy[iii],0,0.065,0.065)
                     end
                 end
             end
@@ -159,8 +154,8 @@ crafttable={
             love.graphics.print(craftpage+1,60,325)
             for iii = 1,#craftbenchy do
                 for ii =1,#craftbenchx do
-                    if not (craftrecipe.list[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)]==nil) then
-                        love.graphics.draw(texture.gettex(craftrecipe.list[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)].result.id),craftbenchx[ii],craftbenchy[iii],0,0.065,0.065)
+                    if not (craftrecipe[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)]==nil) then
+                        love.graphics.draw(texture.gettex(craftrecipe[ii+(#craftbenchx*(iii-1))+(craftpage*#craftbenchx*#craftbenchy)].result.id),craftbenchx[ii],craftbenchy[iii],0,0.065,0.065)
                     end
                 end
             end
@@ -168,8 +163,8 @@ crafttable={
             for i = 1, #craftbenchy do
                 for ii = 1,#craftbenchx do
                     if cbsph[ii+((i-1)*#craftbenchx)] == 0 then
-                        if not (craftrecipe.list[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))] == nil) then
-                            local recipe = craftrecipe.list[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))]
+                        if not (craftrecipe[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))] == nil) then
+                            local recipe = craftrecipe[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))]
                             love.graphics.setColor(0,0,0,.85)   
                             local mx,my = mouse.getPos()
                             love.graphics.rectangle("fill",mx+5,my+5,260,75)
