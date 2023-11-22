@@ -1,22 +1,15 @@
 function loadergame()
-    love.graphics.clear()
-    love.graphics.setColor(0,0,0)
-    love.graphics.print("LOADING GAME",100,100,1,1)
-    love.graphics.present()
     --loaders
     require("api.loader.texload")
     require("api.loader.guiloader")
     require("api.loader.sfx")
+
     --general
     if not device.console then
         lume = require("api.3rd.lume")
         lurker = require("api.3rd.lurker")
-        require("api.3rd.donut")
-        donut = Donut.init(10, 10)
-        fps = donut.add("FPS")
-        xdebug=donut.add("X")
-        ydebug=donut.add("Y")
     end
+
     require("api.misc")
     require("api.player")
     require("api.langsys")
@@ -27,8 +20,7 @@ function loadergame()
     camera = require("api.3rd.camera")
     guiload.loadgui()
     love.audio.setVolume(0.25)
-    texture.load()
-    texture.parse()
+    texture.loadtex()
     cam = camera()
     mnm = camera()
     sfx.loadsound()
