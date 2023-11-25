@@ -129,9 +129,9 @@ obj={
         },
         withtick = {
             "crafterplcd",
-            "mecharmplcd",
-            "chestplcd"
+            "mecharmplcd"
         },
+
         -- interface related stuff
 
         inv= {
@@ -184,7 +184,7 @@ obj={
             local px = plr.x
             local py = plr.y
             local ox,oy = cam:cameraCoords(obj.list[i].x,obj.list[i].y)
-            if table.contains(obj.plctag.interactableinv,obj.list[i].id) then
+            if table.contains(obj.plctag.interactableinv,obj.list[i].id) and (plr.craftopeni == i) then
                 _G[obj.plctag.guiname[indexOf(obj.plctag.withgui,obj.list[i].id)]].tick(i)
             end
             if mx > ox and my > oy and mx < ox+objwidth*1.3 and my < oy+objheight*1.3 then
@@ -204,6 +204,7 @@ obj={
                     if spcobj then
                         if table.contains(obj.plctag.withgui,obj.list[i].id) then
                             _G[obj.plctag.guiname[indexOf(obj.plctag.withgui,obj.list[i].id)]].toggleopen(i)
+                            _G[obj.plctag.guiname[indexOf(obj.plctag.withgui,obj.list[i].id)]].tick(i)
                             inv.open=1
                         end
                         if obj.list[i].id=="ironore" then
