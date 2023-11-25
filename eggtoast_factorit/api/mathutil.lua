@@ -34,11 +34,6 @@ isTable = function (arg)
     end
     return false
 end
-function table.len(T)
-    local count = 0
-    for _ in pairs(T) do count = count + 1 end
-    return count
-end
 function keyOf(tbl, value)
     for k, v in pairs(tbl) do
         if v == value then
