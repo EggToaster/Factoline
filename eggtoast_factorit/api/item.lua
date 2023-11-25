@@ -27,36 +27,33 @@ item={
         if tbl==nil then else
             for i = 1,#plr.inventory do
                 if plr.inventory[i]==tbl then
-                    id = i
-                    break
+                    return i
                 end
             end
         end
-        return(id)
+        return nil
     end,
     hasAt = function (src,tbl)
         local id = nil
         if tbl==nil then else
             for i = 1,#src do
                 if src[i]==tbl then
-                    id = i
-                    break
+                    return i
                 end
             end
         end
-        return(id)
+        return nil
     end,
     isHasAt = function (src,tbl)
         local id = false
         if tbl==nil then else
             for as = 1,#src do
                 if src[as]==tbl then
-                    id = true
-                    break
+                    return true
                 end
             end
         end
-        return(id)
+        return nil
     end,
     getItemCount = function (src)
         local countingtemp=0
