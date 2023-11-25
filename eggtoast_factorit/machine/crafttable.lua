@@ -65,10 +65,11 @@ crafttable={
         if mouse.ison(1) then
             if (plr.craftopeni==i) then
                 if not crafttabledown then
-                    for ii = 1,#craftbenchsquareposhover do
-                        if craftbenchsquareposhover[ii] ==0 then
-                            if not (craftrecipe[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))] == nil) then
-                                local recip = craftrecipe[ii+(craftpage*5)]
+                    local cbsph = craftbenchsquareposhover
+                    for ii = 1,#cbsph do
+                        if cbsph[ii] ==0 then 
+                            if not (craftrecipe[ii+((#craftbenchx*#craftbenchy)*craftpage)] == nil) then
+                                local recip = craftrecipe[ii+((#craftbenchx*#craftbenchy)*craftpage)]
                                 local craftprep = {}
                                 local craftprepid = {}
                                 for iii = 1,#plr.inventory do
