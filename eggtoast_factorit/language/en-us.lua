@@ -51,6 +51,6 @@ lang.list["enus"]={
         "item,coppeore",
         "item.ironplate",
         "item.copperplate",
-        "item.crafter.selectrecipe"
+        "item.crafter.select"
     }
 }
