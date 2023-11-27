@@ -1,4 +1,3 @@
-crafttabledown=false
 crafter={
     wheel = function (y)
         if y <= 0 then
@@ -14,6 +13,7 @@ crafter={
         end
     end,
     tick = function (i)
+        local rtn = false
         if #craftbenchsquareposhover ~= #craftbenchx*#craftbenchy then
             craftbenchsquareposhover = {}
             for i = 1,#craftbenchx*#craftbenchy do
@@ -33,50 +33,12 @@ crafter={
         if mouse.ison(1) then
             if (plr.craftopeni==i) then
                 if not crafttabledown then
-                    for ii = 1,#craftbenchsquareposhover do
-                        if craftbenchsquareposhover[ii] ==0 then
-                            if not (craftrecipe[(ii+(#craftbenchx*(i-1))+(craftpage*#craftbenchx*#craftbenchy))] == nil) then
-                                local recip = craftrecipe[ii+(craftpage*5)]
-                                local craftprep = {}
-                                local craftprepid = {}
-                                for iii = 1,#plr.inventory do
-                                    if not (plr.inventory[iii].id==nil) then
-                                        local tmp1 = plr.inventory[iii].id
-                                        local itemsid = ""
-                                        for i = 1,string.len(tmp1) do
-                                            itemsid = itemsid..string.byte(tmp1,i)
-                                        end
-                                        if table.contains(craftprepid,itemsid) then
-                                            craftprep[indexOf(craftprepid,itemsid)] = craftprep[indexOf(craftprepid,itemsid)] + 1
-                                        else
-                                            table.insert(craftprepid,itemsid)
-                                            table.insert(craftprep,1)
-                                        end
-                                    end
-                                end
-                                local fail = false
-                                for iii = 1,#recip.ingrelist do
-                                    local itmid = ""
-                                    local tmp1 = recip.ingrelist[iii]
-                                    for i = 1,string.len(tmp1) do
-                                        itmid = itmid..string.byte(tmp1,i)
-                                    end
-                                    if table.contains(craftprepid,itmid) then
-                                        craftprep[indexOf(craftprepid,itmid)] = craftprep[indexOf(craftprepid,itmid)]-1
-                                        if craftprep[indexOf(craftprepid,itmid)]==0 then
-                                            table.remove(craftprep,indexOf(craftprepid,itmid))
-                                            table.remove(craftprepid,indexOf(craftprepid,itmid))
-                                        end
-                                    else
-                                        fail = true
-                                    end
-                                end
-                                if not fail then
-                                    for iii = 1,#recip.ingrelist do
-                                        item.delete({id=recip.ingrelist[iii]})
-                                    end
-                                item.give(recip.result)
-                                end
+                    local cbsph = craftbenchsquareposhover
+                    for ii = 1,#cbsph do
+                        if cbsph[ii] ==0 then 
+                            if not (craftrecipe[ii+((#craftbenchx*#craftbenchy)*craftpage)] == nil) then
+                                local recip = craftrecipe[ii+((#craftbenchx*#craftbenchy)*craftpage)]
+                                obj.list[i].nbt.recipe=recip
                             end
                         end
                     end
@@ -95,11 +57,37 @@ crafter={
                 crafttabledown = false
             end
         end
+        local mx,my = mouse.getPos()
+        for x = 0,2 do
+            for y = 0,2 do
+                crafterhover[(y*3)+x+1] = 1
+                if (mx >= 405+x*50) and (mx <= 405+x*50+40) and (my >= 115+y*50) and (my <= 115+y*50+40)  then
+                    crafterhover[(y*3)+x+1] = 0
+                end
+            end
+        end
+        if obj.list[i].nbt.recipe==nil then else
+            tpp = obj.list[i].nbt.recipe.ingrelist
+            for ii = 1,6 do
+                if item.iHasAt(obj.list[i].nbt.inv,tpp[1],ii) then
+                    if #tpp ==1 then
+                        print("waa")
+                        if item.getItemCount(obj.list[i].nbt.inv)==ii then
+                            crafter.hasitem(i)
+                        end
+                    else
+                        if ii == 6 then
+                            crafter.noitem(i)
+                        end
+                    end
+                end
+            end
+        end
     end,
     draw = function(i)
         if inv.open == 1 then
             love.graphics.setColor(1,1,1)
-            love.graphics.print(lang.gettxt("item.crafttable.name"),55,245,0,0.5,0.5)
+            love.graphics.print(lang.gettxt("item.crafter.name").."              "..lang.gettxt("item.crafter.select"),55,240,0,0.5,0.5)
             for i = 1, #craftbenchy do
                 for ii = 1,#craftbenchx do
                     local cbsph = craftbenchsquareposhover
@@ -149,6 +137,35 @@ crafter={
                 end
             end
         end
+        love.graphics.setColor(0,0,0)
+        love.graphics.rectangle("fill", 400,110,150,200)
+        love.graphics.setColor(1,1,1)
+        love.graphics.rectangle("fill", 405,265,40,40)
+        love.graphics.rectangle("fill",455,275,20,20)
+        love.graphics.polygon("fill",470,265,495,285,470,305)
+        for x = 0,2 do
+            for y = 0,2 do
+                local hvr = crafterhover[(y*3)+x+1]
+                love.graphics.setColor(hvr,hvr,hvr)
+                love.graphics.rectangle("fill",405+x*50,115+y*50,40,40)
+                love.graphics.setColor(1,1,1)
+                if type(obj.list[i].nbt.inv[(y*3)+x+1])=="table" then
+                    love.graphics.draw(texture.gettex(obj.list[i].nbt.inv[(y*3)+x+1].id),405+x*50,115+y*50,0,0.08)
+                end
+            end
+        end
+        local mx,my=mouse.getPos()
+        local hvr = ((mx >= 505) and (mx <= 505+40) and (my >= 265) and (my <= 265+40)) and 0 or 1
+        love.graphics.setColor(hvr,hvr,hvr)
+        love.graphics.rectangle("fill",505,265,40,40)
+        love.graphics.setColor(1,1,1)
+        if type(obj.list[i].nbt.invslt2)=="table" then
+            love.graphics.draw(texture.gettex(obj.list[i].nbt.invslt2.id),505,265,0.065,0.065)
+        end
+        local tpp = obj.list[i].nbt
+        if tpp.recipe==nil then else
+            love.graphics.draw(texture.gettex(tpp.recipe.result.id),405,265,0,0.08,0.08)
+            end
     end,
     toggleopen = function(i)
         if obj.list[i].nbt.craftopen==true then
@@ -156,13 +173,39 @@ crafter={
             plr.craftopen=false
             crafteruse=false
             plr.craftopeni=nil
+            print("craftoff")
         else
             if plr.craftopen==false then
             obj.list[i].nbt.craftopen=true
             plr.craftopen=true
-            crafteruse=false
+            crafteruse = true
             plr.craftopeni=i
+            print("crafton")
             end
         end
+    end,
+    hasitem = function (i)
+        --print("crafter.timertick")
+        local obnbt = obj.list[i].nbt
+       -- print(json.encode(obj.list[i].nbt.invslt2))
+        if obj.list[i].nbt.invslt2.id==nil then
+            obj.list[i].nbt.timer=obj.list[i].nbt.timer-1
+            if obnbt.timer==0 then
+                obnbt.invslt2=obnbt.recipe.result
+                obnbt.inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}}
+            end
+        end
+    end,
+    noitem = function (i)
+        obj.list[i].nbt.timer=120
     end
 }
+crafterput = function (z,x,y)
+    local obb = obj.list[plr.craftopeni].nbt.inv[z]
+    local ob2 = plr.inventory[(y-1)*8+x]
+    local ob3 = (y-1)*8+x
+    print("crafttableput."..tostring(ob3))
+    table.insert(obj.list[plr.craftopeni].nbt.inv,ob2)
+    plr.inventory[ob3]={id=nil}
+ end
+crafterhover={}
