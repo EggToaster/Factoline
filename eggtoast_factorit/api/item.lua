@@ -69,16 +69,12 @@ item={
         return(countingtemp)
     end,
     iHasAt = function (src,tbl,intt)
-        if intt==nil then
-            intt=1
-        end
-        if tbl==nil then else
-            for ads = intt,#src do
-                if src[ads].id==tbl then
-                    return(true)
-                end
+        intt = intt or 1
+        for ads = intt,#src do
+            if src[ads].id==tbl then
+                return(true)
             end
-        end
+         end
         return(false)
     end,
     delete = function (tbl)
