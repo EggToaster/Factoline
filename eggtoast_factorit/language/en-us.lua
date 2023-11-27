@@ -23,7 +23,8 @@ lang.list["enus"]={
         "Iron Ore",
         "Copper Ore",
         "Iron Plate",
-        "Copper Plate"
+        "Copper Plate",
+        "Select Recipe"
     },
     langindex={
         "item.crafttable.name",
@@ -49,6 +50,7 @@ lang.list["enus"]={
         "item.ironore",
         "item,coppeore",
         "item.ironplate",
-        "item.copperplate"
+        "item.copperplate",
+        "item.crafter.selectrecipe"
     }
 }
