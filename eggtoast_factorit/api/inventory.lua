@@ -113,7 +113,6 @@ inv = {
     mouseclick = function(x,y,b)
         if b == 1 then
           if mouseOn.is then
-            
             if not selected.is then
               if mouseOn.trash then
               else
