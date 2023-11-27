@@ -3,7 +3,7 @@ lang ={
     langindex=nil,
     currentlang="enus",
     gettxt = function (txtid)
-        return lang.lang[indexOf(lang.langindex,txtid)] or lang.list.enus[indexOf(lang.langindex,txtid)] or "error"
+        return lang.lang[indexOf(lang.langindex,txtid)] or lang.list.enus.lang[indexOf(lang.list.enus.langindex,txtid)] or "error"
     end,
     reset = function ()
         lang.lang={}
