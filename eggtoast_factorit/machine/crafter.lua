@@ -33,6 +33,23 @@ crafter={
         if mouse.ison(1) then
             if (plr.craftopeni==i) then
                 if not crafttabledown then
+                    local mx,my = mouse.getPos()
+                    if type(obj.list[i].nbt.invslt2)=="table" then
+                        love.graphics.draw(texture.gettex(obj.list[i].nbt.invslt2.id),505,265,0,0.08,0.08)
+                        if (mx >= 505) and (mx <= 505+40) and (my >= 265) and (my <= 265+40) then
+                            item.give(obj.list[i].nbt.invslt2)
+                            obj.list[i].nbt.invslt2={id=nil}
+                        end
+                    end
+                    for x = 0,2 do
+                        for y = 0,2 do
+                            local hvr = crafterhover[(y*3)+x+1]
+                            if type(obj.list[i].nbt.inv[(y*3)+x+1])=="table" then
+                                item.give(obj.list[i].nbt.inv[(y*3)+x+1])
+                                obj.list[i].nbt.inv[(y*3)+x+1]={id=nil}
+                            end                        
+                        end
+                    end
                     local cbsph = craftbenchsquareposhover
                     for ii = 1,#cbsph do
                         if cbsph[ii] ==0 then 
@@ -42,7 +59,6 @@ crafter={
                             end
                         end
                     end
-                    mx,my = mouse.getPos()
                     if (mx >= 90) and (mx<=120) and (my>=265) and (my<=295) then
                         crafttable.wheel(1)
                     end
@@ -87,7 +103,7 @@ crafter={
     draw = function(i)
         if inv.open == 1 then
             love.graphics.setColor(1,1,1)
-            love.graphics.print(lang.gettxt("item.crafter.name").."              "..lang.gettxt("item.crafter.select"),55,240,0,0.5,0.5)
+            love.graphics.print(lang.gettxt("item.crafter.name").."              "..lang.gettxt("item.crafter.select"),55,240,0,0.25,0.25)
             for i = 1, #craftbenchy do
                 for ii = 1,#craftbenchx do
                     local cbsph = craftbenchsquareposhover
@@ -160,7 +176,7 @@ crafter={
         love.graphics.rectangle("fill",505,265,40,40)
         love.graphics.setColor(1,1,1)
         if type(obj.list[i].nbt.invslt2)=="table" then
-            love.graphics.draw(texture.gettex(obj.list[i].nbt.invslt2.id),505,265,0.065,0.065)
+            love.graphics.draw(texture.gettex(obj.list[i].nbt.invslt2.id),505,265,0,0.08,0.08)
         end
         local tpp = obj.list[i].nbt
         if tpp.recipe==nil then else
