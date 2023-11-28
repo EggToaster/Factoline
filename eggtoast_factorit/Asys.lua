@@ -174,7 +174,7 @@ function love.wheelmoved(x, y)
         end
     end
 end
-fntgame = love.graphics.newFont("rmpfont.ttf",30)
+fntgame = love.graphics.newFont("rmpfont.ttf",60)
 love.graphics.setFont(fntgame)
 mousedebug=true
 socket = require("socket")
