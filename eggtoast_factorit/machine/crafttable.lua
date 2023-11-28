@@ -132,7 +132,7 @@ crafttable={
     draw = function(i)
         if inv.open == 1 then
             love.graphics.setColor(1,1,1)
-            love.graphics.print(lang.gettxt("item.crafttable.name"),55,240,0,0.5,0.5)
+            love.graphics.print(lang.gettxt("item.crafttable.name"),55,240,0,0.25,0.25)
             for i = 1, #craftbenchy do
                 for ii = 1,#craftbenchx do
                     local cbsph = craftbenchsquareposhover

@@ -1,11 +1,12 @@
 local this ={
 text = {
-    {tag={},color={0,0,0},text="#title.settingsbutton",pos={150,-25},size={2.5,2.5},slide=false},
-    {tag={"stencil"},color={0,0,0},text="VSync",pos={0,125},size={2.5,2.5},slide=true},
-    {tag={"stencil"},color={0,0,0},text="#stng.alwmax",pos={0,225},size={2.5,2.5},slide=true}
+    {tag={},color={0,0,0},text="#title.settingsbutton",pos={150,-25},size={1.25,1.25},slide=false},
+    {tag={"stencil"},color={0,0,0},text="VSync",pos={0,125},size={1.25,1.25},slide=true},
+    {tag={"stencil"},color={0,0,0},text="#stng.alwmax",pos={0,225},size={1.25,1.25},slide=true},
+    {tag={},text="#stng.video",pos={180,75},color={1,1,1},size={0.75,0.75},slide=false}
 },
 button = {
-    {tag={},hitbox={0,0,150,75},color={0,0,0},bg={1,1,1,0},text="#title.back",pos={0,0},size={150,75},txc={0,0,0},txs={2,2},slide=false,action=function ()
+    {tag={},hitbox={0,0,150,75},color={0,0,0},bg={1,1,1,0},text="#title.back",pos={0,0},size={150,75},txc={0,0,0},txs={1,1},slide=false,action=function ()
         gui.script.resetSlider()
         stng=false
     end},
@@ -31,7 +32,7 @@ button = {
         end
         misc.filer.write("cfg.json",json.encode(conf),true)
     end},
-    {tag={},color={0,0,0},bg={1,1,1},hitbox={0,75,180,75},text="#stng.general",pos={0,75},size={180,75},txc={0,0,0},txs={1.5,1.5},slide=false,action=function ()
+    {tag={},color={0,0,0},bg={1,1,1},hitbox={0,75,180,75},text="#stng.general",pos={0,75},size={180,75},txc={0,0,0},txs={0.75,0.75},slide=false,action=function ()
         stngtab="general"
         gui.script.resetSlider()
     end}

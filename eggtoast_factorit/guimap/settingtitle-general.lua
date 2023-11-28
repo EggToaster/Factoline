@@ -1,16 +1,17 @@
 local this ={
 text = {
-    {tag={},color={0,0,0},text="#title.settingsbutton",pos={150,-25},size={2.5,2.5},slide=false},
-    {tag={"stencil"},color={0,0,0},text="#title.fullscreen",pos={0,125},size={2.5,2.5},slide=true},
-    {tag={"stencil"},color={0,0,0},text="#stng.mute",pos={0,225},size={2.5,2.5},slide=true},
-    {tag={"stencil"},color={0,0,0},text="#title.lang",pos={0,325},size={2.5,2.5},slide=true},
+    {tag={},color={0,0,0},text="#title.settingsbutton",pos={150,-25},size={1.25,1.25},slide=false},
+    {tag={"stencil"},color={0,0,0},text="#title.fullscreen",pos={0,125},size={1.25,1.25},slide=true},
+    {tag={"stencil"},color={0,0,0},text="#stng.mute",pos={0,225},size={1.25,1.25},slide=true},
+    {tag={"stencil"},color={0,0,0},text="#title.lang",pos={0,325},size={1.25,1.25},slide=true},
+    {tag={},text="#stng.general",pos={0,75},color={1,1,1},size={0.75,0.75},slide=false}
 },
 button = {
-    {tag={},hitbox={0,0,150,75},color={0,0,0},bg={1,1,1,0},text="#title.back",pos={0,0},size={150,75},txc={0,0,0},txs={2,2},slide=false,action=function ()
+    {tag={},hitbox={0,0,150,75},color={0,0,0},bg={1,1,1,0},text="#title.back",pos={0,0},size={150,75},txc={0,0,0},txs={1,1},slide=false,action=function ()
         gui.script.resetSlider()
         stng=false
     end},
-    {tag={"stenciloptionclick"},hitbox={725,150,220,75},color={1,1,1,0},txs={0.4,0.4},bg={1,1,1,0},txc={1,1,1},text=function()
+    {tag={"stenciloptionclick"},hitbox={725,151,220,75},color={1,1,1,0},txs={0.4,0.4},bg={1,1,1,0},txc={1,1,1},text=function()
         if conf.fullscreen then
         return "?slideron"
         end
@@ -20,7 +21,7 @@ button = {
         love.window.setFullscreen(conf.fullscreen,"desktop")
         misc.filer.write("cfg.json",json.encode(conf),true)
     end},
-    {tag={"stenciloptionclick"},hitbox={725,245,220,75},color={1,1,1,0},txs={0.4,0.4},bg={1,1,1,0},txc={1,1,1},text=function()
+    {tag={"stenciloptionclick"},hitbox={725,246,220,75},color={1,1,1,0},txs={0.4,0.4},bg={1,1,1,0},txc={1,1,1},text=function()
         if conf.mute then
         return "?slideron"
         end
@@ -30,7 +31,7 @@ button = {
         love.audio.setVolume((conf.mute and 0 or 1))
         misc.filer.write("cfg.json",json.encode(conf),true)
     end},
-    {tag={"stenciloptionclick"},hitbox={725,350,220,75},color={0,0,0},txs={2,2},bg={1,1,1},txc={0,0,0},text="#stng.change",pos={725,350},size={220,75},slide=true,action=function ()
+    {tag={"stenciloptionclick"},hitbox={725,350,220,75},color={0,0,0},txs={1,1},bg={1,1,1},txc={0,0,0},text="#stng.change",pos={725,350},size={220,75},slide=true,action=function ()
         if indexOf(table.keylist(lang.list),lang.currentlang) == #table.keylist(lang.list) then
             conf.lang = table.keylist(lang.list)[1]
         else
@@ -40,7 +41,7 @@ button = {
         lang.set(conf.lang)
         misc.filer.write("cfg.json",json.encode(conf),true)
     end},
-    {tag={},color={0,0,0},bg={1,1,1},hitbox={180,75,180,75},text="#stng.video",pos={180,75},size={180,75},txc={0,0,0},txs={1.5,1.5},slide=false,action=function ()
+    {tag={},color={0,0,0},bg={1,1,1},hitbox={180,75,180,75},text="#stng.video",pos={180,75},size={180,75},txc={0,0,0},txs={0.75,0.75},slide=false,action=function ()
         stngtab="video"
         gui.script.resetSlider()
     end}
@@ -53,7 +54,7 @@ rect = {
     {tag={"stencil"},color={0,0,0},bg={0,0,0},pos={0,437},size={{"dx",0},3},slide=true}
 },
 recttxt = {
-    {tag={},color={1,1,1},bg={0,0,0},text="#stng.general",pos={0,75},size={180,75},txc={0,0,0},txs={1.5,1.5},slide=false}
+    {tag={},color={1,1,1},bg={0,0,0},text="#stng.general",pos={0,75},size={180,75},txc={1,1,1},txs={0.75,0.75},slide=false}
 },
 slider = {
     {tag={},color={0,0,0},bg={.75,.75,.75},pos={950,250},len=450,wid=25,pc={0,0,0},pbg={.5,.5,.5}}

@@ -37,7 +37,7 @@ chest = {
                     end
                 end
             end
-            love.graphics.print(lang.gettxt("item.chest.name"),60,223,0,1,1)
+            love.graphics.print(lang.gettxt("item.chest.name"),60,223,0,.5)
         end
     end,
     tick = function (i)
