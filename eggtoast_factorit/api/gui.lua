@@ -107,18 +107,18 @@ gui = {
                 if type(txt)=="function" then
                     if string.sub(txt(),1,1) == "?" then
                         print(string.sub(txt(),2,string.len(txt())))
-                        love.graphics.draw(texture.gettex(string.sub(txt(),2,string.len(txt()))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
+                        love.graphics.draw(texture.gettex(string.sub(txt(),2,string.len(txt()))),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
                     else
-                        love.graphics.print(txt(),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
+                        love.graphics.print(txt(),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
                     end
                 else
                     if string.sub(txt,1,1)=="#" then
                         txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
                     end
                     if string.sub(txt,1,1)=="?" then
-                        love.graphics.draw(texture.gettex(string.sub(txt,2,string.len(txt))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
+                        love.graphics.draw(texture.gettex(string.sub(txt,2,string.len(txt))),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
                     else
-                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
+                        love.graphics.print(txt,gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
                     end
                 end
                 if stenreset then
@@ -142,30 +142,26 @@ gui = {
                 end
                 local tmp = {this.pos[1],this.pos[2],this.size[1],this.size[2]}
                 for ii = 1,4 do
-                    if type(tmp[ii])=="string" then
-                        this[(3>ii) and "pos" or "size"][(3>ii) and (ii) or (ii-2)] = gui.script.func[tmp[ii]].func() 
+                    if type(tmp[ii]) == "number" then
+                        tmp[ii] =  {"dummy",tmp[ii]}
                     end
-                    if type(tmp[ii])=="function" then
-                        this[(3>ii) and "pos" or "size"][(3>ii) and (ii) or (ii-2)] = this[(3>ii) and "pos" or "size"][(3>ii) and (ii) or (ii-2)]()
-                    end
-                end
+                end 
                 gui.script.setctbl(this.color)
                 local txt = this.text
                 if type(txt)=="function" then
                     if string.sub(txt(),1,1) == "?" then
-                        print(string.sub(txt(),2,string.len(txt())))
-                        love.graphics.draw(texture.gettex(string.sub(txt(),2,string.len(txt()))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
+                        love.graphics.draw(texture.gettex(string.sub(txt(),2,string.len(txt()))),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],0,gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
                     else
-                        love.graphics.print(txt(),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
+                        love.graphics.print(txt(),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],0,gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],0,gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
                     end
                 else
                     if string.sub(txt,1,1)=="#" then
                         txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
                     end
                     if string.sub(txt,1,1)=="?" then
-                        love.graphics.draw(texture.gettex(string.sub(txt,2,string.len(txt))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
+                        love.graphics.draw(texture.gettex(string.sub(txt,2,string.len(txt))),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],0,gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
                     else
-                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.size[1]+ofs[3],this.size[2]+ofs[4])
+                        love.graphics.print(txt, gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1], gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2], 0, gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
                     end
                 end
                 if stenreset then
@@ -271,7 +267,15 @@ gui = {
                 local dx,dy = love.graphics.getDimensions()
                 return dy
             end,
-            dummy = function(a) return a; end
+            dummy = function(a) return a; end,
+            centerdx = function(a)
+                local dx,dy = love.graphics.getDimensions()
+                return dx/2+a
+            end,
+            centerdy = function(a)
+                local dx,dy = love.graphics.getDimensions()
+                return dy/2+a
+            end
         }
     },
     tempguinow = nil
