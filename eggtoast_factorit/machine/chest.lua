@@ -81,11 +81,11 @@ chest = {
             print("crafton "..i)
             end
         end
+    end,
+    put = function (z,x,y)
+        if #chestlist[plr.craftopeni]~=30 then
+            table.insert(chestlist[plr.craftopeni],plr.inventory[(y-1)*8+x])
+            plr.inventory[(y-1)*8+x]={id=nil}
+        end
     end
 }
-chestput = function (z,x,y)
-    if #chestlist[plr.craftopeni]~=30 then
-        table.insert(chestlist[plr.craftopeni],plr.inventory[(y-1)*8+x])
-        plr.inventory[(y-1)*8+x]={id=nil}
-    end
-end
