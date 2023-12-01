@@ -214,14 +214,25 @@ crafter={
     end,
     noitem = function (i)
         obj.list[i].nbt.timer=120
-    end
+    end,
+    put = function (z,x,y)
+        local obb = obj.list[plr.craftopeni].nbt.inv
+        local ob2 = plr.inventory[(y-1)*8+x]
+        local ob3 = (y-1)*8+x
+        print("crafttableput."..tostring(ob3))
+        table.insert(obj.list[plr.craftopeni].nbt.inv,ob2)
+        plr.inventory[ob3]={id=nil}
+        local wao = {}
+        for i = 1,#obb do
+            if obb[i].id==nil then
+                table.insert(wao,i)
+            end
+        end
+        if not(#wao==0) then
+            for i = 1,#wao do
+                table.remove(obb,#wao-i+1)
+            end
+        end
+     end
 }
-crafterput = function (z,x,y)
-    local obb = obj.list[plr.craftopeni].nbt.inv[z]
-    local ob2 = plr.inventory[(y-1)*8+x]
-    local ob3 = (y-1)*8+x
-    print("crafttableput."..tostring(ob3))
-    table.insert(obj.list[plr.craftopeni].nbt.inv,ob2)
-    plr.inventory[ob3]={id=nil}
- end
 crafterhover={}

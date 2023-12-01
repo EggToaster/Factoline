@@ -118,7 +118,7 @@ inv = {
               else
                 if crafteruse then
                   if not (plr.inventory[(mouseOn.y-1)*8+mouseOn.x].id==nil) then
-                        _G[string.gsub(obj.list[plr.craftopeni].id,"plcd","").."put"](i,mouseOn.x,mouseOn.y,plr.craftopeni)
+                        _G[string.gsub(obj.list[plr.craftopeni].id,"plcd","")].put(i,mouseOn.x,mouseOn.y,plr.craftopeni)
                         goto inventorymouseclickend
                     end
                 if mecharmuse then
