@@ -58,13 +58,13 @@ end
 
 
 function gameupdate(dt)
-    obj.tick(dt)
     plr.itemsys()
+    controller.tick(dt)
     inv.sys()
+    obj.tick(dt)
     local sx,sy=love.graphics.getDimensions()
     dividewidth  =sx/2
     divideheight =sy/2
-    controller.tick(dt)
     if plr.x>mapx then
         plr.x=mapx
     end

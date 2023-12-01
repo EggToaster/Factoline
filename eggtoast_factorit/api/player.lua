@@ -7,19 +7,25 @@ plr={
     rot="right",
     inventory={},
     hotselect=1,
+    _mclk = false,
     itemsys = function ()
         grabbing=plr.inventory[plr.hotselect+32]
         local mx,my = mouse.getPos()
         if #plr.inventory < 42 then
                 table.insert(plr.inventory,{id=nil})
         end
-        if table.contains(obj.placeable,grabbing.id) then
-            local sz = ((table.contains(obj.sizemapid,grabbing.id.."plcd")) and (obj.sizemap[indexOf(obj.sizemapid,grabbing.id.."plcd")]) or (0.4))
-            if mouse.ison(1) then
-                local tmpx,tmpy = cam:worldCoords(mx-(250*sz),my-(250*sz))
-                obj.make(grabbing.id.."plcd",tmpx,tmpy,obj.placeablenbt[indexOf(obj.placeable,grabbing.id)],grabbing.id)
-                plr.inventory[plr.hotselect+32]={id=nil}
+        if mouse.ison(1) then
+            if not plr._mclk then
+                if table.contains(obj.placeable,grabbing.id) then
+                    local sz = ((table.contains(obj.sizemapid,grabbing.id.."plcd")) and (obj.sizemap[indexOf(obj.sizemapid,grabbing.id.."plcd")]) or (0.4))
+                    local tmpx,tmpy = cam:worldCoords(mx-(250*sz),my-(250*sz))
+                    obj.make(grabbing.id.."plcd",tmpx,tmpy,obj.placeablenbt[indexOf(obj.placeable,grabbing.id)],grabbing.id)
+                    plr.inventory[plr.hotselect+32]={id=nil}
+                end
             end
+            plr._mclk = true
+        else
+            plr._mclk = false
         end
     end,
     itemdraw = function ()
