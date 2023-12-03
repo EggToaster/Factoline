@@ -83,20 +83,10 @@ crafter={
             end
         end
         if obj.list[i].nbt.recipe==nil then else
-            tpp = obj.list[i].nbt.recipe.ingrelist
-            for ii = 1,6 do
-                if item.iHasAt(obj.list[i].nbt.inv,tpp[1],ii) then
-                    if #tpp ==1 then
-                        print("waa")
-                        if item.getItemCount(obj.list[i].nbt.inv)==ii then
-                            crafter.hasitem(i)
-                        end
-                    else
-                        if ii == 6 then
-                            crafter.noitem(i)
-                        end
-                    end
-                end
+            if obj.list[i].nbt.recipe.ingrelist == obj.list[i].nbt.inv then
+                crafter.hasitem(i)
+            else
+                crafter.noitem(i)
             end
         end
     end,
