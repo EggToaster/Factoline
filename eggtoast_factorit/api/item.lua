@@ -22,56 +22,18 @@ item={
             return(id)
         end
     end,
-    Has = function (tbl)
-        local id = nil
-        if tbl==nil then else
-            for i = 1,#plr.inventory do
-                if plr.inventory[i]==tbl then
-                    return i
-                end
-            end
-        end
-        return nil
-    end,
-    hasAt = function (src,tbl)
-        local id = nil
-        if tbl==nil then else
-            for i = 1,#src do
-                if src[i]==tbl then
-                    return i
-                end
-            end
-        end
-        return nil
-    end,
-    isHasAt = function (src,tbl)
-        local id = false
-        if tbl==nil then else
-            for as = 1,#src do
-                if src[as]==tbl then
-                    return true
-                end
-            end
-        end
-        return nil
-    end,
-    getItemCount = function (src)
+    howMany = function (src,tbl)
         local countingtemp=0
-        if src==nil then
-            return(0)
-        else
-            for i = 1,#src do
-                if src[i].id==nil then else
-                    countingtemp = countingtemp + 1
-                end
+        for i = 1,#src do
+            if src[i]==tbl then else
+                countingtemp = countingtemp + 1
             end
         end
         return(countingtemp)
     end,
-    iHasAt = function (src,tbl,intt)
-        intt = intt or 1
-        for ads = intt,#src do
-            if src[ads].id==tbl then
+    contains = function (src,tbl)
+        for i = 1,#src do
+            if src[i]==tbl then
                 return(true)
             end
          end
