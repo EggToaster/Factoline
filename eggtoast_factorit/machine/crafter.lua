@@ -44,7 +44,7 @@ crafter={
                     for x = 0,2 do
                         for y = 0,2 do
                             local hvr = crafterhover[(y*3)+x+1]
-                            if type(obj.list[i].nbt.inv[(y*3)+x+1])=="table" then
+                            if (type(obj.list[i].nbt.inv[(y*3)+x+1])=="table") and hvr==0 then
                                 item.give(obj.list[i].nbt.inv[(y*3)+x+1])
                                 obj.list[i].nbt.inv[(y*3)+x+1]={id=nil}
                             end                        
