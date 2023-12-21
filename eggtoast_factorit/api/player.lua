@@ -32,7 +32,7 @@ plr={
         local dx,dy = love.graphics.getDimensions()
         dx = dx /2
         dy = dy /2
-        local wow = 0.1 * ((plr.rot=="left") and 0.1 or -0.1)
+        local wow = 0.1 * ((plr.rot=="left") and 1 or -1)
         love.graphics.draw(texture.gettex("character1"),dx-25,dy-50,0,wow,0.1)
         if plr.handrot==1 then
             if plr.rot=="left"then
