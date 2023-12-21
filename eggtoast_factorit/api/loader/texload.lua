@@ -1,10 +1,8 @@
 texture = {
     gettex = function (txname)
-        local txname = txname or nil
-        if txname==nil then
-            return(texture.empty)
-        end
+        txname = txname or "nil"
         local temp = texture.tex[indexOf(texture.texnames,txname)]
+        temp = (temp==nil and texture.tex[indexOf(texture.texnames,string.gsub(txname,"plcd",""))] or temp)
         return((temp==nil and texture.empty or temp))
     end,
     tex={},texnames={},empty = nil,
