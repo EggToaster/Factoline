@@ -165,7 +165,6 @@ mecharm={
     mecharmput = function (x,y)
         local ob2 = plr.inventory[(y-1)*8+x]
         local ob3 = (y-1)*8+x
-        print("mecharmput."..tostring(ob3))
         obj.list[plr.craftopeni].nbt.inv = ob2
         plr.inventory[ob3]={id=nil}
     end,
@@ -175,14 +174,12 @@ mecharm={
             plr.craftopen=false
             mecharmuse=false
             plr.craftopeni=nil
-            print("craftoff")
         else
             if plr.craftopen==false then
             obj.list[i].nbt.craftopen=true
             plr.craftopen=true
             mecharmuse = true
             plr.craftopeni=i
-            print("crafton")
             end
         end
     end

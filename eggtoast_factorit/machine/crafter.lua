@@ -179,23 +179,19 @@ crafter={
             plr.craftopen=false
             crafteruse=false
             plr.craftopeni=nil
-            print("craftoff")
         else
             if plr.craftopen==false then
             obj.list[i].nbt.craftopen=true
             plr.craftopen=true
             crafteruse = true
             plr.craftopeni=i
-            print("crafton")
             end
         end
     end,
     hasitem = function (i)
-        --print("crafter.timertick")
         local obnbt = obj.list[i].nbt
-       -- print(json.encode(obj.list[i].nbt.invslt2))
-        if obj.list[i].nbt.invslt2.id==nil then
-            obj.list[i].nbt.timer=obj.list[i].nbt.timer-1
+        if obnbt.invslt2.id==nil then
+            obnbt.timer=obj.list[i].nbt.timer-1
             if obnbt.timer==0 then
                 obnbt.invslt2=obnbt.recipe.result
                 obnbt.inv={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil}}
@@ -209,7 +205,6 @@ crafter={
         local obb = obj.list[plr.craftopeni].nbt.inv
         local ob2 = plr.inventory[(y-1)*8+x]
         local ob3 = (y-1)*8+x
-        print("crafttableput."..tostring(ob3))
         table.insert(obj.list[plr.craftopeni].nbt.inv,ob2)
         plr.inventory[ob3]={id=nil}
         local wao = {}
