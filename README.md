@@ -1,3 +1,4 @@
-no readme yet
-
-dont mention no update for decades, not abandoaned
+#WARNING: Old lua version
+project name is now Factoline-new instead
+https://github.com/TV-Toshikawa/Factoline-new
+Repository will created when ready
