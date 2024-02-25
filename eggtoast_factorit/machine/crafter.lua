@@ -82,12 +82,18 @@ crafter={
                 end
             end
         end
-        if obj.list[i].nbt.recipe==nil then else
-            if obj.list[i].nbt.recipe.ingrelist == obj.list[i].nbt.inv then
-                crafter.hasitem(i)
-            else
-                crafter.noitem(i)
+        if not (obj.list[i].nbt.recipe==nil) and (#obj.list[i].nbt.recipe.ingrelist == #obj.list[i].nbt.inv) then
+            for ii = 1,#obj.list[i].nbt.recipe.ingrelist do
+                if not (obj.list[i].nbt.recipe.ingrelist[ii] == obj.list[i].nbt.inv[ii].id) then
+                    crafter.noitem(i)
+                    break
+                end
+                if ii == #obj.list[i].nbt.recipe.ingrelist then
+                    crafter.hasitem(i)
+                end
             end
+        else
+            crafter.noitem(i)
         end
     end,
     draw = function(i)
@@ -154,6 +160,10 @@ crafter={
                 local hvr = crafterhover[(y*3)+x+1]
                 love.graphics.setColor(hvr,hvr,hvr)
                 love.graphics.rectangle("fill",405+x*50,115+y*50,40,40)
+                love.graphics.setColor(1,1,1,.5)
+                if type(obj.list[i].nbt.recipe.ingrelist[(y*3)+x+1])=="string" then
+                    love.graphics.draw(texture.gettex(obj.list[i].nbt.recipe.ingrelist[(y*3)+x+1]),405+x*50,115+y*50,0,0.08)
+                end
                 love.graphics.setColor(1,1,1)
                 if type(obj.list[i].nbt.inv[(y*3)+x+1])=="table" then
                     love.graphics.draw(texture.gettex(obj.list[i].nbt.inv[(y*3)+x+1].id),405+x*50,115+y*50,0,0.08)
