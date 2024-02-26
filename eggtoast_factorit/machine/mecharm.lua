@@ -1,4 +1,5 @@
 mecharmstat=0
+armlist={}
 mecharm={
     tick=function (i)
         local mx,my = mouse.getPos()
@@ -18,7 +19,7 @@ mecharm={
                             local tppmp=obj.list[sr].id
                             print(tostring(tppmp:gsub("plcd","")))
                             if table.contains(obj.plctag.hasslot2,tppmp) or table.contains(obj.plctag.slot1bothio,tppmp) then--:gsub("plcd","")) then
-                            obj.list[i].nbt.machine1=sr
+                            armlist[i].machine1=sr
                             break
                             end
                         end
@@ -38,7 +39,7 @@ mecharm={
                         local tppmp=obj.list[sr].id
                         print(tostring(tppmp:gsub("plcd","")))
                         if table.contains(obj.plctag.hasslot,tppmp) or table.contains(obj.plctag.slot1bothio,tppmp) then
-                        obj.list[i].nbt.machine2=sr
+                        armlist[i].machine2=sr
                         break
                         end
                     end
@@ -46,8 +47,8 @@ mecharm={
                 mecharmstat=0
             else
                 if ((mx - 300) > 0) and ((mx - 300) <= 25) and ((my - 55) > 0) and ((my - 55) <=25) then
-                    item.give(obj.list[i].nbt.inv)
-                    obj.list[i].nbt.inv={id=nil}
+                    item.give(armlist[i].inv)
+                    armlist[i].inv={id=nil}
                 end
                 if ((mx >= 55) and (mx <= 80) and (my >= 280) and (my <= 305)) then
                     mecharmstat=1
@@ -56,8 +57,8 @@ mecharm={
                     mecharmstat=2
                 end
                 if ((mx - 125) > 0) and ((mx - 125) <= 25) and ((my - 280) > 0) and ((my - 280) <=25) then
-                    item.give(obj.list[i].nbt.inv)
-                    obj.list[i].nbt.inv={id=nil}
+                    item.give(armlist[i].inv)
+                    armlist[i].inv={id=nil}
                 end
             end
         end
@@ -66,7 +67,7 @@ mecharm={
         else
             mdmecharm=true
         end
-        local obn=obj.list[i].nbt
+        local obn=armlist[i]
         local this=obj.list[i]
         local m1 = this.machine1
         local m2 = this.machine2
@@ -114,7 +115,7 @@ mecharm={
     end,
     draw=function (i)
         if inv.open==1 then
-        local obnbt=obj.list[i].nbt
+        local obnbt=armlist[i]
         local objct=obj.list[i]
         cam:attach()
         if objct.machine1==nil then else
@@ -162,21 +163,19 @@ mecharm={
         love.graphics.print(lang.gettxt("item.mecharm.setstuff2"),55,315,0,0.5,0.5)
     end
     end,
-    mecharmput = function (x,y)
-        local ob2 = plr.inventory[(y-1)*8+x]
-        local ob3 = (y-1)*8+x
-        obj.list[plr.craftopeni].nbt.inv = ob2
-        plr.inventory[ob3]={id=nil}
+    put = function (invid)
+        armlist.inv = plr.inventory[invid]
+        plr.inventory[invid] = {id=nil}
     end,
     toggleopen = function(i)
-        if obj.list[i].nbt.craftopen==true then
-            obj.list[i].nbt.craftopen=false
+        if armlist[i].craftopen==true then
+            armlist[i].craftopen=false
             plr.craftopen=false
             mecharmuse=false
             plr.craftopeni=nil
         else
             if plr.craftopen==false then
-            obj.list[i].nbt.craftopen=true
+            armlist[i].craftopen=true
             plr.craftopen=true
             mecharmuse = true
             plr.craftopeni=i

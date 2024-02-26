@@ -80,10 +80,10 @@ chest = {
             end
         end
     end,
-    put = function (z,x,y)
+    put = function (invid)
         if #chestlist[plr.craftopeni]~=30 then
-            table.insert(chestlist[plr.craftopeni],plr.inventory[(y-1)*8+x])
-            plr.inventory[(y-1)*8+x]={id=nil}
+            table.insert(chestlist[plr.craftopeni],plr.inventory[invid])
+            plr.inventory[invid]={id=nil}
         end
     end
 }

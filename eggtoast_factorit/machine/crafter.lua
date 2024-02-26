@@ -211,10 +211,10 @@ crafter={
     noitem = function (i)
         obj.list[i].nbt.timer=120
     end,
-    put = function (z,x,y)
+    put = function (invid)
         local obb = obj.list[plr.craftopeni].nbt.inv
-        local ob2 = plr.inventory[(y-1)*8+x]
-        local ob3 = (y-1)*8+x
+        local ob2 = plr.inventory[invid]
+        local ob3 = invid
         table.insert(obj.list[plr.craftopeni].nbt.inv,ob2)
         plr.inventory[ob3]={id=nil}
         local wao = {}
