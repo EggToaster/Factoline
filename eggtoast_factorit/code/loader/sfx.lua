@@ -3,7 +3,7 @@ sfx = {
     loadsound = function ()
         sfx.list2 = love.filesystem.getDirectoryItems("/sound/")
         for i=1,#sfx.list2 do
-            tmp=love.audio.newSource("/sound/"..sfx.list2[i],"static")
+            tmp=love.audio.newSource("/res/sound/"..sfx.list2[i],"static")
             table.insert(sfx.list,tmp)
         end
     end,
