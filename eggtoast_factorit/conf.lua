@@ -1,6 +1,6 @@
 function love.conf(t)
-    json = require("api.3rd.json")
-    require("api.mathutil")
+    json = require("code.3rd.json")
+    require("code.mathutil")
     t.identity = "eggtoast_factorit"
     t.window.title = "Factorit!"
     t.version = "11.3"

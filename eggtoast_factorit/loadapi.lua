@@ -1,27 +1,27 @@
 function loadergame()
     --loaders
-    require("api.loader.texload")
-    require("api.loader.guiloader")
-    require("api.loader.sfx")
+    require("code.loader.texload")
+    require("code.loader.guiloader")
+    require("code.loader.sfx")
     guiload.loadgui()
     texture.loadtex()
     sfx.loadsound()
 
     --general
     if not device.console then
-        lume = require("api.3rd.lume")
-        lurker = require("api.3rd.lurker")
+        lume = require("code.3rd.lume")
+        lurker = require("code.3rd.lurker")
     end
 
-    require("api.misc")
-    require("api.player")
-    require("api.langsys")
-    require("api.item")
-    require("api.inventory")
-    require("api.obj")
-    require("api.gui")
+    require("code.misc")
+    require("code.player")
+    require("code.langsys")
+    require("code.item")
+    require("code.inventory")
+    require("code.obj")
+    require("code.gui")
 
-    camera = require("api.3rd.camera")
+    camera = require("code.3rd.camera")
     cam = camera()
     mnm = camera()
     

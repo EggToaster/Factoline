@@ -21,9 +21,9 @@ function love.load()
     if info == nil then
         love.filesystem.createDirectory("savegame")     
     end
-    require("api.spec.device")
-    require("api.spec.mouse")
-    require("api.mathutil")
+    require("code.spec.device")
+    require("code.spec.mouse")
+    require("code.mathutil")
     ---@diagnostic disable-next-line: undefined-field
     local dev = love._console_name
     if dev == "3DS" then
@@ -33,7 +33,7 @@ function love.load()
     elseif dev == nil then
         dev = "pc"
     end
-    device = require("api.spec.devicepreset")[dev]
+    device = require("code.spec.devicepreset")[dev]
     dload.load()
     joymode = device.padonly
     for i = 1,5 do

@@ -1,6 +1,6 @@
 function gameload()
     yesspd = 1
-    require("api.spec.controller")
+    require("code.spec.controller")
 end
 
 function gamedraw()
