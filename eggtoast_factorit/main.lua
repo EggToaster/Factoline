@@ -44,7 +44,7 @@ function love.load()
     loading=true
     title=true
     fulltogg=true
-    love.window.setIcon(love.image.newImageData("res/factoryicn.bmp"))
+    love.window.setIcon(love.image.newImageData("res/tex/factoryicn.bmp"))
     crtkeypress=true
     require("loadapi")
     require("Asys")
