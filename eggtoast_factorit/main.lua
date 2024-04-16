@@ -15,6 +15,8 @@ function love.load()
     require("code.obj")
     require("code.gui")
 
+    device = require("code.spec.devicepreset")["pc"]
+    dload.load()
     if not device.console then
         lume = require("code.3rd.lume")
         lurker = require("code.3rd.lurker")
@@ -51,9 +53,6 @@ function love.load()
     if info == nil then
         love.filesystem.createDirectory("savegame")     
     end
-
-    device = require("code.spec.devicepreset")["pc"]
-    dload.load()
 
     love.window.setIcon(love.image.newImageData("res/tex/factoryicn.bmp"))
 

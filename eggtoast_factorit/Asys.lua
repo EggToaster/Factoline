@@ -1,7 +1,6 @@
 function loadSys()
     enet = require("enet")
     require("Agame")
-    require("loadapi")
     lang.set(conf.lang)
     spdrun=1
     saveselecter=1
