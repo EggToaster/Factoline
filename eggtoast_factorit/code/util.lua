@@ -44,8 +44,8 @@ function table.keylist(t)
     return keys
 end
 function table.sortStr(t)
-tkeys = table.sort(t, function(a, b) return string.upper(a) < string.upper(b) end)
-return tkeys
+    tkeys = table.sort(t, function(a, b) return string.upper(a) < string.upper(b) end)
+    return tkeys
 end
 function table.upper(t)
     local upped = {}
@@ -71,19 +71,6 @@ function table.haskey(t,k)
     end
     return false
 end
-function table.alltrue(t)
-    fail = false
-   for i = 1,#t do
-    if t[i]==false then
-        fail=true
-        break
-    end
-   end
-   if fail==false then
-    return true 
-   end
-   return false
-end
 function table.contains(table, element)
     for _, value in pairs(table) do
       if value == element then
@@ -91,4 +78,11 @@ function table.contains(table, element)
       end
     end
     return false
-  end
+end
+function string.split(str, spl)
+    local t = {}
+    for s in string.gmatch(str, "([^"..spl.."]+)") do
+        table.insert(t,s)
+    end
+    return t
+end
