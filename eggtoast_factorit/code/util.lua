@@ -86,3 +86,22 @@ function string.split(str, spl)
     end
     return t
 end
+function getdx()
+    local dx,dy = love.graphics.getDimensions()
+    return dx
+end
+function getdy()
+    local dx,dy = love.graphics.getDimensions()
+    return dy
+end
+function getdx(offset)
+    local dx,dy = love.graphics.getDimensions()
+    return dx+offset
+end
+function getdy(offset)
+    local dx,dy = love.graphics.getDimensions()
+    return dy+offset
+end
+function dummy(arg)
+    return arg
+end

@@ -52,40 +52,19 @@ function love.load()
         love.filesystem.createDirectory("savegame")     
     end
 
-    local device = require("code.spec.devicepreset")["pc"]
+    device = require("code.spec.devicepreset")["pc"]
     dload.load()
+
+    love.window.setIcon(love.image.newImageData("res/tex/factoryicn.bmp"))
 
     math.randomseed(os.time())
     for i = 1,5 do
         math.random()
     end
 
-    loading=true
     title=true
-    love.window.setIcon(love.image.newImageData("res/tex/factoryicn.bmp"))
     require("Asys")
     loadSys()
-
-    function getdx()
-        local dx,dy = love.graphics.getDimensions()
-        return dx
-    end
-    function getdy()
-        local dx,dy = love.graphics.getDimensions()
-        return dy
-    end
-    function getdx(offset)
-        local dx,dy = love.graphics.getDimensions()
-        return dx+offset
-    end
-    function getdy(offset)
-        local dx,dy = love.graphics.getDimensions()
-        return dy+offset
-    end
-    --Return first args,really trash
-    function dummy(arg)
-        return arg
-    end
 end
 
 function love.quit()
