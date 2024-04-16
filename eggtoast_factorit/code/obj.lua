@@ -208,7 +208,7 @@ obj={
                             inv.open=1
                         end
                         if obj.list[i].id=="ironore" then
-                            if grabbing.id=="miningpick" then
+                            if plr.grabbing.id=="miningpick" then
                                 if keyspacepress==0 then
                                     misc.sfx.play("orehit")
                                     item.give({id="ironore"})
@@ -216,7 +216,7 @@ obj={
                             end
                         end
                         if obj.list[i].id=="copperore" then
-                            if grabbing.id=="miningpick" then
+                            if plr.grabbing.id=="miningpick" then
                                 if keyspacepress==0 then
                                     misc.sfx.play("orehit")
                                     item.give({id="copperore"})
@@ -224,7 +224,7 @@ obj={
                             end
                         end
                         if obj.list[i].id=="tree" then
-                            if grabbing.id=="axe" then
+                            if plr.grabbing.id=="axe" then
                                 if keyspacepress==0 then
                                     obj.list[i].nbt.health=obj.list[i].nbt.health-1
                                     misc.sfx.play("woodhit")

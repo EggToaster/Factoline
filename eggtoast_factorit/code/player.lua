@@ -1,4 +1,3 @@
-grabbing={id=nil}
 plr={
     x=mapx/2,
     y=mapy/2,
@@ -7,19 +6,22 @@ plr={
     rot="right",
     inventory={},
     hotselect=1,
+    grabbing = {id=nil},
     _mclk = false,
     itemsys = function ()
-        grabbing=plr.inventory[plr.hotselect+32]
-        local mx,my = mouse.getPos()
         if #plr.inventory < 42 then
+            while #plr.inventory < 42 do
                 table.insert(plr.inventory,{id=nil})
+            end
         end
+        plr.grabbing=plr.inventory[plr.hotselect+32]
+        local mx,my = mouse.getPos()
         if mouse.ison(1) then
             if not plr._mclk then
-                if table.contains(obj.placeable,grabbing.id) then
-                    local sz = ((table.contains(obj.sizemapid,grabbing.id.."plcd")) and (obj.sizemap[indexOf(obj.sizemapid,grabbing.id.."plcd")]) or (0.4))
+                if table.contains(obj.placeable,plr.grabbing.id) then
+                    local sz = ((table.contains(obj.sizemapid,plr.grabbing.id.."plcd")) and (obj.sizemap[indexOf(obj.sizemapid,plr.grabbing.id.."plcd")]) or (0.4))
                     local tmpx,tmpy = cam:worldCoords(mx-(250*sz),my-(250*sz))
-                    obj.make(grabbing.id.."plcd",tmpx,tmpy,obj.placeablenbt[indexOf(obj.placeable,grabbing.id)],grabbing.id)
+                    obj.make(plr.grabbing.id.."plcd",tmpx,tmpy,obj.placeablenbt[indexOf(obj.placeable,plr.grabbing.id)],plr.grabbing.id)
                     plr.inventory[plr.hotselect+32]={id=nil}
                 end
             end
@@ -60,11 +62,11 @@ plr={
                 love.graphics.draw(texture.gettex(plr.inventory[plr.hotselect+32].id),dx-32+xoff,dy+20-50,0,sx,0.1)
             end
         end
-        if table.contains(obj.placeable,grabbing.id) then
+        if table.contains(obj.placeable,plr.grabbing.id) then
             local mx,my = mouse.getPos()
             love.graphics.setColor(.25,1,.25)
-            local sz = ((table.contains(obj.sizemapid,grabbing.id.."plcd")) and (obj.sizemap[indexOf(obj.sizemapid,grabbing.id.."plcd")]) or (0.4))
-            love.graphics.draw(texture.gettex(grabbing.id.."plcd"),mx-(250*sz),my-(250*sz),0,sz,sz)
+            local sz = ((table.contains(obj.sizemapid,plr.grabbing.id.."plcd")) and (obj.sizemap[indexOf(obj.sizemapid,plr.grabbing.id.."plcd")]) or (0.4))
+            love.graphics.draw(texture.gettex(plr.grabbing.id.."plcd"),mx-(250*sz),my-(250*sz),0,sz,sz)
             love.graphics.setColor(1,1,1)
         end
     end
