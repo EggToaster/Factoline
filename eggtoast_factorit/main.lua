@@ -27,8 +27,9 @@ function love.load()
     ---@diagnostic disable-next-line: undefined-field
     device = require("code.spec.devicepreset")["pc"]
     dload.load()
+    math.randomseed(os.time())
     for i = 1,5 do
-        math.randomseed(os.time());math.random();math.random();math.random()
+        math.random()
     end
     mapx=50000
     mapy=mapx
