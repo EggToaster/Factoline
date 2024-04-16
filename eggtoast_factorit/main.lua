@@ -40,10 +40,7 @@ function love.load()
     loading=true
     title=true
     love.window.setIcon(love.image.newImageData("res/tex/factoryicn.bmp"))
-    crtkeypress=true
-    require("loadapi")
     require("Asys")
-    loadergame()
     loadSys()
 
     function getdx()
