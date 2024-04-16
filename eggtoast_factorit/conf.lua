@@ -1,8 +1,8 @@
 function love.conf(t)
-    json = require("code.3rd.json")
-    require("code.mathutil")
-    t.identity = "eggtoast_factorit"
-    t.window.title = "Factorit!"
+    gamever = 0.1
+    
+    t.identity = "eggtoast_factorit" --TODO: change this line in beta 1 release
+    t.window.title = "Factoline"
     t.version = "11.3"
     t.window.width = 1024
     t.window.height = 768

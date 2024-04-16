@@ -1,5 +1,6 @@
 function love.load()
-    ver = 0.1
+    json = require("code.3rd.json")
+    require("code.util")
     conf = json.decode(love.filesystem.read("cfg.json") or'{"mute":false,"fullscreen":false,"lang":"enus","alwmax":false,"vsync":true}' )
     if not table.haskey(conf,"vsync") then
         conf.vsync = true
