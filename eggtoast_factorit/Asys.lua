@@ -29,26 +29,31 @@ function loadSys()
     end
     gameload()
 end
-function makegame()
+
+function startgame()
     info = love.filesystem.getInfo("savegame/save"..tostring(saveselecter)..".fsg")
     if info==nil then
-    plr.x=math.random(500,mapx-500)
-    plr.y=math.random(500,mapy-500)
-    plr.handrot=0
-    plr.craftopen=false
-    plr.rot="right"
-    plr.lst = {}
-    plr.inventory={{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="miningpick"},{id="crafttable"},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id=nil},{id="trash"}}
-    plr.hotselect=1
-    obj.list={}
-    title=false
-    obj.genworld()
-    grabbing=plr.inventory[plr.hotselect+32]
+        plr.x=math.random(500,mapx-500)
+        plr.y=math.random(500,mapy-500)
+        plr.handrot=0
+        plr.craftopen=false
+        plr.rot="right"
+        plr.lst = {}
+        plr.inventory={}
+        for _ = 1, 32 do
+            table.insert(plr.inventory, {id=nil})
+        end
+        table.insert(plr.inventory, {id=nil})
+        plr.hotselect=1
+        obj.list={}
+        title=false
+        obj.genworld()
     else
         misc.save.load(love.filesystem.read("savegame/save"..tostring(saveselecter)..".fsg"))
         title=false
     end
 end
+
 function love.update(dt)
     gui.action()
     mouse.tick(dt)
@@ -131,7 +136,7 @@ function love.joystickpressed(joystick,button)
     if title then
         print(button)
         if buttonis("a",button) then
-            makegame()
+            startgame()
         end
         if buttonis("x",button) then
             love.quit()
