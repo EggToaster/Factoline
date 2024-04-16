@@ -35,7 +35,6 @@ function love.load()
     end
     device = require("code.spec.devicepreset")[dev]
     dload.load()
-    joymode = device.padonly
     for i = 1,5 do
         math.randomseed(os.time());math.random();math.random();math.random()
     end
