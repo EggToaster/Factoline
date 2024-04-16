@@ -25,15 +25,7 @@ function love.load()
     require("code.spec.mouse")
     require("code.mathutil")
     ---@diagnostic disable-next-line: undefined-field
-    local dev = love._console_name
-    if dev == "3DS" then
-        dev = "threeds"
-    elseif dev == "Switch" then
-        dev = "switch"
-    elseif dev == nil then
-        dev = "pc"
-    end
-    device = require("code.spec.devicepreset")[dev]
+    device = require("code.spec.devicepreset")["pc"]
     dload.load()
     for i = 1,5 do
         math.randomseed(os.time());math.random();math.random();math.random()
