@@ -12,7 +12,6 @@ function loadSys()
     craftpage=0 --TODO: same as up
 
     local dx,dy = love.graphics.getDimensions()
-    love.window.setMode(dx,dy,{resizable=(not conf.alwmax)})
     love.window.setFullscreen(conf.fullscreen)
     love.window.setVSync(conf.vsync)
     love.audio.setVolume(conf.mute and 0 or 1)
