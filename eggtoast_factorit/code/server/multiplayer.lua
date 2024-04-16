@@ -22,7 +22,7 @@ function mulplay.tick()
                 plr.craftopen=false
                 plr.rot="right"
                 plr.hotselect=1
-                plr.grabbing={id=nil}
+                plr.plr.grabbing={id=nil}
             end
         elseif event.type == "connect" then
             print(event.peer, "connected.")
