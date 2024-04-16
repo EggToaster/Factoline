@@ -1,6 +1,9 @@
 function love.conf(t)
     gamever = 0.1
     
+    mapx=50000
+    mapy=mapx
+
     t.identity = "eggtoast_factorit" --TODO: change this line in beta 1 release
     t.window.title = "Factoline"
     t.version = "11.3"

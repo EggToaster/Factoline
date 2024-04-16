@@ -3,9 +3,32 @@ function love.load()
     require("code.util")
     require("code.spec.device")
     require("code.spec.mouse")
+    require("code.loader.texload")
+    require("code.loader.guiloader")
+    require("code.loader.sfx")
 
-    mapx=50000
-    mapy=mapx
+    require("code.misc")
+    require("code.player")
+    require("code.langsys")
+    require("code.item")
+    require("code.inventory")
+    require("code.obj")
+    require("code.gui")
+
+    if not device.console then
+        lume = require("code.3rd.lume")
+        lurker = require("code.3rd.lurker")
+    end
+
+    guiload.loadgui()
+    texture.loadtex()
+    sfx.loadsound()
+
+    camera = require("code.3rd.camera")
+    cam = camera()
+    mnm = camera()
+
+    love.audio.setVolume(0.25)
 
     conf = json.decode(love.filesystem.read("cfg.json") or {})
     if not table.haskey(conf,"vsync") then
