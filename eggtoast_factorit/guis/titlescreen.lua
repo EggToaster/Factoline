@@ -1,7 +1,7 @@
 local this ={
     button = {
         {color={0,0,0},bg={1,1,1,1},text="#title.playbutton",pos={250,350},size={500,150},txc={0,0,0},txs={1.5,1.5},slide=false,action=function ()
-            makegame()
+            startgame()
         end},
         {color={0,0,0},bg={1,1,1,1},text="#title.settingsbutton",pos={250,525},size={500,150},txc={0,0,0},txs={1.5,1.5},slide=false,action=function ()
             stng=true

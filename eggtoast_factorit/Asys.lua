@@ -2,23 +2,15 @@ function loadSys()
     enet = require("enet")
     require("Agame")
     lang.set(conf.lang)
-    spdrun=1
-    saveselecter=1
-    clicktitle=false
-    ftd=false
-    sca=craftpage*5
-    craftpage=0
-    hotswap=true
+
     if device.console then
         hotswap = false
     end
-    info = love.filesystem.getInfo("cfg.json")
-    if info == nil then
-        love.filesystem.newFile("cfg.json")
-        love.filesystem.write("cfg.json",'{"mute":false,"fullscreen":false,"lang":"enus","alwmax":false,"vsync":true}')        
-    end
-    local conwao = love.filesystem.read("cfg.json")
-    conf = json.decode((not (conwao == nil)) and conwao or'{"mute":false,"fullscreen":false,"lang":"enus","alwmax":false,"vsync":true}' )
+
+    spdrun=1 --TODO: turn this to local variable without breaking system
+    saveselecter=1 --TODO: same as up
+    craftpage=0 --TODO: same as up
+
     local dx,dy = love.graphics.getDimensions()
     love.window.setMode(dx,dy,{resizable=(not conf.alwmax)})
     love.window.setFullscreen(conf.fullscreen)
@@ -40,10 +32,10 @@ function startgame()
         plr.rot="right"
         plr.lst = {}
         plr.inventory={}
-        for _ = 1, 32 do
+        for i = 1, 32 do
             table.insert(plr.inventory, {id=nil})
         end
-        table.insert(plr.inventory, {id=nil})
+        table.insert(plr.inventory, {id="miningpick"})
         plr.hotselect=1
         obj.list={}
         title=false
