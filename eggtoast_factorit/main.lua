@@ -3,7 +3,10 @@ function love.load()
     require("code.util")
     require("code.spec.device")
     require("code.spec.mouse")
-    
+
+    mapx=50000
+    mapy=mapx
+
     conf = json.decode(love.filesystem.read("cfg.json") or {})
     if not table.haskey(conf,"vsync") then
         conf.vsync = true
@@ -25,18 +28,17 @@ function love.load()
     if info == nil then
         love.filesystem.createDirectory("savegame")     
     end
-    ---@diagnostic disable-next-line: undefined-field
-    device = require("code.spec.devicepreset")["pc"]
+
+    local device = require("code.spec.devicepreset")["pc"]
     dload.load()
+
     math.randomseed(os.time())
     for i = 1,5 do
         math.random()
     end
-    mapx=50000
-    mapy=mapx
+
     loading=true
     title=true
-    fulltogg=true
     love.window.setIcon(love.image.newImageData("res/tex/factoryicn.bmp"))
     crtkeypress=true
     require("loadapi")
