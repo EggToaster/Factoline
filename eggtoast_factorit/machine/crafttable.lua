@@ -170,7 +170,7 @@ crafttable={
                             local mx,my = mouse.getPos()
                             love.graphics.rectangle("fill",mx+5,my+5,260,75)
                             love.graphics.setColor(1,1,1)
-                            love.graphics.print(lang.gettxt("item."..recipe.result.id),mx+10,my+10,0,.5)
+                            love.graphics.print(lang.gettxt("item."..recipe.result.id),mx+14,my,0,.5)
                             for iii = 1,7 do
                                 love.graphics.rectangle("fill",craftbenchx[iii]+mx-75,my+35,30,30)
                             end
