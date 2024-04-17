@@ -1,7 +1,7 @@
 local mouseOn = {is=false,x=1,y=1}
 
 local selected = {is=false,x=1,y=1}
-inv = {
+inv = {--TODO: skidding is bad, so rewrite this
     open=0,    
     sys = function ()
         local mx,my = mouse.getPos()

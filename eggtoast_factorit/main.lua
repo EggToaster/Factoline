@@ -1,4 +1,12 @@
 function love.load()
+    --[[TODO LISTS
+        Asys.lua
+        conf.lua
+        main.lua(here)
+        gui.lua
+        langsys.lua
+        inventory.lua
+    ]]
     json = require("code.3rd.json")
     require("code.util")
     require("code.spec.device")

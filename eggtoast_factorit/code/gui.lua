@@ -1,4 +1,4 @@
-gui = { --TODO: fix this
+gui = { --TODO: rewrite entire code here as it sucks
     mouseclick = false,
     read = function (tbl)
         
