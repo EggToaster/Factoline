@@ -32,7 +32,7 @@ function love.load()
 
     love.audio.setVolume(0.25)
 
-    conf = json.decode(love.filesystem.read("cfg.json") or "")
+    conf = json.decode(love.filesystem.read("cfg.json") or "{}")
     if not table.haskey(conf,"vsync") then
         conf.vsync = true
     end
