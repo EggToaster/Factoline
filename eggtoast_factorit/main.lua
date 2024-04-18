@@ -47,7 +47,7 @@ function love.load()
     if not table.haskey(conf,"lang") then
         conf.lang = "enus"
     end
-    if not table.haskey(conf,"alwmax") then --TODO: remove always max feature
+    if not table.haskey(conf,"alwmax") then
         conf.alwmax=false
     end
     if not table.haskey(conf,"mute") then --TODO: change this to volume
