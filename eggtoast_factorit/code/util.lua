@@ -94,3 +94,11 @@ function getdy()
     local dx,dy = love.graphics.getDimensions()
     return dy
 end
+function nullcheck(x)
+    if x == {} then return false end
+    if x == nil then return false end
+    if x == "" then return false end
+    if x == 0 then return false end
+    if x == false then return false end
+    return true
+end
