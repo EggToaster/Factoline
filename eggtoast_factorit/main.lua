@@ -69,6 +69,9 @@ function love.load()
         math.random()
     end
 
+    local fntgame = love.graphics.newFont("rmpfont.ttf",60)
+    love.graphics.setFont(fntgame)
+
     title=true
     require("Asys")
     loadSys()
