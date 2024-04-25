@@ -21,9 +21,9 @@ mouse = {
             if not meow then
                 meow=true
                 if mouse.ison(1) then
-                mouse.event(x,y,1)
+                mouse.event(1)
                 else
-                    mouse.event(x,y,2)
+                    mouse.event(2)
                 end
             end
         else
@@ -53,10 +53,11 @@ mouse = {
             love.graphics.setColor(1,1,1)
         end
     end,
-    event = function (x,y,b)
+    event = function (b)
         local x = mouse.pos[1]
         local y = mouse.pos[2]
         inv.mouseclick(x,y,b)
+        gui.action(x,y,b)
         if b == 1 then
         if x > 295 and x <= 295+25 and y > 170 and y <= 170+25 then
             for i = 1,#plr.inventory do
@@ -69,8 +70,8 @@ mouse = {
         end
     end
     end,
-    mouseevent = function (x,y,b)
-        mouse.event(x,y,b)
+    mouseevent = function (b)
+        mouse.event(b)
     end,
     ison = function (b)
         local b = b or 1
