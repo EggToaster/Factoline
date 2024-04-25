@@ -46,7 +46,6 @@ function startgame()
 end
 
 function love.update(dt)
-    gui.action()
     mouse.tick(dt)
     if not device.console then
         if hotswap then
@@ -137,8 +136,8 @@ function love.joystickpressed(joystick,button)
     end
 end
 --if not device.padonly then
-function love.mousepressed(x,y,b)
-    mouse.mouseevent(x,y,b)
+function love.mousepressed(x,y,b,_,pr)
+    mouse.mouseevent(b)
 --end
 end
 function love.wheelmoved(x, y)
@@ -169,8 +168,6 @@ function love.wheelmoved(x, y)
         end
     end
 end
-fntgame = love.graphics.newFont("rmpfont.ttf",60)
-love.graphics.setFont(fntgame)
 mousedebug=true
 socket = require("socket")
 ---@diagnostic disable-next-line: duplicate-set-field
