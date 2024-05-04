@@ -6,6 +6,7 @@ function love.load()
         gui.lua
         langsys.lua
         inventory.lua
+        ja-jp.lua
     ]]
     json = require("code.3rd.json")
     require("code.util")

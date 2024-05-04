@@ -1,4 +1,4 @@
-
+--TODO: rewrite this is new lang format thing
 lang.list["jajp"]={
     lang={
         "作業台",
