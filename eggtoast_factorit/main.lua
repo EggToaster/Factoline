@@ -22,6 +22,9 @@ function love.load()
     require("code.inventory")
     require("code.obj")
     require("code.gui")
+    require("code.logger")
+
+    log.init(true,true,true,true,true)
 
     device = require("code.spec.devicepreset")["pc"]
     dload.load()
