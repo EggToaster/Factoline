@@ -1,56 +1,49 @@
 lang.list["enus"]={
-    lang={
-        "Craft Table",
-        "PLAY GAME",
-        "Settings",
-        "Fullscreen",
-        "Back",
-        "Toggled,Restart!",
-        "Language",
-        "Save file is ",
-        ", use wheel to change",
-        "Crafter",
-        "Mechanical arm",
-        "Click Button to change machine bind",
-        "Select 1st machine to bind",
-        "Select 2nd machine to bind",
-        "General",
-        "Mute",
-        "Video",
-        "Always Maximize",
-        "Change",
-        "Chest",
-        "Iron Ore",
-        "Copper Ore",
-        "Iron Plate",
-        "Copper Plate",
-        "Select Recipe"
+    building = {
+        crafttable = {
+            name = "Crafting Table"
+        },
+        crafter = {
+            name = "Crafter",
+            select = "Select recipe"
+        },
+        mecharm = {
+            name = "Mechanical arm",
+            desc = "Click red or blue button to change machine",
+            setstuff1 = "Select machine with output",
+            setstuff2 = "Select machine with input"
+        }
     },
-    langindex={
-        "item.crafttable.name",
-        "title.playbutton",
-        "title.settingsbutton",
-        "title.fullscreen",
-        "title.back",
-        "title.fullscreentogglewarn",
-        "title.lang",
-        "title.saveselect1",
-        "title.saveselect2",
-        "item.crafter.name",
-        "item.mecharm.name",
-        "item.mecharm.desc",
-        "item.mecharm.setstuff1",
-        "item.mecharm.setstuff2",
-        "stng.general",
-        "stng.mute",
-        "stng.video",
-        "stng.alwmax",
-        "stng.change",
-        "item.chest.name",
-        "item.ironore",
-        "item,coppeore",
-        "item.ironplate",
-        "item.copperplate",
-        "item.crafter.select"
-    }
+    item = {
+        ironore = {
+            name = "Iron ore"
+        },
+        ironplate = {
+            name = "Iron plate"
+        },
+        copperore = {
+            name = "Copper ore"
+        },
+        copperplate = {
+            name = "Copper plate"
+        }
+    },
+    title = {
+        playbutton = "PLAY GAME",
+        settingsbutton = "Settings",
+        settings = {
+            fullscreen = "Fullscreen",
+            general = "General",
+            mute = "Mute",
+            video = "Video",
+            alwmax = "Always maximize",
+            language = "Language"
+        },
+        saveselect = {
+            one = "Save file ",
+            two = "is selected, use mousewheel to change"
+        }
+    },
+    back = "Back",
+    change = "Change"
 }

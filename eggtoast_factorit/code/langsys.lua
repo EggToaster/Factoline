@@ -1,21 +1,37 @@
 lang ={ --TODO: rewrite this
     lang={},
-    langindex=nil,
     currentlang="enus",
     gettxt = function (txtid)
-        return lang.lang[indexOf(lang.langindex,txtid)] or lang.list.enus.lang[indexOf(lang.list.enus.langindex,txtid)] or "error"
+        local tmp = string.split(txtid,".")
+        local tbl = lang.lang
+        for i = 1,#tmp do
+            tbl = tbl[tmp[i]] or nil
+            if tbl == nil then
+                break
+            end
+        end
+        if nullcheck(tbl) and type(tbl) == "string" then
+            return tbl
+        else
+            tmp = string.split(txtid,".")
+            tbl = lang.list.enus
+            for i = 1,#tmp do
+                tbl = tbl[tmp[i]] or nil
+                if tbl == nil then
+                    break
+                end
+            end
+            if nullcheck(tbl) and type(tbl) == "string" then
+                return tbl
+            end
+        end
+        return "error"
     end,
-    reset = function ()
-        lang.lang={}
-        lang.langindex={}
-    end,
-    set = function (langs)
-        if table.haskey(lang.list,langs) then
-            lang.reset()
-            lang.lang = lang.list[langs].lang
-            lang.langindex = lang.list[langs].langindex
-            lang.currentlang = langs
-            print("[lang]Set Lang to "..lang.currentlang)
+    set = function (ln)
+        if table.haskey(lang.list,ln) then
+            lang.lang = lang.list[ln]
+            lang.currentlang = ln
+            print("[Lang]Set Lang to "..lang.currentlang)
         end
     end,
     list={}
