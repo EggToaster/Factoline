@@ -79,6 +79,15 @@ function table.contains(table, element)
     end
     return false
 end
+function table.count(t,e)
+    local c = 0
+    for _, v in pairs(type) do
+        if v == e then
+            c = c + 1
+        end
+    end
+    return c
+end
 function string.split(str, spl)
     local t = {}
     for s in string.gmatch(str, "([^"..spl.."]+)") do
@@ -101,4 +110,14 @@ function nullcheck(x)
     if x == 0 then return false end
     if x == false then return false end
     return true
+end
+function boxcol(x,y,sx,sy,mx,my)
+    local mx,my = mx,my
+    if not nullcheck(mx) then
+        mx,my = mouse.getPos()
+    end
+    if (x < mx) and (y < my) and (mx < x+sx) and (my < y+sy) then
+        return true
+    end
+    return false
 end
