@@ -31,7 +31,7 @@ lang ={ --TODO: rewrite this
         if table.haskey(lang.list,ln) then
             lang.lang = lang.list[ln]
             lang.currentlang = ln
-            print("[Lang]Set Lang to "..lang.currentlang)
+            log.d("LangSys","Language changed to "..lang.currentlang)
         end
     end,
     list={}
