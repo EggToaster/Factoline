@@ -213,8 +213,6 @@ function gamepad(button)
         plr.craftopen=false
         crafteruse=false
         plr.craftopeni=nil
-        print("craftoff")
-        plr.craftopen=false
         for i = 1,#obj.list do
             if table.haskey(obj.list[i].nbt,"craftopen") then
                 if obj.list[i].nbt.craftopen==true then

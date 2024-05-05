@@ -17,7 +17,6 @@ mecharm={
                         end
                         if ((mx-ox) >= 0) and ((mx - ox) <= sz*500) and ((my - oy) > 0) and ((my - oy) <=sz*500) then
                             local tppmp=obj.list[sr].id
-                            print(tostring(tppmp:gsub("plcd","")))
                             if table.contains(obj.plctag.hasslot2,tppmp) or table.contains(obj.plctag.slot1bothio,tppmp) then--:gsub("plcd","")) then
                             armlist[i].machine1=sr
                             break
@@ -37,7 +36,6 @@ mecharm={
                     end
                     if ((mx - ox) > 0) and ((mx - ox) <= sz*500) and ((my - oy) > 0) and ((my - oy) <=sz*500) then
                         local tppmp=obj.list[sr].id
-                        print(tostring(tppmp:gsub("plcd","")))
                         if table.contains(obj.plctag.hasslot,tppmp) or table.contains(obj.plctag.slot1bothio,tppmp) then
                         armlist[i].machine2=sr
                         break
