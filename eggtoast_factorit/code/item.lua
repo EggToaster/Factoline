@@ -1,72 +1,61 @@
 item={
     give = function (tbl)
-        if tbl==nil then else
-            for x=1,#plr.inventory-1 do
-                if plr.inventory[x].id==nil then
-                    plr.inventory[x]=tbl
-                    return(true)
-                end
-            end
-        return(false)
-        end
-    end,
-    isHas = function (tbl)
-        if tbl==nil then else
-            local id = nil
-            for i = 1,#plr.inventory do
-                    if plr.inventory[i].id==tbl then
-                        id = true
-                        break
-                    end
-            end
-            return(id)
-        end
-    end,
-    howMany = function (src,tbl)
-        local countingtemp=0
-        for i = 1,#src do
-            if src[i]==tbl then else
-                countingtemp = countingtemp + 1
-            end
-        end
-        return(countingtemp)
-    end,
-    contains = function (src,tbl)
-        for i = 1,#src do
-            if src[i]==tbl then
+        for x=1,#plr.inventory-1 do
+            if plr.inventory[x].id==nil then
+                plr.inventory[x]=tbl
                 return(true)
             end
-         end
-        return(false)
+        end
+        return false
     end,
-    delete = function (tbl)
-        if tbl==nil then else
-            print("attemping to delete item "..tbl.id)
-            local foundit=false
-            local stopit=false
-            for i = 1,#plr.inventory do
-                if foundit then else if stopit then else
-                if plr.inventory[i].id==tbl.id then
-                    foundit=true
-                    idss=i
+    count = function (tbl)
+        local tmp = 0
+        for _,v in pairs(plr.inventory) do
+            if v == tbl then
+                tmp = tmp + 1
             end
         end
-    end
+        return tmp
+    end,
+    contains = function (id)
+        for _, v in pairs(plr.inventory) do
+            if v.id==id then
+                return true
+            end
+         end
+        return false
+    end,
+    delete = function (tbl)
+        for i, _, v in ipairs(plr.inventory) do
+            if tbl == v then
+                plr.inventory[i] = {id=nil}
+                return true
+            end
         end
-        if foundit then
-            table.insert(plr.inventory,idss,{id=nil})
-            table.remove(plr.inventory,idss+1)
-            print("deleted "..tbl.id)
-            return(true)
-        else
-            print("failed to delete item "..tbl.id)
+        return false
+    end,
+    deletefew = function (t)
+        local inv = plr.inventory
+        for _, v in pairs(inv) do
+            for ii, _, k in ipairs(t) do
+                if v == k then
+                    inv[indexOf(inv,v)] = {id=nil}
+                    table.remove(t,ii)
+                    break
+                end
+            end
+            if not nullcheck(t) then
+                plr.inventory = inv
+                return true
+            end
         end
-    end
-    return false
+        return false
     end,
     repl = function (src,tbl)
         if item.delete(src) then
             item.give(tbl)
+            return true
         end
+        return false
     end
 }
