@@ -12,7 +12,8 @@ texture = {
         end
         local tmp = {}
         for _, v in pairs(names) do
-            table.insert(tmp.string.gsub(v,"%..*",""))
+            local a = string.gsub(v,"%..*","")
+            table.insert(tmp, a)
         end
         texture.texnames=tmp
     end,
