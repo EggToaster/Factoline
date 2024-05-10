@@ -1,20 +1,22 @@
 guiload = {
-    list = {},
+    list = {},list2 = {},
+    theme = {}, tl2 = {},
     loadgui = function ()
+        guiload.list,guiload.list2,guiload.theme,guiload.tl2 = {},{},{},{}
         guiload.list2 = love.filesystem.getDirectoryItems("/guis/")
-        for i=1,#guiload.list2 do
-            local tmp=require("/guis/"..string.gsub(guiload.list2[i],".lua",""))
-            table.insert(guiload.list,tmp)
+        for _, v in pairs(guiload.list2) do
+            table.insert(guiload.list,require("/guis/"..string.gsub(v,".lua","")))
+        end
+        guiload.tl2 = love.filesystem.getDirectoryItems("/guis/")
+        for _, v in pairs(guiload.tl2) do
+            table.insert(guiload.theme,require("/guis/"..string.gsub(v,".lua","")))
         end
     end,
-    hotswap=function ()
-        print("hotswapping gui")
-        guiload.list={}
-        gui.tempguinow=nil
-        guiload.loadgui()
-        print("hotswapped gui")
+    hotswap = function ()guiload.loadgui();end,
+    get = function (getthis)
+        return guiload.list[indexOf(guiload.list2,getthis..".lua")]      
     end,
-    get=function (getthis)
-        return(guiload.list[indexOf(guiload.list2,getthis..".lua")])        
+    gettheme = function(getthis)
+        return guiload.theme[indexOf(guiload.tl2,getthis..".lua")]
     end
 }
