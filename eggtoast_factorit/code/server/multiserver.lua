@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-field
+---@diagnostic disable: undefined-field, undefined-global
 mulplay = {
   serverrun = function (save)
     mulplay.host = enet.host_create("localhost:6789")
