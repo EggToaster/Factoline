@@ -1,17 +1,16 @@
 function loadSys()
-    enet = require("enet")
-    require("Agame")
-    lang.set(conf.lang)
-
-    if device.console then
-        hotswap = false
-    end
+    mousedebug=true
 
     spdrun=1 --TODO: turn this to local variable without breaking system
     saveselecter=1 --TODO: same as up
     craftpage=0 --TODO: same as up
 
-    local dx,dy = love.graphics.getDimensions()
+    require("Agame")
+    lang.set(conf.lang)
+    if device.console then
+        hotswap = false
+    end
+
     love.window.setFullscreen(conf.fullscreen)
     love.window.setVSync(conf.vsync)
     love.audio.setVolume(conf.mute and 0 or 1)
@@ -22,7 +21,7 @@ function loadSys()
 end
 
 function startgame()
-    info = love.filesystem.getInfo("savegame/save"..tostring(saveselecter)..".fsg")
+    local info = love.filesystem.getInfo("savegame/save"..tostring(saveselecter)..".fsg")
     if info==nil then
         plr.x=math.random(500,mapx-500)
         plr.y=math.random(500,mapy-500)
@@ -47,9 +46,10 @@ end
 
 function love.update(dt)
     mouse.tick(dt)
+    gui.tick()
     if not device.console then
         if hotswap then
-            local scanned = lurker.scan()
+            lurker.scan()
         end
     end
     if not title then
@@ -85,7 +85,7 @@ function love.keypressed(key)
     end
     if joymode then
         joymode = false
-        print("key")
+        log.d("InputHandler","Switching to mouse mode")
         mouse.device="mouse"
     end
 end
@@ -120,11 +120,11 @@ function love.joystickpressed(joystick,button)
     joysticks = love.joystick.getJoysticks()[1]
     if not joymode then
         joymode = true
-        print("pad")
+        log.d("InputHandler","Switching to GamePad")
         mouse.device="stick"
     end
     if title then
-        print(button)
+        log.v("InputHandler","Button "..button.." Press")
         if buttonis("a",button) then
             startgame()
         end
@@ -168,8 +168,6 @@ function love.wheelmoved(x, y)
         end
     end
 end
-mousedebug=true
-socket = require("socket")
 ---@diagnostic disable-next-line: duplicate-set-field
 function love.draw()
     love.graphics.setBackgroundColor(1,1,1)
@@ -177,7 +175,7 @@ function love.draw()
         if stng then
             gui.draw(guiload.get("settingtitle-"..stngtab))
         else
-            gui.draw(guiload.get("titlescreen"))
+            gui.draw(guiload.get("tscreen"))
             --love.graphics.print("E OR ESCAPE IN TITLE SCREEN TO EXIT",0,400,0,1,1)
             --love.graphics.print("ESC AND L TO EXIT TO TITLE SCREEN",0,450,0,1,1)
             --love.graphics.print("PRESS ANY KEY TO START P TO TOGGLE FULLSCREEN",0,500,0,1,1)

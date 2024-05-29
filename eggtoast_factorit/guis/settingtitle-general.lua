@@ -37,7 +37,6 @@ button = {
         else
             conf.lang = table.keylist(lang.list)[indexOf(table.keylist(lang.list),lang.currentlang)+1]
         end
-        print(conf.lang)
         lang.set(conf.lang)
         misc.filer.write("cfg.json",json.encode(conf),true)
     end},

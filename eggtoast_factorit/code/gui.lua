@@ -1,175 +1,137 @@
 gui = { --TODO: rewrite entire code here as it sucks
-    mouseclick = false,
-    read = function (tbl)
-        
+    action = function(x,y,b)
+        local tbl = gui.tmpgui or nil
+        if nullcheck(tbl) then
+            for _, tbl in pairs(tbl) do
+                local mx, my = mouse.getPos()
+                local neon = function(a,b)
+                    if nullcheck(tbl[a]) then
+                        tbl[b] = tbl[a]
+                    end
+                end
+                local neo = function(a)
+                    if type(a) == "function" then
+                        return {"f",a}
+                    elseif type(a) ~= "table" then
+                        return {"dummy",a}
+                    end
+                    return a
+                end
+                neon("position","p");neon("pos","p");neon("size","s")
+                neon("action","a")
+                local x,y,sx,sy = tbl.p[1],tbl.p[2],tbl.s[1],tbl.s[2]
+                x, y, sx, sy = neo(x), neo(y), neo(sx), neo(sy)
+                x, y, sx, sy = gui.script.func[x[1]](x[2]), gui.script.func[y[1]](y[2]), gui.script.func[sx[1]](sx[2]), gui.script.func[sy[1]](sy[2])
+                if nullcheck(tbl.a) and boxcol(x,y,sx,sy,mx,my) then
+                    tbl.a()
+                end
+            end
+            if nullcheck(tbl) then
+                if mouse.ison(1) then
+                    if table.haskey(tbl,"slider") then
+                        for i = 1,#tbl.slider do
+                            local mx,my = mouse.getPos()
+                            local this = tbl.slider[i]
+                            if gui.script.slideron == true then
+                                gui.script.sliderpos = my-this.pos[2]-gui.script.slideroffset
+
+                                if gui.script.sliderpos > this.len then
+                                    gui.script.sliderpos = this.len
+                                end
+                                if gui.script.sliderpos < 0 then
+                                    gui.script.sliderpos = 0
+                                end
+                            end
+                        end
+                    end
+                else
+                gui.script.slideron = false
+                end
+            end
+        end
     end,
-    draw = function (tbl)
-        gui.tempguinow = tbl
-        if table.haskey(tbl,"button") then
-            for i = 1,#tbl.button do
-                local this = tbl.button[i]
-                local ofs={0,0,0,0}
-                local stenreset = false
-                if table.eachContain(tbl.stencil.stenciltag,this.tag) then
-                    stenreset = true
-                    gui.script.stencilTag=table.indexOfEach(tbl.stencil.stenciltag,this.tag)
-                    love.graphics.stencil(tbl.stencil.try,"replace",1)
-                    love.graphics.setStencilTest("greater", 0)
-                end
-                if this.slide then
-                    ofs[2] = -1*gui.script.sliderpos
-                end
-                local tmp = {this.pos[1],this.pos[2],this.size[1],this.size[2]}
-                for ii = 1,4 do
-                    if type(tmp[ii]) == "number" then
-                        tmp[ii] =  {"dummy",tmp[ii]}
+    tick = function()
+    end,
+    draw = function(this)
+        local tbl = this
+        if nullcheck(this) then
+            gui.tmpgui = this
+            for _, this in pairs(this) do
+                local neo = function(a)
+                    if type(a) == "function" then
+                        return {"f",a}
+                    elseif type(a) ~= "table" then
+                        return {"dummy",a}
                     end
-                end 
-                gui.script.setctbl(this.bg)
-                love.graphics.rectangle("fill", gui.script.func[tmp[1][1]](tmp[1][2]) + ofs[1], gui.script.func[tmp[2][1]](tmp[2][2]) + ofs[2], gui.script.func[tmp[3][1]](tmp[3][2]) +ofs[3], gui.script.func[tmp[4][1]](tmp[4][2]) +ofs[4])
-                gui.script.setctbl(this.color)
-                love.graphics.rectangle("line",gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                gui.script.setctbl(this.txc)
-                local txt = this.text
-                if type(txt)=="function" then
-                    txt = txt()
+                    return a
                 end
-                    if string.sub(txt,1,1)=="#" then
-                        txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
-                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2]-5,0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
-                    else
-                    if string.sub(txt,1,1)=="?" then
-                        love.graphics.draw(texture.gettex(string.sub(txt,2,string.len(txt))),this.pos[1]+ofs[1],this.pos[2]+ofs[2],0,this.txs[1]+ofs[3],this.txs[2]+ofs[4])
-                    else
-                        love.graphics.print(txt,this.pos[1]+ofs[1],this.pos[2]+ofs[2]-10,0,this.size[1]+ofs[3],this.txs[2]+ofs[4])
+                local neon = function(a,b)
+                    if nullcheck(this[a]) then
+                        this[b] = this[a]
                     end
                 end
-                if stenreset then
-                    love.graphics.setStencilTest()
+                local ne = function(a,b)
+                    if not nullcheck(this[a]) then
+                        this[a] = b
+                    end
+                end
+                local n = function(a,b)
+                    if nullcheck(a) then
+                        return a
+                    end
+                    return b
+                end
+                local setc = gui.script.setctbl
+                neon("pos","p");neon("size","s");neon("position","p")
+                neon("text","t");neon("render","r")
+                neon("border","b");neon("background","bg")
+                neon("slide","sl");neon("stencil","st")
+                if #this.b ~= 5 then
+                    if nullcheck(this.b[4]) then
+                        this.b[5] = this.b[4]
+                    else
+                        --this.b[5] = 
+                    end
+                end
+                ne("sl",nil);ne("st",nil);
+                local x, y = this.p[1], this.p[2]
+                local sx, sy = this.s[1], this.s[2]
+                local t = this.t
+                x, y, sx, sy = neo(x), neo(y), neo(sx), neo(sy)
+                x, y, sx, sy = gui.script.func[x[1]](x[2]), gui.script.func[y[1]](y[2]), gui.script.func[sx[1]](sx[2]), gui.script.func[sy[1]](sy[2])
+                if nullcheck(this.bg) then
+                    setc(this.bg)
+                    love.graphics.rectangle("fill",x,y,sx,sy)
+                end
+                if nullcheck(this.b) then
+                    love.graphics.setColor(this.b[2],this.b[3],this.b[4],n(this.b[5],1))
+                    if this.b[1] == 1 then
+                        love.graphics.rectangle("line",x,y,sx,sy)
+                    else
+                        local i = this.b[1]
+                        love.graphics.rectangle("fill",x,y,i,sy)--left
+                        love.graphics.rectangle("fill",x+i,y,sx-i,i)--top
+                        love.graphics.rectangle("fill",x+i,y+sy-i,sx-i,i)--bottom
+                        love.graphics.rectangle("fill",x+sx-i,y+i,i,sy-i-i)--right
+                    end
+                end
+                if nullcheck(this.r) then
+                    this.r()
+                end
+                if nullcheck(t) then
+                    t.t = n(t.text,t.t)
+                    t.c = n(t.color,t.c)
+                    t.s = n(t.size,t.s)
+                    gui.script.setctbl(t.c)
+                    if string.sub(t.t,1,1) == "#" then
+                        t.t = lang.gettxt(string.sub(t.t,2,string.len(t.t)))
+                    end
+                    love.graphics.print(t.t,x+t.p[1],y+t.p[2],0,t.s[1],t.s[2])
                 end
             end
+            love.graphics.setColor(1,1,1)
         end
-        if table.haskey(tbl,"rect") then
-            for i = 1,#tbl.rect do
-                local object = tbl.rect[i]
-                local ofs={0,0,0,0}
-                local stenreset = false
-                if table.eachContain(tbl.stencil.stenciltag,object.tag) then
-                    stenreset = true
-                    gui.script.stencilTag=table.indexOfEach(tbl.stencil.stenciltag,object.tag)
-                    love.graphics.stencil(tbl.stencil.try,"replace",1)
-                    love.graphics.setStencilTest("greater", 0)
-                end
-                if object.slide then
-                    ofs[2] = -1*gui.script.sliderpos
-                end
-                local tmp = {object.pos[1],object.pos[2],object.size[1],object.size[2]}
-                for ii = 1,4 do
-                    if type(tmp[ii]) == "number" then
-                        tmp[ii] =  {"dummy",tmp[ii]}
-                    end
-                end 
-                gui.script.setctbl(object.bg)
-                love.graphics.rectangle("fill", gui.script.func[tmp[1][1]](tmp[1][2]) + ofs[1], gui.script.func[tmp[2][1]](tmp[2][2]) + ofs[2], gui.script.func[tmp[3][1]](tmp[3][2]) +ofs[3], gui.script.func[tmp[4][1]](tmp[4][2]) +ofs[4])
-                gui.script.setctbl(object.color)
-                love.graphics.rectangle("line",gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                if stenreset then
-                    love.graphics.setStencilTest()
-                end
-            end
-        end
-        if table.haskey(tbl,"recttxt") then
-            for i = 1,#tbl.recttxt do
-                local this = tbl.recttxt[i]
-                local object=this
-                local ofs={0,0,0,0}
-                local stenreset = false
-                if table.eachContain(tbl.stencil.stenciltag,this.tag) then
-                    stenreset = true
-                    gui.script.stencilTag=table.indexOfEach(tbl.stencil.stenciltag,this.tag)
-                    love.graphics.stencil(tbl.stencil.try,"replace",1)
-                    love.graphics.setStencilTest("greater", 0)
-                end
-                if this.slide then
-                    ofs[2] = -1*gui.script.sliderpos
-                end
-                local tmp = {object.pos[1],object.pos[2],object.size[1],object.size[2]}
-                for ii = 1,4 do
-                    if type(tmp[ii]) == "number" then
-                        tmp[ii] =  {"dummy",tmp[ii]}
-                    end
-                end 
-                gui.script.setctbl(object.bg)
-                love.graphics.rectangle("fill", gui.script.func[tmp[1][1]](tmp[1][2]) + ofs[1], gui.script.func[tmp[2][1]](tmp[2][2]) + ofs[2], gui.script.func[tmp[3][1]](tmp[3][2]) +ofs[3], gui.script.func[tmp[4][1]](tmp[4][2]) +ofs[4])
-                gui.script.setctbl(object.color)
-                love.graphics.rectangle("line",gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                local txt = this.text
-                if type(txt)=="function" then
-                    if string.sub(txt(),1,1) == "?" then
-                        print(string.sub(txt(),2,string.len(txt())))
-                        love.graphics.draw(texture.gettex(string.sub(txt(),2,string.len(txt()))),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                    else
-                        love.graphics.print(txt(),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                    end
-                else
-                    if string.sub(txt,1,1)=="#" then
-                        txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
-                    end
-                    if string.sub(txt,1,1)=="?" then
-                        love.graphics.draw(texture.gettex(string.sub(txt,2,string.len(txt))),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                    else
-                        love.graphics.print(txt,gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                    end
-                end
-                if stenreset then
-                    love.graphics.setStencilTest()
-                end
-            end
-        end
-        if table.haskey(tbl,"text") then
-            for i = 1,#tbl.text do
-                local this = tbl.text[i]
-                local ofs={0,0,0,0}
-                local stenreset = false
-                if table.eachContain(tbl.stencil.stenciltag,this.tag) then
-                    stenreset = true
-                    gui.script.stencilTag=table.indexOfEach(tbl.stencil.stenciltag,this.tag)
-                    love.graphics.stencil(tbl.stencil.try,"replace",1)
-                    love.graphics.setStencilTest("greater", 0)
-                end
-                if this.slide then
-                    ofs[2] = -1*gui.script.sliderpos
-                end
-                local tmp = {this.pos[1],this.pos[2],this.size[1],this.size[2]}
-                for ii = 1,4 do
-                    if type(tmp[ii]) == "number" then
-                        tmp[ii] =  {"dummy",tmp[ii]}
-                    end
-                end 
-                gui.script.setctbl(this.color)
-                local txt = this.text
-                if type(txt)=="function" then
-                    if string.sub(txt(),1,1) == "?" then
-                        love.graphics.draw(texture.gettex(string.sub(txt(),2,string.len(txt()))),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],0,gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                    else
-                        love.graphics.print(txt(),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],0,gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],0,gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                    end
-                else
-                    if string.sub(txt,1,1)=="#" then
-                        txt = lang.gettxt(string.sub(txt,2,string.len(txt)))
-                    end
-                    if string.sub(txt,1,1)=="?" then
-                        love.graphics.draw(texture.gettex(string.sub(txt,2,string.len(txt))),gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1],gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2],0,gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                    else
-                        love.graphics.print(txt, gui.script.func[tmp[1][1]](tmp[1][2])+ofs[1], gui.script.func[tmp[2][1]](tmp[2][2])+ofs[2], 0, gui.script.func[tmp[3][1]](tmp[3][2])+ofs[3],gui.script.func[tmp[4][1]](tmp[4][2])+ofs[4])
-                    end
-                end
-                if stenreset then
-                    love.graphics.setStencilTest()
-                end
-            end
-        end
-        if table.haskey(tbl,"slider") then
+        if table.haskey(this,"slider") then
             for i = 1,#tbl.slider do
                 local this = tbl.slider[i]
                 local quartcircle = math.pi
@@ -190,70 +152,10 @@ gui = { --TODO: rewrite entire code here as it sucks
             end
         end
     end,
-    action = function (tbl)
-        tbl = gui.tempguinow
-        if tbl==nil then else
-        if mouse.ison(1) then
-            if gui.mouseclick==false then
-                    if table.haskey(tbl,"button") then
-                        for i = 1,#tbl.button do
-                            local this = tbl.button[i]
-                            local mx,my = mouse.getPos()
-                            local hitbox = ((this.hitbox~=nil)and this.hitbox or {this.pos[1],this.pos[2],this.size[1],this.size[2]})
-                            if mx >= hitbox[1] and mx <= hitbox[1]+hitbox[3] and my >= hitbox[2] and my <= hitbox[2]+hitbox[4] then
-                                this.action()
-                            end
-                        end
-                    end
-                    if table.haskey(tbl,"slider") then
-                        for i = 1,#tbl.slider do
-                            local this = tbl.slider[i]
-                            local mx,my = mouse.getPos()
-                            if mx >= this.pos[1]-10 and mx <= this.pos[1]+this.wid+10 and my >= this.pos[2]+gui.script.sliderpos-25 and my <= this.pos[2]+this.wid+gui.script.sliderpos then
-                                gui.script.slideron = true
-                                gui.script.slideroffset = my-(this.pos[2]+gui.script.sliderpos)
-                            end
-                        end
-                    end
-                end
-                if table.haskey(tbl,"slider") then
-                for i = 1,#tbl.slider do
-                    local mx,my = mouse.getPos()
-                    local this = tbl.slider[i]
-                    if gui.script.slideron == true then
-                        gui.script.sliderpos = my-this.pos[2]-gui.script.slideroffset
-
-                        if gui.script.sliderpos > this.len then
-                            gui.script.sliderpos = this.len
-                        end
-                        if gui.script.sliderpos < 0 then
-                            gui.script.sliderpos = 0
-                        end
-                    end
-                end
-            end
-        gui.mouseclick=true
-        else
-        gui.script.slideron = false
-        gui.mouseclick=false
-        end
-    end
-    end,
-    elementlist ={
-        "text",
-        "button",
-        "rect",
-        "recttxt",
-        "slider"
-    },
     script = {
         setctbl = function (tbl)
             local alpha = tbl[4] or 255
             love.graphics.setColor(tbl[1],tbl[2],tbl[3],alpha)
-        end,
-        stencilTag="",
-        resetSlider = function ()
-            gui.script.sliderpos = 0
         end,
         sliderpos = 0,
         slideron = false,
@@ -275,8 +177,10 @@ gui = { --TODO: rewrite entire code here as it sucks
             centerdy = function(a)
                 local dx,dy = love.graphics.getDimensions()
                 return dy/2+a
+            end,
+            f = function(fu)
+                return fu()
             end
         }
-    },
-    tempguinow = nil
+    }
 }
