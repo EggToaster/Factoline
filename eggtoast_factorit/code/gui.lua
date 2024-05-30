@@ -86,22 +86,54 @@ gui = { --TODO: rewrite entire code here as it sucks
                 neon("text","t");neon("render","r")
                 neon("border","b");neon("background","bg")
                 neon("slide","sl");neon("stencil","st")
-                if #this.b ~= 5 then
+                neon("image","i");neon("imagecolor","ic")
+                neon("imagesize","is")
+                neon("imagealpha","ia");neon("borderstencil","bs")
+                if nullcheck(this.b) and #this.b ~= 5 then
                     if nullcheck(this.b[4]) then
                         this.b[5] = this.b[4]
                     else
                         --this.b[5] = 
                     end
                 end
-                ne("sl",nil);ne("st",nil);
+                ne("st",nil);ne("sl",nil)
+                ne("bs",false)
                 local x, y = this.p[1], this.p[2]
+                this.s = this.s or {1,1}
                 local sx, sy = this.s[1], this.s[2]
                 local t = this.t
+---@diagnostic disable-next-line: cast-local-type
                 x, y, sx, sy = neo(x), neo(y), neo(sx), neo(sy)
                 x, y, sx, sy = gui.script.func[x[1]](x[2]), gui.script.func[y[1]](y[2]), gui.script.func[sx[1]](sx[2]), gui.script.func[sy[1]](sy[2])
                 if nullcheck(this.bg) then
                     setc(this.bg)
                     love.graphics.rectangle("fill",x,y,sx,sy)
+                end
+                if this.bs == true then
+                    love.graphics.stencil(function ()
+                        love.graphics.rectangle("fill",x,y,sx,sy)
+                    end,"replace",1)
+                    love.graphics.setStencilTest("greater", 0)
+                end
+                if nullcheck(this.r) then
+                    this.r()
+                end
+                if nullcheck(this.i) then
+                    this.ic = this.ic or {1,1,1,1}
+                    this.ia = this.ia or this.ic[4] or 1
+                    this.is = this.is or {1,1}
+                    gui.script.setctbl(this.ic)
+                    love.graphics.draw(texture.gettex(this.i),x,y,0,this.is[1],this.is[2])
+                end
+                if nullcheck(t) then
+                    t.t = n(t.text,t.t)
+                    t.c = n(t.color,t.c)
+                    t.s = n(t.size,t.s)
+                    gui.script.setctbl(t.c)
+                    if string.sub(t.t,1,1) == "#" then
+                        t.t = lang.gettxt(string.sub(t.t,2,string.len(t.t)))
+                    end
+                    love.graphics.print(t.t,x+t.p[1],y+t.p[2],0,t.s[1],t.s[2])
                 end
                 if nullcheck(this.b) then
                     love.graphics.setColor(this.b[2],this.b[3],this.b[4],n(this.b[5],1))
@@ -115,18 +147,8 @@ gui = { --TODO: rewrite entire code here as it sucks
                         love.graphics.rectangle("fill",x+sx-i,y+i,i,sy-i-i)--right
                     end
                 end
-                if nullcheck(this.r) then
-                    this.r()
-                end
-                if nullcheck(t) then
-                    t.t = n(t.text,t.t)
-                    t.c = n(t.color,t.c)
-                    t.s = n(t.size,t.s)
-                    gui.script.setctbl(t.c)
-                    if string.sub(t.t,1,1) == "#" then
-                        t.t = lang.gettxt(string.sub(t.t,2,string.len(t.t)))
-                    end
-                    love.graphics.print(t.t,x+t.p[1],y+t.p[2],0,t.s[1],t.s[2])
+                if this.bs == true then
+                    love.graphics.setStencilTest()
                 end
             end
             love.graphics.setColor(1,1,1)
