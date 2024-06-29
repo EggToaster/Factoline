@@ -7,9 +7,6 @@ function loadSys()
 
     require("Agame")
     lang.set(conf.lang)
-    if device.console then
-        hotswap = false
-    end
 
     love.window.setFullscreen(conf.fullscreen)
     love.window.setVSync(conf.vsync)
@@ -47,10 +44,8 @@ end
 function love.update(dt)
     mouse.tick(dt)
     gui.tick()
-    if not device.console then
-        if hotswap then
-            lurker.scan()
-        end
+    if hotswap then
+        lurker.scan()
     end
     if not title then
         gameupdate(dt)
@@ -61,9 +56,9 @@ function love.keypressed(key)
     if title then
         if key=="escape" then
         love.event.quit()
-        else
-    end
+        end
     else
+        gamekey(key)
         if key=="e" then
             if inv.open==1 then
                 inv.open=0
@@ -81,65 +76,13 @@ function love.keypressed(key)
                 inv.open=1
             end
         end
-        gamekey(key)
-    end
-    if joymode then
-        joymode = false
-        log.d("InputHandler","Switching to mouse mode")
-        mouse.device="mouse"
     end
 end
-buttonis = function(b,button)
-    if b == "a" then
-        return(button==1)
-    end
-    if b == "b" then
-        return(button==2)
-    end
-    if b == "x" then
-        return(button==3)
-    end
-    if b == "y" then
-        return(button==4)
-    end
-    if b == "leftshoulder" then
-        return(button==5)
-    end
-    if b == "rightshoulder" then
-        return(button==6)
-    end
-    if b == "back" then
-        return(button==7)
-    end
-    if b == "start" then
-        return(button==8)
-    end
-    return false
-end
-function love.joystickpressed(joystick,button)
-    joysticks = love.joystick.getJoysticks()[1]
-    if not joymode then
-        joymode = true
-        log.d("InputHandler","Switching to GamePad")
-        mouse.device="stick"
-    end
-    if title then
-        log.v("InputHandler","Button "..button.." Press")
-        if buttonis("a",button) then
-            startgame()
-        end
-        if buttonis("x",button) then
-            love.quit()
-        end
-    else
-        gamepad(button)
-    end
-end
---if not device.padonly then
+
 function love.mousepressed(x,y,b,_,pr)
     mouse.mouseevent(b)
---end
 end
+
 function love.wheelmoved(x, y)
     if title then
         if y <= 0 then
@@ -168,6 +111,7 @@ function love.wheelmoved(x, y)
         end
     end
 end
+
 ---@diagnostic disable-next-line: duplicate-set-field
 function love.draw()
     love.graphics.setBackgroundColor(1,1,1)
@@ -187,10 +131,9 @@ function love.draw()
         gui.tempguinow = nil
         gamedraw()
     end
-    if mousedebug and (not device.console) then
+    if mousedebug then
         love.graphics.setColor(0,1,0)
         love.graphics.print((love.mouse.getX().." "..love.mouse.getY()),0,0,0,1,1)
         love.graphics.setColor(1,1,1)
     end
-    mouse.draw()
 end

@@ -4,38 +4,9 @@ mouse = {
         return mouse.pos[1],mouse.pos[2]
     end,
     tick = function (dt)
-        if mouse.device=="stick" then
-            mouse.l = (joysticks:getGamepadAxis("triggerright")~=0)
-            mouse.r = (joysticks:getGamepadAxis("triggerleft")~=0)
-            mouse.pos[1] = mouse.pos[1] + (joysticks:getGamepadAxis("rightx")*dt*250)
-            mouse.pos[2] = mouse.pos[2] + (joysticks:getGamepadAxis("righty")*dt*250)
-            if mouse.ison() or mouse.ison(2) then
-                if not mouse._t then
-                    mouse._t = true
-                    if mouse.ison() then
-                        mouse.event(1)
-                    else
-                        mouse.event(2)
-                    end
-                end
-            else
-                mouse._t = false
-            end
-        else
-            mouse.l =love.mouse.isDown(1)
-            mouse.r =love.mouse.isDown(2)
-            mouse.pos[1],mouse.pos[2]=love.mouse.getPosition()
-        end
-    end,
-    draw = function ()
-        local x, y = mouse.getPos()
-        if mouse.device=="stick" then
-            love.graphics.setColor(1,1,1)
-            love.graphics.polygon("fill",x,y, x,y+25,x+10,y+25, x,y)
-            love.graphics.setColor(0,0,0)
-            love.graphics.line(x,y, x,y+25,x+10,y+25, x,y)
-            love.graphics.setColor(1,1,1)
-        end
+        mouse.l =love.mouse.isDown(1)
+        mouse.r =love.mouse.isDown(2)
+        mouse.pos[1],mouse.pos[2]=love.mouse.getPosition()
     end,
     event = function (b)
         local x = mouse.pos[1]
@@ -66,6 +37,5 @@ mouse = {
         end
         return false
     end,
-    device="mouse",
     pos ={250,250}
 }

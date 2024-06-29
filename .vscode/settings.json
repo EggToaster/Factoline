@@ -9,7 +9,7 @@
         "param-type-mismatch"
     ],
     "Lua.diagnostics.globals": [
-        "device"
+        "nil"
     ],
     "pixelbyte.love2d.srcDir": "./eggtoast_factorit/",
     "pixelbyte.love2d.runOnSave": false,

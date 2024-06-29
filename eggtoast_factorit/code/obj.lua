@@ -188,13 +188,8 @@ obj={
                 _G[obj.plctag.guiname[indexOf(obj.plctag.withgui,obj.list[i].id)]].tick(i)
             end
             if mx > ox and my > oy and mx < ox+objwidth*1.3 and my < oy+objheight*1.3 then
-                local isdownspace = false
-                if joymode then
-                    isdownspace = joysticks:isGamepadDown("dpleft")
-                else
-                    isdownspace = love.keyboard.isDown("n")
-                end
-                if isdownspace then
+
+                if love.keyboard.isDown("n") then
                     if obj.list[i].after == nil then else
                         obj.destroy(i)
                         break
@@ -209,7 +204,7 @@ obj={
                         end
                         if obj.list[i].id=="ironore" then
                             if plr.grabbing.id=="miningpick" then
-                                if keyspacepress==0 then
+                                if love.keyboard.isDown("space") == 0 then
                                     misc.sfx.play("orehit")
                                     item.give({id="ironore"})
                                 end
@@ -217,7 +212,7 @@ obj={
                         end
                         if obj.list[i].id=="copperore" then
                             if plr.grabbing.id=="miningpick" then
-                                if keyspacepress==0 then
+                                if love.keyboard.isDown("space")==0 then
                                     misc.sfx.play("orehit")
                                     item.give({id="copperore"})
                                 end
@@ -225,7 +220,7 @@ obj={
                         end
                         if obj.list[i].id=="tree" then
                             if plr.grabbing.id=="axe" then
-                                if keyspacepress==0 then
+                                if love.keyboard.isDown("space")==0 then
                                     obj.list[i].nbt.health=obj.list[i].nbt.health-1
                                     misc.sfx.play("woodhit")
                                     if obj.list[i].nbt.health==0 then

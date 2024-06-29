@@ -1,6 +1,5 @@
 function gameload()
     yesspd = 1
-    require("code.spec.controller")
 end
 
 function gamedraw()
@@ -57,7 +56,6 @@ end
 
 function gameupdate(dt)
     plr.itemsys()
-    controller.tick(dt)
     inv.sys()
     obj.tick(dt)
     local sx,sy=love.graphics.getDimensions()
@@ -76,4 +74,77 @@ function gameupdate(dt)
         plr.y=0
     end
     cam:lookAt(plr.x,plr.y)
+
+    spd=100
+    if love.keyboard.isDown("lshift") then
+        if spdrun == 1 then
+            spd = 300
+        end
+        if spdrun == 2 then
+            spd = 500
+        end
+        if spdrun == 3 then
+            spd = 750
+        end
+        if spdrun == 4 then
+            spd = 1000
+        end
+        if spdrun==5 then
+            spd= 1500
+        end
+    end
+    if love.keyboard.isDown("w") then
+        plr.y=plr.y-dt*spd
+    end
+    if love.keyboard.isDown("a") then
+        plr.x=plr.x-dt*spd
+        plr.rot="left"
+    end
+    if love.keyboard.isDown("s") then
+        plr.y=plr.y+dt*spd
+    end
+    if love.keyboard.isDown("d") then
+        plr.x=plr.x+dt*spd
+        plr.rot="right"
+    end
+    if love.keyboard.isDown("space")then
+        plr.handrot=1
+        keyspacepress=1
+    else
+        plr.handrot=0
+        keyspacepress=0
+    end
+end
+
+function gamekey(key)
+    if love.keyboard.isDown("c") then
+        spdrun = spdrun + 1
+        if spdrun==6 then
+            spdrun=1
+        end
+    end
+    if love.keyboard.isDown("escape") then
+        if love.keyboard.isDown("l") then
+            misc.save.savegame()
+            title=true
+        else
+            plr.craftopen=false
+            crafteruse=false
+            plr.craftopeni=nil
+            plr.craftopen=false
+            for i = 1,#obj.list do
+                if table.haskey(obj.list[i].nbt,"craftopen") then
+                    if obj.list[i].nbt.craftopen==true then
+                        obj.list[i].nbt.craftopen=false
+                    end
+                end
+            end
+            inv.open = 0
+        end
+    end
+    for i = 1,9 do
+        if love.keyboard.isDown(tostring(i)) then
+            plr.hotselect=i
+        end
+    end
 end
