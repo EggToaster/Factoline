@@ -1,4 +1,5 @@
 local building = {
+    --TODO: finish this
     --[[
         Creates a new building data.
         A table with key "id" with string value is required for argument.
