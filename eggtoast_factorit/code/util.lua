@@ -1,20 +1,22 @@
-function keyOf(tbl, value)
-    for k, v in pairs(tbl) do
-        if v == value then
+function keyOf(t, v)
+    for k, v in pairs(t) do
+        if v == v then
             return k
         end
     end
     return nil
 end
-function indexOf(array, value)
-    for i, v in ipairs(array) do
-        if v == value then
+
+function indexOf(t, vv)
+    for i, v in ipairs(t) do
+        if v == vv then
             return i
         end
     end
     return nil
 end
-function  table.eachContain(array,varray)
+
+--[[function  table.eachContain(array,varray)
     if ((array ~= nil) and (#array ~=0)) and ((varray ~= nil) and (#array ~= 0)) then
         for _, v in pairs(array) do
             for _,val in pairs(varray) do
@@ -25,45 +27,35 @@ function  table.eachContain(array,varray)
         end
     end
     return false
-end
-function  table.indexOfEach(array,varray)
+end]]
+
+--[[function  table.indexOfEach(array,varray)
     for _, v in pairs(array) do
-        for _,val in pairs(varray) do
-            if v == val then
-            return val
+        for _,vv in pairs(varray) do
+            if v == vv then
+            return vv
             end
         end
     end
     return false
-end
-function table.keylist(t)
-    local keys={}
-    for key,_ in pairs(t) do
-        table.insert(keys, key)
+end]]
+
+function table.keylist(tt)
+    local t={}
+    for k, _ in pairs(tt) do
+        table.insert(t, k)
     end
-    return keys
+    return t
 end
-function table.sortStr(t)
-    tkeys = table.sort(t, function(a, b) return string.upper(a) < string.upper(b) end)
-    return tkeys
-end
-function table.upper(t)
-    local upped = {}
-    for i = 1,#t do
-        table.insert(upped,t[i]:upper())
+
+function table.upper(tt)
+    local t = {}
+    for k, v in pairs(tt) do
+        t[k] = v:upper()
     end
-    return upped
+    return t
 end
-function table.compair(a,b)
-    local temp = false
-    for i = 1, math.min(#a,#b) do
-        if a[i] < b[i] then
-            temp=true
-            break
-        end
-    end
-    return temp
-end
+
 function table.haskey(t,k)
     local keylist = table.keylist(t)
     if table.contains(keylist,k) then
@@ -71,14 +63,16 @@ function table.haskey(t,k)
     end
     return false
 end
-function table.contains(table, element)
-    for _, value in pairs(table) do
-      if value == element then
+
+function table.contains(t, e)
+    for _, v in pairs(t) do
+      if v == e then
         return true
       end
     end
     return false
 end
+
 function table.count(t,e)
     local c = 0
     for _, v in pairs(type) do
@@ -88,6 +82,7 @@ function table.count(t,e)
     end
     return c
 end
+
 function string.split(str, spl)
     local t = {}
     for s in string.gmatch(str, "([^"..spl.."]+)") do
@@ -95,14 +90,17 @@ function string.split(str, spl)
     end
     return t
 end
+
 function getdx()
-    local dx,dy = love.graphics.getDimensions()
+    local dx, _ = love.graphics.getDimensions()
     return dx
 end
+
 function getdy()
-    local dx,dy = love.graphics.getDimensions()
+    local _, dy = love.graphics.getDimensions()
     return dy
 end
+
 function nullcheck(x)
     if x == {} then return false end
     if x == nil then return false end
@@ -111,8 +109,9 @@ function nullcheck(x)
     if x == false then return false end
     return true
 end
+
 function boxcol(x,y,sx,sy,mx,my)
-    local mx,my = mx,my
+    local mx, my = (mx or nil), (my or nil)
     if not nullcheck(mx) then
         mx,my = mouse.getPos()
     end
