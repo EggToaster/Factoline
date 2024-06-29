@@ -3,14 +3,14 @@ function love.load()
         Asys.lua
         conf.lua
         main.lua(here)
-        gui.lua
         langsys.lua
         inventory.lua
         ja-jp.lua
+        building.lua
+        input.lua
     ]]
     json = require("code.3rd.json")
     require("code.util")
-    require("code.spec.device")
     require("code.spec.mouse")
     require("code.loader.texload")
     require("code.loader.guiloader")
@@ -27,12 +27,8 @@ function love.load()
 
     log.init(true,true,true,true,true)
 
-    device = require("code.spec.devicepreset")["pc"]
-    dload.load()
-    if not device.console then
-        lume = require("code.3rd.lume")
-        lurker = require("code.3rd.lurker")
-    end
+    lume = require("code.3rd.lume")
+    lurker = require("code.3rd.lurker")
 
     guiload.loadgui()
     texture.loadtex()
