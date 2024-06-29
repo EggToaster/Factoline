@@ -22,7 +22,8 @@
 -- SOFTWARE.
 --
 
-local json = { _version = "0.1.2" }
+--This code is bit modified. Original version is 0.1.2.
+local json = {}
 
 -------------------------------------------------------------------------------
 -- Encode
@@ -49,12 +50,6 @@ end
 local function escape_char(c)
   return "\\" .. (escape_char_map[c] or string.format("u%04x", c:byte()))
 end
-
-
-local function encode_nil(val)
-  return "null"
-end
-
 
 local function encode_table(val, stack)
   local res = {}
@@ -113,11 +108,14 @@ end
 
 
 local type_func_map = {
-  [ "nil"     ] = encode_nil,
+  -- a improvement to reduce space which does not work thanks to this comment.
+  [ "nil"     ] = function()return "null"end,
   [ "table"   ] = encode_table,
   [ "string"  ] = encode_string,
   [ "number"  ] = encode_number,
   [ "boolean" ] = tostring,
+  -- a modification to make this file more usuable for debugging
+  [ "function" ] = function()log.v("json","Function detected.");return "func"end
 }
 
 
