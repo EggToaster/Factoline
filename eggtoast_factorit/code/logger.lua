@@ -10,12 +10,12 @@ log = {
     c = {true,true,true,false,false},
     error = function(o,t)
         if c[1] then
-            print("ERROR["..o.."] "..t)
+            print("ERROR:["..o.."] "..t)
         end
     end,
     warning = function(o,t)
         if c[2] then
-            print("Warning["..o.."] "..t)
+            print("warn:log["..o.."] "..t)
         end
     end,
     info = function(o,t)
@@ -25,12 +25,12 @@ log = {
     end,
     debug = function(o,t)
         if c[4] then
-            print("d["..o.."] "..t)
+            print("dbg:["..o.."] "..t)
         end
     end,
     verbose = function(o,t)
         if c[5] then
-            print("v["..o.."] "..t)
+            print("v:["..o.."] "..t)
         end
     end,
 }
