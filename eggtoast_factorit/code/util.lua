@@ -83,6 +83,20 @@ function table.count(t,e)
     return c
 end
 
+function table.merge(t,n)
+    if not (nullcheck(t) or nullcheck(n)) then
+        return {}
+    elseif not nullcheck(t) then
+        return n
+    elseif not nullcheck(n) then
+        return t
+    end
+    for k,v in pairs(n) do
+        t[k] = v
+    end
+    return t
+end
+
 function string.split(str, spl)
     local t = {}
     for s in string.gmatch(str, "([^"..spl.."]+)") do
