@@ -1,8 +1,6 @@
 function love.conf(t)
     gamever = 0.1
     
-    hotswap=true
-    
     mapx=50000
     mapy=mapx
 

@@ -1,5 +1,5 @@
 function loadSys()
-    mousedebug=true
+    mousedebug=table.contains(arg,"-d")
 
     spdrun=1 --TODO: turn this to local variable without breaking system
     saveselecter=1 --TODO: same as up

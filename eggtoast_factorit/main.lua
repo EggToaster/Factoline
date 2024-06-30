@@ -25,10 +25,13 @@ function love.load()
     require("code.gui")
     require("code.logger")
 
-    log.init(true,true,true,true,true)
+    log.init(true,true,true,true,table.contains(arg, "-v"))
+    hotswap = table.contains(arg, "-d")
 
-    lume = require("code.3rd.lume")
-    lurker = require("code.3rd.lurker")
+    if hotswap then
+        lume = require("code.3rd.lume")
+        lurker = require("code.3rd.lurker")
+    end
 
     guiload.loadgui()
     texture.loadtex()

@@ -1,1 +1,1 @@
-love ./eggtoast_factorit/
+love ./eggtoast_factorit/ $@
