@@ -8,6 +8,10 @@ log = {
         c = {e,w,i,d,v}
     end,
     c = {true,true,true,false,false},
+    fatal = function(o,t)
+        print("FATAL!!!!!["..o.."] "..t)
+        error("["..o.."] "..t)
+    end,
     error = function(o,t)
         if c[1] then
             print("ERROR:["..o.."] "..t)
