@@ -65,12 +65,14 @@ local function encode_table(val, stack)
     local n = 0
     for k in pairs(val) do
       if type(k) ~= "number" then
-        error("invalid table: mixed or invalid key types")
+        log.v("json","Table contains \"invalid\" keys.")
+        --error("invalid table: mixed or invalid key types")
       end
       n = n + 1
     end
     if n ~= #val then
-      error("invalid table: sparse array")
+      log.v("json","Table uses? sparse array.")
+      --error("invalid table: sparse array")
     end
     -- Encode
     for i, v in ipairs(val) do
