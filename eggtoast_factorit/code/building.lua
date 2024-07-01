@@ -10,7 +10,7 @@ local building = {
     ]]
     new = function (tbl)
         result = {}
-        result.id = tbl.id or error("Unspecified ID for building")
+        result.id = tbl.id or log.fatal("BuildingLib","Unspecified ID for building")
         result.name = tbl.name or result.id
         result.texture = tbl.texture or "#nil"
         if 
