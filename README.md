@@ -1,10 +1,10 @@
 # Factoline
-A Open-Source, factory making game.\
-INFO: ruby version is cancelled
-Note: Game is going to be abandoaned really soon, but many part will be fixed to atleast be example for somebody to use.
+Factory building game. The art is only temporary and will be improved ASAP.
+WARNING: The game is nowhere close to playable. It boots, some stuff works, but it's probably better to play anything else for now.
 
-# Download
-Source code.zip/tar.gz contains full game, with love2d binary.
+# Download/Install
+Source code .zip/tar.gz contains the full game, with Windows Love2D binary.
+If you are using Linux, you have to install `love`/`love2d` package. If your distro does not provide it, you can grab it from [here.](https://love2d.org)
 
 # Roadmap
 Not ready yet!
