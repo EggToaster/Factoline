@@ -12,3 +12,9 @@ Not ready yet!
 # License info
 Everything under eggtoast_factorit/code/3rd and love2d is part of different open source project, and not made by me.
 I will plan to add proper license file later.
+
+# Credits
+[Love2D](https://love2d.org): An awesome game engine. Project itself is made with zlib license, but it depends on other projects. Full list of dependencies are listed in `love2d > license.txt`.
+camera.lua from [HUMP](https://github.com/HDictus/hump): Includes few different libraries. MIT license.
+[Lurker](https://github.com/rxi/lurker) and [Lume](https://github.com/rxi/lume): Lurker is hotswap library, Lume does some math stuff, and is required by Lurker. MIT license.
+[json.lua](https://github.com/rxi/json.lua): JSON library. `jsondebug.lua` is tweaked to help logging.
