@@ -1,1 +1,1 @@
-"./love2d/lovec.exe" "./eggtoast_factorit"
+"./love2d/lovec.exe" "eggtoast_factorit
