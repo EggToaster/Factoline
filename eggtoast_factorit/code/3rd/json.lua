@@ -22,8 +22,7 @@
 -- SOFTWARE.
 --
 
---This code is bit modified. Original version is 0.1.2.
-local json = {}
+local json = { _version = "0.1.2" }
 
 -------------------------------------------------------------------------------
 -- Encode
@@ -51,6 +50,12 @@ local function escape_char(c)
   return "\\" .. (escape_char_map[c] or string.format("u%04x", c:byte()))
 end
 
+
+local function encode_nil(val)
+  return "null"
+end
+
+
 local function encode_table(val, stack)
   local res = {}
   stack = stack or {}
@@ -65,14 +70,12 @@ local function encode_table(val, stack)
     local n = 0
     for k in pairs(val) do
       if type(k) ~= "number" then
-        log.v("json","Table contains \"invalid\" keys.")
-        --error("invalid table: mixed or invalid key types")
+        error("invalid table: mixed or invalid key types")
       end
       n = n + 1
     end
     if n ~= #val then
-      log.v("json","Table uses? sparse array.")
-      --error("invalid table: sparse array")
+      error("invalid table: sparse array")
     end
     -- Encode
     for i, v in ipairs(val) do
@@ -110,14 +113,11 @@ end
 
 
 local type_func_map = {
-  -- a improvement to reduce space which does not work thanks to this comment.
-  [ "nil"     ] = function()return "null"end,
+  [ "nil"     ] = encode_nil,
   [ "table"   ] = encode_table,
   [ "string"  ] = encode_string,
   [ "number"  ] = encode_number,
   [ "boolean" ] = tostring,
-  -- a modification to make this file more usuable for debugging
-  [ "function" ] = function()log.v("json","Function detected.");return "func"end
 }
 
 
@@ -383,5 +383,6 @@ function json.decode(str)
   end
   return res
 end
+
 
 return json
