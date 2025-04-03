@@ -80,7 +80,7 @@ crafttable={
                                             itemsid = itemsid..string.byte(tmp1,i)
                                         end
                                         if table.contains(craftprepid,itemsid) then
-                                            craftprep[indexOf(craftprepid,itemsid)] = craftprep[indexOf(craftprepid,itemsid)] + 1
+                                            craftprep[table.indexof(craftprepid,itemsid)] = craftprep[table.indexof(craftprepid,itemsid)] + 1
                                         else
                                             table.insert(craftprepid,itemsid)
                                             table.insert(craftprep,1)
@@ -95,10 +95,10 @@ crafttable={
                                         itmid = itmid..string.byte(tmp1,i)
                                     end
                                     if table.contains(craftprepid,itmid) then
-                                        craftprep[indexOf(craftprepid,itmid)] = craftprep[indexOf(craftprepid,itmid)]-1
-                                        if craftprep[indexOf(craftprepid,itmid)]==0 then
-                                            table.remove(craftprep,indexOf(craftprepid,itmid))
-                                            table.remove(craftprepid,indexOf(craftprepid,itmid))
+                                        craftprep[table.indexof(craftprepid,itmid)] = craftprep[table.indexof(craftprepid,itmid)]-1
+                                        if craftprep[table.indexof(craftprepid,itmid)]==0 then
+                                            table.remove(craftprep,table.indexof(craftprepid,itmid))
+                                            table.remove(craftprepid,table.indexof(craftprepid,itmid))
                                         end
                                     else
                                         fail = true

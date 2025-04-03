@@ -32,10 +32,10 @@ button = {
         misc.filer.write("cfg.json",json.encode(conf),true)
     end},
     {tag={"stenciloptionclick"},hitbox={725,350,220,75},color={0,0,0},txs={1,1},bg={1,1,1},txc={0,0,0},text="#stng.change",pos={725,350},size={220,75},slide=true,action=function ()
-        if indexOf(table.keylist(lang.list),lang.currentlang) == #table.keylist(lang.list) then
+        if table.indexof(table.keylist(lang.list),lang.currentlang) == #table.keylist(lang.list) then
             conf.lang = table.keylist(lang.list)[1]
         else
-            conf.lang = table.keylist(lang.list)[indexOf(table.keylist(lang.list),lang.currentlang)+1]
+            conf.lang = table.keylist(lang.list)[table.indexof(table.keylist(lang.list),lang.currentlang)+1]
         end
         lang.set(conf.lang)
         misc.filer.write("cfg.json",json.encode(conf),true)

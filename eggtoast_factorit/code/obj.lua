@@ -6,7 +6,7 @@ require("machine.miner")
 obj={
     customdraw=function (objct)
         if table.contains(obj.sizemapid,objct.id) then
-            love.graphics.draw(texture.gettex(objct.id),objct.x,objct.y,0,obj.sizemap[indexOf(obj.sizemapid,objct.id)]/2,obj.sizemap[indexOf(obj.sizemapid,objct.id)]/2)
+            love.graphics.draw(texture.gettex(objct.id),objct.x,objct.y,0,obj.sizemap[table.indexof(obj.sizemapid,objct.id)]/2,obj.sizemap[table.indexof(obj.sizemapid,objct.id)]/2)
         else
             love.graphics.draw(texture.gettex(objct.id),objct.x,objct.y,0,0.4/2,0.4/2)
         end
@@ -21,7 +21,7 @@ obj={
         for i = 1,#obj.list do
             if table.contains(obj.guilist,obj.list[i].id) then
                 if obj.list[i].nbt.craftopen==true then
-                    _G[obj.guilist[indexOf(obj.guilist,obj.list[i].id)+1]].draw(i)
+                    _G[obj.guilist[table.indexof(obj.guilist,obj.list[i].id)+1]].draw(i)
                 end
             end
         end
@@ -34,7 +34,7 @@ obj={
             if cx>=-1000 and cx<=dx+1000 and cy >= -1000 and cy <= dy+1000 then
                 local sm = 0.4
                 if table.contains(obj.sizemapid,this.id) then
-                    sm = obj.sizemap[indexOf(obj.sizemapid,this.id)]
+                    sm = obj.sizemap[table.indexof(obj.sizemapid,this.id)]
                 end
                 love.graphics.draw(texture.gettex(this.id),this.x,this.y,0,sm,sm)
                 if this.id=="tree" then
@@ -83,7 +83,7 @@ obj={
     end,
     getsize = function (i)
         if table.contains(obj.sizemapid,obj.list[i].id) then
-            return obj.sizemap[indexOf(obj.sizemapid,obj.list[i].id)]
+            return obj.sizemap[table.indexof(obj.sizemapid,obj.list[i].id)]
         end
         return 0.4
     end,
@@ -185,7 +185,7 @@ obj={
             local py = plr.y
             local ox,oy = cam:cameraCoords(obj.list[i].x,obj.list[i].y)
             if table.contains(obj.plctag.interactableinv,obj.list[i].id) and (plr.craftopeni == i) then
-                _G[obj.plctag.guiname[indexOf(obj.plctag.withgui,obj.list[i].id)]].tick(i)
+                _G[obj.plctag.guiname[table.indexof(obj.plctag.withgui,obj.list[i].id)]].tick(i)
             end
             if mx > ox and my > oy and mx < ox+objwidth*1.3 and my < oy+objheight*1.3 then
 
@@ -198,8 +198,8 @@ obj={
                 if mouse.ison(1) then
                     if spcobj then
                         if table.contains(obj.plctag.withgui,obj.list[i].id) then
-                            _G[obj.plctag.guiname[indexOf(obj.plctag.withgui,obj.list[i].id)]].toggleopen(i)
-                            _G[obj.plctag.guiname[indexOf(obj.plctag.withgui,obj.list[i].id)]].tick(i)
+                            _G[obj.plctag.guiname[table.indexof(obj.plctag.withgui,obj.list[i].id)]].toggleopen(i)
+                            _G[obj.plctag.guiname[table.indexof(obj.plctag.withgui,obj.list[i].id)]].tick(i)
                             inv.open=1
                         end
                         if obj.list[i].id=="ironore" then

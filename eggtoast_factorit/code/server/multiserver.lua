@@ -49,7 +49,7 @@ mulplay = {
           rot="right",
           hotselect=1
         }
-        event.peer:send(json.encode({type="savegameload",data={obl=obj.list,plrinv=plr.inventory[indexOf(plr.lst,plrid)],plrstuff=plt}}))
+        event.peer:send(json.encode({type="savegameload",data={obl=obj.list,plrinv=plr.inventory[table.indexof(plr.lst,plrid)],plrstuff=plt}}))
       elseif event.type == "disconnect" then
         print(event.peer, "disconnected.")
       end

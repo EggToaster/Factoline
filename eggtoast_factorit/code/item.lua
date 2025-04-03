@@ -39,7 +39,7 @@ item={
         for _, v in pairs(inv) do
             for ii, _, k in ipairs(t) do
                 if v == k then
-                    inv[indexOf(inv,v)] = {id=nil}
+                    inv[table.indexof(inv,v)] = {id=nil}
                     table.remove(t,ii)
                     break
                 end

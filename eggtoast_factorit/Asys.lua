@@ -44,7 +44,7 @@ end
 function love.update(dt)
     mouse.tick(dt)
     gui.tick()
-    if hotswap then
+    if table.contains(arg, "-h") then
         lurker.scan()
     end
     if not title then

@@ -14,9 +14,9 @@ guiload = {
     end,
     hotswap = function ()guiload.loadgui();end,
     get = function (getthis)
-        return guiload.list[indexOf(guiload.list2,getthis..".lua")]      
+        return guiload.list[table.indexof(guiload.list2,getthis..".lua")]      
     end,
     gettheme = function(getthis)
-        return guiload.theme[indexOf(guiload.tl2,getthis..".lua")]
+        return guiload.theme[table.indexof(guiload.tl2,getthis..".lua")]
     end
 }

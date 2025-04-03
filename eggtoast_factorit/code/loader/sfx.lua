@@ -9,10 +9,10 @@ sfx = {
     end,
     use = function (getthis)
         if table.contains(sfx.list2,getthis..".mp3") then
-            love.audio.play(sfx.list[indexOf(sfx.list2,getthis..".mp3")])
+            love.audio.play(sfx.list[table.indexof(sfx.list2,getthis..".mp3")])
         end
     end,
     get=function (getthis)
-        return(sfx.list[indexOf(sfx.list2,getthis..".mp3")])
+        return(sfx.list[table.indexof(sfx.list2,getthis..".mp3")])
     end
 }

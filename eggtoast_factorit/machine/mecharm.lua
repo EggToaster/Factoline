@@ -11,7 +11,7 @@ mecharm={
                     for sr = 1,#obj.list do
                         ox,oy = obj.list[sr].x,obj.list[sr].y
                         if table.contains(obj.sizemapid,obj.list[sr].name) then
-                            sz = obj.sizemap[indexOf(obj.sizemapid,obj.list[sr].name)]
+                            sz = obj.sizemap[table.indexof(obj.sizemapid,obj.list[sr].name)]
                         else
                             sz = 0.4
                         end
@@ -30,7 +30,7 @@ mecharm={
                 for sr = 1,#obj.list do
                     ox,oy = obj.list[sr].x,obj.list[sr].y
                     if table.contains(obj.sizemapid,obj.list[sr].name) then
-                        sz = obj.sizemap[indexOf(obj.sizemapid,obj.list[sr].name)]
+                        sz = obj.sizemap[table.indexof(obj.sizemapid,obj.list[sr].name)]
                     else
                         sz = 0.4
                     end
