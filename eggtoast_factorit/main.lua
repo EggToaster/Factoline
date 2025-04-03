@@ -1,21 +1,23 @@
 function love.load()
-    --[[TODO LISTS
-        Asys.lua
+    --[[TODO LISTS -- This is likely not up to date. 
+        Asys.lua   -- Just search for "TODO:".
         conf.lua
-        main.lua(here)
+        main.lua(here) 
         langsys.lua
         inventory.lua
         ja-jp.lua
         building.lua
         input.lua
     ]]
+    
     json = require("code.3rd.json")
+    jdbg = require("code.3rd.jsondebug")
+    lume = require("code.3rd.lume")
     require("code.util")
-    require("code.spec.mouse")
+    require("code.input")
     require("code.loader.texload")
     require("code.loader.guiloader")
     require("code.loader.sfx")
-
     require("code.misc")
     require("code.player")
     require("code.langsys")
@@ -25,11 +27,9 @@ function love.load()
     require("code.gui")
     require("code.logger")
 
-    log.init(true,true,true,true,table.contains(arg, "-v"))
-    hotswap = table.contains(arg, "-d")
+    log.init(true,true,true,table.contains(arg,"-d"),table.contains(arg, "-v"))
 
-    if hotswap then
-        lume = require("code.3rd.lume")
+    if table.contains(arg, "-h") then
         lurker = require("code.3rd.lurker")
     end
 
@@ -41,8 +41,11 @@ function love.load()
     cam = camera()
     mnm = camera()
 
-    love.audio.setVolume(0.25)
+    love.audio.setVolume(0.25) --TODO: FIXME: 100% should not be loud
 
+    if love.filesystem.getInfo("cfg.json") == nil then
+        love.filesystem.write("cfg.json",json.encode({}))
+    end
     conf = json.decode(love.filesystem.read("cfg.json") or "{}")
     if not table.haskey(conf,"vsync") then
         conf.vsync = true
