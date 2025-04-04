@@ -1,0 +1,1 @@
+"love2d/lovec.exe" eggtoast_factorit -v -d -h
