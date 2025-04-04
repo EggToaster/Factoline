@@ -44,7 +44,7 @@ item={
                     break
                 end
             end
-            if not nullcheck(t) then
+            if not util.nullcheck(t) then
                 plr.inventory = inv
                 return true
             end

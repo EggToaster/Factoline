@@ -4,12 +4,14 @@ guiload = {
     loadgui = function ()
         guiload.list,guiload.list2,guiload.theme,guiload.tl2 = {},{},{},{}
         guiload.list2 = love.filesystem.getDirectoryItems("/guis/")
+        log:v("big",jsondebug.encode(guiload.list2))
         for _, v in pairs(guiload.list2) do
-            table.insert(guiload.list,require("/guis/"..string.gsub(v,".lua","")))
+            log:v("balls",jsondebug.encode(require("guis."..string.gsub(v,".lua",""))))
+            table.insert(guiload.list,require("guis."..string.gsub(v,".lua","")))
         end
-        guiload.tl2 = love.filesystem.getDirectoryItems("/guis/")
+        guiload.tl2 = love.filesystem.getDirectoryItems("/guithemes/")
         for _, v in pairs(guiload.tl2) do
-            table.insert(guiload.theme,require("/guis/"..string.gsub(v,".lua","")))
+            table.insert(guiload.theme,require("guithemes."..string.gsub(v,".lua","")))
         end
     end,
     hotswap = function ()guiload.loadgui();end,

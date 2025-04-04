@@ -1,7 +1,7 @@
 texture = {
     gettex = function (txname)
         local tmp = texture.tex[table.indexof(texture.texnames,txname)]
-        return (nullcheck(tmp) and tmp or texture.empty)
+        return (util.nullcheck(tmp) and tmp or texture.empty)
     end,
     tex={},texnames={},empty = nil,res = "/res/tex/",
     loadtex = function ()

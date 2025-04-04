@@ -10,7 +10,7 @@ lang ={ --TODO: rewrite this
                 break
             end
         end
-        if nullcheck(tbl) and type(tbl) == "string" then
+        if util.nullcheck(tbl) and type(tbl) == "string" then
             return tbl
         else
             tmp = string.split(txtid,".")
@@ -21,7 +21,7 @@ lang ={ --TODO: rewrite this
                     break
                 end
             end
-            if nullcheck(tbl) and type(tbl) == "string" then
+            if util.nullcheck(tbl) and type(tbl) == "string" then
                 return tbl
             end
         end
@@ -31,7 +31,7 @@ lang ={ --TODO: rewrite this
         if table.haskey(lang.list,ln) then
             lang.lang = lang.list[ln]
             lang.currentlang = ln
-            log.d("LangSys","Language changed to "..lang.currentlang)
+            log:d("LangSys","Language changed to "..lang.currentlang)
         end
     end,
     list={}

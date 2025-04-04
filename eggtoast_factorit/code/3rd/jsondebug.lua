@@ -65,13 +65,13 @@ local function encode_table(val, stack)
     local n = 0
     for k in pairs(val) do
       if type(k) ~= "number" then
-        log.v("json","Table contains \"invalid\" keys.")
+        --log:v("json","Table contains \"invalid\" keys.")
         --error("invalid table: mixed or invalid key types")
       end
       n = n + 1
     end
     if n ~= #val then
-      log.v("json","Table uses? sparse array.")
+      --log:v("json","Table uses? sparse array.")
       --error("invalid table: sparse array")
     end
     -- Encode
@@ -117,7 +117,7 @@ local type_func_map = {
   [ "number"  ] = encode_number,
   [ "boolean" ] = tostring,
   -- a modification to make this file more usuable for debugging
-  [ "function" ] = function()log.v("json","Function detected.");return "func"end
+  [ "function" ] = function()return "func"end
 }
 
 

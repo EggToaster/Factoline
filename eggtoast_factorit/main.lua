@@ -10,10 +10,11 @@ function love.load()
         input.lua
     ]]
     
+    log = require("code.logger")
     json = require("code.3rd.json")
-    jdbg = require("code.3rd.jsondebug")
+    jsondebug = require("code.3rd.jsondebug")
     lume = require("code.3rd.lume")
-    require("code.util")
+    util = require("code.util")
     require("code.input")
     require("code.loader.texload")
     require("code.loader.guiloader")
@@ -25,9 +26,8 @@ function love.load()
     require("code.inventory")
     require("code.obj")
     require("code.gui")
-    require("code.logger")
 
-    log.init(true,true,true,table.contains(arg,"-d"),table.contains(arg, "-v"))
+    log:init(true,true,true,table.contains(arg,"-d"),table.contains(arg, "-v"))
 
     if table.contains(arg, "-h") then
         lurker = require("code.3rd.lurker")

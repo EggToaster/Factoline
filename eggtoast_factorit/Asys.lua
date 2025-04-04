@@ -43,7 +43,7 @@ end
 
 function love.update(dt)
     mouse.tick(dt)
-    gui.tick()
+    --gui.tick()
     if table.contains(arg, "-h") then
         lurker.scan()
     end
@@ -119,7 +119,7 @@ function love.draw()
         if stng then
             gui.draw(guiload.get("settingtitle-"..stngtab))
         else
-            gui.draw(guiload.get("tscreen"))
+            gui.draw(guiload.get("titlescreen"))
             --love.graphics.print("E OR ESCAPE IN TITLE SCREEN TO EXIT",0,400,0,1,1)
             --love.graphics.print("ESC AND L TO EXIT TO TITLE SCREEN",0,450,0,1,1)
             --love.graphics.print("PRESS ANY KEY TO START P TO TOGGLE FULLSCREEN",0,500,0,1,1)
